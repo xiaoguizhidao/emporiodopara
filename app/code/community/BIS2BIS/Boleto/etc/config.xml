@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<BIS2BIS_Boleto>
+			<version>1.0.1</version>
+			<depends>
+				<Mage_Payment />
+			</depends>
+		</BIS2BIS_Boleto>
+	</modules>
+	<global>
+		<models>
+			<boleto>
+				<class>BIS2BIS_Boleto_Model</class>
+				<resourceModel>boleto_mysql4</resourceModel>
+			</boleto>
+			<boleto_mysql4>
+                <class>BIS2BIS_Boleto_Model_Mysql4</class>
+                <entities>
+					<boleto>
+						<table>boleto</table>
+					</boleto>
+				</entities>
+            </boleto_mysql4>
+		</models>
+		<helpers>
+            <boleto>
+                <class>BIS2BIS_Boleto_Helper</class>
+            </boleto>
+        </helpers>
+		<resources>
+            <boleto_setup>
+                <setup>
+                    <module>BIS2BIS_Boleto</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </boleto_setup>
+            <boleto_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </boleto_write>
+            <boleto_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </boleto_read>
+        </resources>
+        <fieldsets>
+			<sales_convert_quote_payment>
+            	<boleto>
+                    <to_order_payment>*</to_order_payment>
+                </boleto>
+             </sales_convert_quote_payment>
+        </fieldsets>
+		<blocks>
+            <boleto>
+            	<class>BIS2BIS_Boleto_Block</class>
+            </boleto>
+        </blocks>
+        <events>
+			<sales_order_save_after>
+				<observers>
+					<boleto>
+						<type>singleton</type>
+						<class>BIS2BIS_Boleto_Model_Observer</class>
+						<method>sales_order_save_after</method>
+					</boleto>
+				</observers>
+			</sales_order_save_after>
+        </events>
+	</global>
+	<frontend>
+		<routers>
+			<boleto>
+				<use>standard</use>
+				<args>
+					<module>BIS2BIS_Boleto</module>
+					<frontName>boleto</frontName>
+				</args>
+			</boleto>
+		</routers>
+	</frontend>
+	<default>
+		<payment>
+			<boleto_bancario>
+				<active>0</active>
+				<model>BIS2BIS_Boleto_Model_standard</model>
+				<banconome>santander_banespa</banconome>
+				<title>Boleto Bancário</title>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+					- Não receber após vencimento.
+					- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+			    	- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+			    	- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+				<aceite>N</aceite>
+				<valor_adicional>0</valor_adicional>
+				<campo_fixo_obrigatorio>1</campo_fixo_obrigatorio>
+				<nosso_numero1>000</nosso_numero1>
+				<nosso_numero_const1>2</nosso_numero_const1>
+				<nosso_numero2>000</nosso_numero2>
+				<nosso_numero_const2>4</nosso_numero_const2>
+				<mensagem_form>Você será redirecionado para a página de sucesso. Para gerar o boleto clique em Imprimir Boleto.</mensagem_form>
+			</boleto_bancario>
+		</payment>		
+	</default>
+</config>

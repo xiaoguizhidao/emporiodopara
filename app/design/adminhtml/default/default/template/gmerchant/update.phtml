@@ -1,0 +1,55 @@
+
+<div class='content-header' >
+	<h3 class="icon-head head-products">Google Merchant</h3>
+</div>
+
+<div id='gmerchant-content' class='entry-edit'>
+	<?php $count_products = Mage::getModel('catalog/product')->getCollection()->addAttributeToFilter('googlemerchant', 1)->getSize(); ?>
+	<?php $turns = ceil($count_products/200); ?>
+	<ul class='turn_list'>
+	<?php for($i = 0; $i < $turns; $i++): ?>
+
+	<li> Atualizar feed XML - Produtos 
+	 <?php 
+	 if($i == ($turns-1)) 
+	 	echo (200*($i))+1 . ' ao ' . $count_products; 
+	 else  
+	 	echo (200*($i))+1 . ' ao ' . 200*($i+1);  
+	 ?> 
+	 <button onclick='gmerchant.run("<?php echo Mage::helper("adminhtml")->getUrl("gmerchant/admin/doTurnXML/"); ?>", <?php echo ($i+1); ?>, this); ' class='run-button'><span>Rodar</span></button> <img class='run-img' src="<?php echo $this->getSkinUrl('images/gmerchant/loadbar.gif'); ?>" alt=""><span class='msg-ok-run'>Feed gerado.</span></li>
+	<?php endfor; ?>
+	</ul>
+	<br/>
+
+	<button id='btn_generate' onclick='gmerchant.rungeneral("<?php echo Mage::helper("adminhtml")->getUrl("gmerchant/admin/doGeneralXML/"); ?>");' class='scalable save'>
+		<span>
+			Gerar arquivo final
+		</span>
+	</button>
+	<img class='generating' src="<?php echo $this->getSkinUrl('images/gmerchant/loadbar.gif');  ?>" alt="" />
+	<div id='message_result'>
+		<span>Arquivo gerado e disponível em <a target='_blank' href="<?php echo str_replace('/index.php', '', $this->getBaseUrl() . 'media/googlemerchant/googlemerchant.xml'); ?>"><?php echo str_replace('/index.php', '', $this->getBaseUrl() . 'media/googlemerchant/googlemerchant.xml'); ?></a></span>
+	</div>
+</div>
+
+<?php 
+
+$model=Mage::getModel('eav/entity_setup','core_setup');
+
+$data=array(
+
+	'type'=>'int',
+	'input'=>'boolean',
+	'label'=>'Habilitar Google Shopping',
+	'global'=>Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+	'is_required'=>'0',
+	'is_comparable'=>'0',
+	'is_searchable'=>'0',
+	'is_unique'=>'0',
+	'is_configurable'=>'0',
+	'use_defined'=>'0'
+
+);
+ 
+$model->addAttribute('catalog_product','googlemerchant',$data); 
+ ?>

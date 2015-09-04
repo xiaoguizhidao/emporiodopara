@@ -1,0 +1,50 @@
+<?php 
+# SUCESS PAGE ONE STEP CHECKOUIT
+?>
+<?php
+# order data
+?>
+
+<?php
+    $print_url = $this->getBaseUrl() . "sales/order/print/order_id/" . $this->getLastOrderId();
+    $order = Mage::getModel("sales/order")->load($this->getLastOrderId());
+?>
+
+<div class="col-main">
+    <div class="page-title">
+        <h1>Recebemos seu pedido</h1>
+    </div>
+</div>
+<h2 class="sub-title">Agradecemos pela confian&ccedil;a!</h2>
+
+<p>
+Seu pedido # &eacute;:
+<a href="<?php echo $print_url;?>"><?php echo $order->getIncrementId(); ?></a>
+</p>     
+<p>Voc&ecirc; receber&aacute; uma c&oacute;pia do seu pedido com detalhes por email e um link para acompanhamento.</p>
+<p>
+Clique
+<a onclick="this.target='_blank'" href="<?php echo $print_url; ?>">aqui para imprimir</a>
+uma c&oacute;pia da sua confirma&ccedil;&atilde;o de pedido.
+</p>
+
+<div class="buttons-set">
+
+    <button class="button" onclick="window.location='<?php echo $this->getBaseUrl(); ?>'" title="Continuar Comprando" type="button">
+        <span>
+            <span>Continuar Comprando</span>
+        </span>
+    </button>
+
+    <?php if($order->getPayment()->getMethod() == 'boleto_bancario'): ?>
+    <!-- Gerar boleto Bancario 1.0 !-->
+		<button class="button" onclick="window.open('<?php echo $this->getUrl('boleto/standard/view/order_id/' . $order->getId()) ?>', '_blank')" title="Imprimir boleto bancário" type="button">
+        
+            <span>
+                <span>Imprimir boleto bancário</span>
+            </span>
+        </button>
+    <!-- Gerar boleto Bancario 1.0 !-->
+    <?php endif; ?>
+
+</div>

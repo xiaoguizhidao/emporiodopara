@@ -1,0 +1,3 @@
+.block-layered-nav .filtro-cor{ *float : left; display: inline-block;  margin-top : 5px  ;}
+.block-layered-nav .filtro-cor a{ display: block; width : 20px; height: 20px; }
+.block-layered-nav .filtro-cor a img{ float : left; }

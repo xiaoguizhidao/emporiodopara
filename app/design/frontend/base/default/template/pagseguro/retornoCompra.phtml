@@ -1,0 +1,52 @@
+<?php 
+    $dados = $this->getRequest()->getParam('order_id');
+    if($dados){
+        $order = Mage::getModel('sales/order')->load($dados);
+        $itens = $order->getAllItems();
+        $endereco = $order->getBillingAddress();
+    }
+?>
+<html>
+    <head></head>
+    <body>
+        Você será redirecionado para o PagSeguro em alguns instantes.
+        <form id="pagseguro_standard_checkout" method="POST" name="pagseguro_standard_checkout" action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx">
+            <div>
+                <input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" name="form_key">
+            </div>
+            <input id="email_cobranca" type="hidden" value="comercial@mulherelastica.com.br" name="email_cobranca">
+            <input id="Tipo" type="hidden" value="CP" name="Tipo">
+            <input id="Moeda" type="hidden" value="BRL" name="Moeda">
+            <input id="ref_transacao" type="hidden" value="<?php if($dados) echo $order->getIncrementId();?>" name="ref_transacao">
+            <input id="cliente_nome" type="hidden" value="<?php if($dados) echo $order->getData('customer_firstname').' '.$order->getData('customer_lastname');?>" name="cliente_nome">
+            <input id="cliente_cep" type="hidden" value="<?php if($dados) echo $endereco->getData('postcode');?>" name="cliente_cep">
+            <input id="cliente_end" type="hidden" value="<?php if($dados) echo $endereco->getStreet1();?>" name="cliente_end">
+            <input id="cliente_num" type="hidden" value="<?php if($dados) echo $endereco->getStreet2();?>" name="cliente_num">
+            <input id="cliente_compl" type="hidden" value="<?php if($dados) echo $endereco->getStreet3();?>" name="cliente_compl">
+            <input id="cliente_bairro" type="hidden" value="<?php if($dados) echo $endereco->getStreet4();?>" name="cliente_bairro">
+            <input id="cliente_cidade" type="hidden" value="<?php if($dados) echo $endereco->getData('city');?>" name="cliente_cidade">
+            <input id="cliente_uf" type="hidden" value="<?php if($dados) echo $endereco->getData('region');?>" name="cliente_uf">
+            <input id="cliente_pais" type="hidden" value="<?php if($dados) echo $endereco->getData('country');?>" name="cliente_pais">
+            <input id="cliente_ddd" type="hidden" value="<?php if($dados) echo substr($endereco->getData('telephone'),1,2);?>" name="cliente_ddd">
+            <input id="cliente_tel" type="hidden" value="<?php if($dados)  echo substr($endereco->getData('telephone'), 4, 9);?>" name="cliente_tel">
+            <input id="cliente_email" type="hidden" value="<?php if($dados) echo $order->getData('customer_email');?>" name="cliente_email">
+            <?php   $contador = 1;
+            foreach ($itens as $item) { ?>
+                    <input id="item_descr_<?php echo $contador?>" type="hidden" value="<?php echo $item->getName();?>" name="item_descr_<?php echo $contador?>">
+                    <input id="item_id_<?php echo $contador?>" type="hidden" value="<?php echo $item->getSku();?>" name="item_id_<?php echo $contador?>">
+                    <input id="item_quant_<?php echo $contador?>" type="hidden" value="<?php echo number_format($item->getData('qty_ordered'),0);?>" name="item_quant_<?php echo $contador?>">
+                    <input id="item_valor_<?php echo $contador?>" type="hidden" value="<?php echo number_format($item->getPrice(),2)*100;?>" name="item_valor_<?php echo $contador?>">
+                    <input id="item_frete_<?php echo $contador?>" type="hidden" value="<?php echo ($contador == 1)? number_format($order->getData('shipping_amount'),2)*100: '0';?>" name="item_frete_<?php echo $contador?>">
+           <?php 
+                $contador++;
+           }
+            ?>
+            
+        </form>
+        <script type="text/javascript">
+            window.onload = function(){
+               setTimeout("document.getElementById('pagseguro_standard_checkout').submit()", 4000); 
+            } ;
+        </script>
+    </body>
+</html>

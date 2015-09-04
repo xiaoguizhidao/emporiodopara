@@ -1,0 +1,50 @@
+<?php
+$_product    = Mage::registry('product');
+
+if($_product->isSaleable()):
+
+
+	if($_product->getData('type_id') == 'configurable' || $_product->getData('type_id') == 'simple'):
+
+	if($_product->getData("type_id") != 'simple'){
+		$attributes  = (Mage::getModel("catalog/product")->load($_product->getId())->getTypeInstance()->getUsedProductAttributeIds()); 
+	}else{
+		$attributes = array();
+	}
+	?>
+
+	<input type="hidden" class="product-id" value="<?php echo $_product->getId(); ?>" />
+	<?php foreach($attributes as $attr) : ?>
+	<div class="attrshipping" id="attrshipping_<?php echo $attr; ?>"  ><?php echo $attr ?></div>
+	<?php endforeach;  ?>
+
+
+	<div id="freteproduto">
+		<div class='div-title' >
+		<h1>Cotar frete</h1>
+		</div>
+		<fieldset>
+			<legend>Frete por Produto</legend>
+			<label for="postcode">
+				CEP :
+				<input id="postcode" onkeypress="freteproduto.enterrateevent(event);" class="input-text" type="text" />
+			</label>
+			<button type="button" onclick="freteproduto.collectrates();" class="rate-button" ><span>Cotar</span></button>
+		</fieldset>
+		<div id="fp-loader">
+			<img src="<?php echo $this->getSkinUrl('images/freteproduto/loader.gif') ;  ?>" />
+		</div>
+		<ul id="shipping-rates" >
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			freteproduto.init();
+		});
+	</script>
+
+	<?php endif; ?>
+
+<?php endif; ?>
+

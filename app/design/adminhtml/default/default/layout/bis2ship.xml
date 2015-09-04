@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+        	<action method="addJs"><script>shipping/ship.js</script></action> 
+        	<action method="addJs"><script>shipping/firebugx.js</script></action> 
+        	<action method="addJs"><script>shipping/jquery-ui-1.8.16.custom.min.js</script></action> 
+        	<action method="addJs"><script>shipping/jquery.event.drag-2.2.js</script></action> 
+        	<action method="addJs"><script>shipping/slick.core.js</script></action> 
+            <action method="addJs"><script>shipping/slick.checkboxselectcolumn.js</script></action>
+        	<action method="addJs"><script>shipping/slick.autotooltips.js</script></action> 
+            <action method="addJs"><script>shipping/slick.cellrangedecorator.js</script></action> 
+        	<action method="addJs"><script>shipping/slick.cellcopymanager.js</script></action> 
+            <action method="addJs"><script>shipping/slick.cellrangeselector.js</script></action> 
+        	<action method="addJs"><script>shipping/slick.cellselectionmodel.js</script></action> 
+            <action method="addJs"><script>shipping/slick.rowselectionmodel.js</script></action> 
+        	<action method="addJs"><script>shipping/slick.formatters.js</script></action> 
+        	<action method="addJs"><script>shipping/slick.editors.js</script></action> 
+        	<action method="addJs"><script>shipping/slick.grid.js</script></action> 
+            <action method="addJs"><script>shipping/mask.js</script></action> 
+            <action method="addCss"><name>shipping.css</name></action>
+            <action method="addCss"><name>jquery-ui-1.8.16.custom.css</name></action>
+            <action method="addCss"><name>slick.grid.css</name></action>
+            <action method="addCss"><name>slick-my-theme.css</name></action>
+           
+        </reference>
+    </default>
+</layout>

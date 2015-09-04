@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <modules>
+        <BIS2BIS_Banner>
+            <version>0.1.0</version>
+        </BIS2BIS_Banner>
+    </modules>
+
+    <frontend>
+        <routers>
+            <banner>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Banner</module>
+                    <frontName>banner</frontName>
+                </args>
+            </banner>
+        </routers>
+        <layout>
+            <updates>
+                <front_banner>
+                    <file>banner.xml</file>
+                </front_banner>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <banner>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Banner</module>
+                    <frontName>banner</frontName>
+                </args>
+            </banner>
+        </routers>    
+    </admin>
+    
+    <adminhtml>   
+        <menu>
+            <banner_manager translate="title" module="banner">
+                <title>Gerenciar Banner</title>
+                <sort_order>50</sort_order>
+                <children>
+                    <banner_register translate="title" module="banner">
+                        <title>Lista de Banners</title>
+                        <sort_order>1</sort_order>
+                        <action>banner/admin/grid</action>
+                    </banner_register>
+                    <banner_config translate="title" module="banner">
+                        <title>Configurações</title>
+                        <sort_order>1</sort_order>
+                        <action>banner/admin/config</action>
+                    </banner_config>
+                </children>
+            </banner_manager>
+          
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <banner_manager translate="title" module="catalog" >
+                             <title>Gerenciar Banner</title>
+                             <sort_order>5</sort_order>
+                             <children>
+                                 <banner_register>
+                                     <title>Lista de Banners</title>
+                                     <sort_order>300</sort_order>
+                                 </banner_register>
+                                 <banner_config>
+                                     <title>Configurações</title>
+                                     <sort_order>400</sort_order>
+                                 </banner_config>
+                             </children>
+                        </banner_manager>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    
+    <global>
+    	
+        <models>
+            <banner>
+                <class>BIS2BIS_Banner_Model</class>
+                <resourceModel>banner_mysql4</resourceModel>
+            </banner>
+            <banner_mysql4>
+                <class>BIS2BIS_Banner_Model_Mysql4</class>
+                <entities>
+                    <banner>
+                        <table>banner</table>
+                    </banner>
+                    <bannerconfig>
+                        <table>banner_config</table>
+                    </bannerconfig>
+                </entities>
+            </banner_mysql4>
+        </models>
+        
+        <resources>
+            <banner_setup>
+                <setup>
+                    <module>BIS2BIS_Banner</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </banner_setup>
+            <banner_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </banner_write>
+            <banner_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </banner_read>
+        </resources>
+        <blocks>
+            <banner>
+                <class>BIS2BIS_Banner_Block</class>
+            </banner>
+        </blocks>
+        <helpers>
+            <banner>
+                <class>BIS2BIS_Banner_Helper</class>
+            </banner>
+        </helpers>
+
+    </global>
+
+</config>

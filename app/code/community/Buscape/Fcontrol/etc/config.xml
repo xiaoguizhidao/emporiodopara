@@ -1,0 +1,150 @@
+﻿<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to suporte.developer@buscape-inc.com so we can send you a copy immediately.
+ *
+ * @category   Buscape
+ * @package    Buscape_Fcontrol
+ * @copyright  Copyright (c) 2010 Buscapé Company (http://www.buscapecompany.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Buscape_Fcontrol>
+            <version>0.1.12</version>
+        </Buscape_Fcontrol>
+    </modules>
+    <global>
+        <blocks>
+            <fcontrol>
+                <class>Buscape_Fcontrol_Block</class>
+            </fcontrol>
+            <adminhtml>
+                <rewrite>
+                    <sales_order>Buscape_Fcontrol_Block_Adminhtml_Sales_Order</sales_order>
+                    <sales_order_grid>Buscape_Fcontrol_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
+                    <sales_order_view_info>Buscape_Fcontrol_Block_Adminhtml_Sales_Order_View_Info</sales_order_view_info>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <models>
+            <fcontrol>
+                <class>Buscape_Fcontrol_Model</class>
+            </fcontrol>
+        </models>
+        <helpers>
+            <fcontrol>
+                <class>Buscape_Fcontrol_Helper</class>
+            </fcontrol>
+        </helpers>
+        <events>
+            <controller_front_init_before>
+                <observers>
+                    <fcontrol>
+                        <type>singleton</type>
+                        <class>fcontrol/observer</class>
+                        <method>controllerFrontInitBefore</method>
+                    </fcontrol>
+                </observers>
+            </controller_front_init_before>
+        </events>
+    </global>
+    <frontend>
+        <routers>
+            <fcontrol>
+                <use>standard</use>
+                <args>
+                    <module>Buscape_Fcontrol</module>
+                    <frontName>fcontrol</frontName>
+                </args>
+            </fcontrol>
+        </routers>
+        <events>
+            <sales_order_save_analyse_transaction>
+                <observers>
+                    <fcontrol_observer>
+                        <class>fcontrol/observer</class>
+                        <method>queueOrder</method>
+                    </fcontrol_observer>
+                </observers>
+            </sales_order_save_analyse_transaction>
+            <sales_order_save_queue_transaction>
+                <observers>
+                    <fcontrol_observer>
+                        <class>fcontrol/observer</class>
+                        <method>queueOrder</method>
+                    </fcontrol_observer>
+                </observers>
+            </sales_order_save_queue_transaction>
+            <sales_order_save_change_status>
+                <observers>
+                    <fcontrol_observer>
+                        <class>fcontrol/observer</class>
+                        <method>changeStatusOrder</method>
+                    </fcontrol_observer>
+                </observers>
+            </sales_order_save_change_status>
+            <sales_order_save_capture_results>
+                <observers>
+                    <fcontrol_observer>
+                        <class>fcontrol/observer</class>
+                        <method>captureOrder</method>
+                    </fcontrol_observer>
+                </observers>
+            </sales_order_save_capture_results>
+            <sales_order_save_confirmed_return>
+                <observers>
+                    <fcontrol_observer>
+                        <class>fcontrol/observer</class>
+                        <method>queueOrder</method>
+                    </fcontrol_observer>
+                </observers>
+            </sales_order_save_confirmed_return>
+        </events>
+    </frontend>
+    <crontab>
+        <jobs>
+            <fcontrol_observer_capture_results>
+                <schedule><cron_expr>*/15 * * * *</cron_expr></schedule>
+                <run><model>fcontrol/observer::captureOrder</model></run>
+            </fcontrol_observer_capture_results>
+            <fcontrol_observer_queue_transaction>
+                <schedule><cron_expr>*/10 * * * *</cron_expr></schedule>
+                <run><model>fcontrol/observer::queueListOrder</model></run>
+            </fcontrol_observer_queue_transaction>
+            <fcontrol_observer_check_status>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>fcontrol/observer::checkStatusFrame</model></run>
+            </fcontrol_observer_check_status>
+        </jobs>
+    </crontab>
+    <admin>
+        <routers>
+            <fcontrol>
+              <use>admin</use>
+              <args>
+                <module>Buscape_Fcontrol_Adminhtml</module>
+                <frontName>fcontrol</frontName>
+              </args>
+            </fcontrol>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Buscape_Fcontrol before="Mage_Adminhtml">Buscape_Fcontrol_Adminhtml</Buscape_Fcontrol>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

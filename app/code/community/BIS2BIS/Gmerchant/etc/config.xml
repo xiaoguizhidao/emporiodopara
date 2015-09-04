@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <modules>
+        <BIS2BIS_Gmerchant>
+            <version>0.4.0</version>
+        </BIS2BIS_Gmerchant>
+    </modules>
+        
+    <frontend>
+        <routers>
+            <gmerchant>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Gmerchant</module>
+                    <frontName>gmerchant</frontName>
+                </args>
+            </gmerchant>
+        </routers>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <gmerchant>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Gmerchant</module>
+                    <frontName>gmerchant</frontName>
+                </args>
+            </gmerchant>
+        </routers>    
+    </admin>
+    
+    <global>
+        <models>
+            <gmerchant>
+                <class>BIS2BIS_Gmerchant_Model</class>
+                <resourceModel>gmerchant_mysql4</resourceModel>
+            </gmerchant>
+            <categorias>
+                <class>BIS2BIS_Gmerchant_Model</class>
+                <resourceModel>gmerchant_mysql4</resourceModel>
+            </categorias>
+            <gmerchant_mysql4>
+                <class>BIS2BIS_Gmerchant_Model_Mysql4</class>
+                <entities>
+                    <gmerchant>
+                        <table>googleshopping</table>
+                    </gmerchant>
+                    <categorias>
+                        <table>googleshopping_categorias</table>
+                    </categorias>
+                </entities>
+            </gmerchant_mysql4>
+        </models>
+        
+        <resources>
+            <gmerchant_setup>
+                <setup>
+                    <module>BIS2BIS_Gmerchant</module>
+                    <class>BIS2BIS_Gmerchant_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </gmerchant_setup>
+            <gmerchant_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </gmerchant_write>
+            <gmerchant_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </gmerchant_read>
+        </resources>
+
+        <blocks>
+            <gmerchant>
+                <class>BIS2BIS_Gmerchant_Block</class>
+            </gmerchant>
+            <gmerchant_tabs>
+                <class>BIS2BIS_Gmerchant_Block</class>
+            </gmerchant_tabs>
+        </blocks>
+        <helpers>
+            <gmerchant>
+                <class>BIS2BIS_Gmerchant_Helper</class>
+            </gmerchant>
+        </helpers>
+    </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <gmerchant>
+                    <file>gmerchant.xml</file>
+                </gmerchant>
+                    >
+            </updates>
+        </layout>
+        <menu>
+            <gmerchant translate="title" module="gmerchant">
+                <title>Google Shopping API</title>
+                <sort_order>50</sort_order>
+                <children>
+                    <update_xml translate="title" module="gmerchant">
+                        <title>Atualizar XML</title>
+                        <sort_order>1</sort_order>
+                        <action>gmerchant/admin/update</action>
+                    </update_xml>
+                    <attribute_xml translate="title" module="gmerchant">
+                        <title>Configurar Atributos</title>
+                        <sort_order>5</sort_order>
+                        <action>gmerchant/admin/attr</action>
+                    </attribute_xml>
+                    <categorias translate="title" module="gmerchant">
+                        <title>Gerenciar Categorias</title>
+                        <sort_order>10</sort_order>
+                        <action>gmerchant/categorias</action>
+                    </categorias>
+                </children>
+            </gmerchant>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <gmerchant translate="title" module="catalog" >
+                             <title>Google Shopping API</title>
+                             <sort_order>5</sort_order>
+                             <children>
+                                 <update_xml>
+                                     <title>Atualizar XML</title>
+                                     <sort_order>300</sort_order>
+                                 </update_xml>
+								<attribute_xml>
+                                     <title>Configurar Atributos</title>
+                                     <sort_order>310</sort_order>
+                                 </attribute_xml>
+								 <categorias>
+                                     <title>Gerenciar Categorias</title>
+                                     <sort_order>320</sort_order>
+                                 </categorias>
+                             </children>
+                        </gmerchant>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <gmerchant>
+                                            <title>Google Shopping</title>
+                                        </gmerchant>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+
+</config>

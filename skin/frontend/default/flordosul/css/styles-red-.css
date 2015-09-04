@@ -1,0 +1,74 @@
+
+.header .currency a:hover ,
+.pager .pages .current ,
+.pager .pages li a:hover,
+.ajax-checkout a:hover ,
+.header .currency a:hover { background:#503732; }
+
+
+#nav li.level0 ul li a:hover,
+.regular-price .price ,
+.regular-price  ,
+.block .regular-price .price ,
+.old-price .price ,
+.special-price .price  ,
+.minimal-price-link .label ,
+.minimal-price-link .price ,
+.price-excluding-tax,
+.price-excluding-tax .label ,
+.price-excluding-tax .price ,
+.price-including-tax ,
+.price-including-tax .label ,
+.price-including-tax .price ,
+.breadcrumbs li strong ,
+.ajax-container .product-details a:hover ,
+.product-tabs li:hover a ,
+.product-view .product-shop .availability span ,
+.products-list .product-name a:hover ,
+.products-grid .product-name a:hover ,
+.block-related .block-content li.item .product-name a:hover ,
+.block-layered-nav dd li a:hover ,
+.block-account .block-content li.current ,
+.block-account .block-content li a:hover ,.nivo-caption p{ color:#503732; }
+
+#nav li.level0 ul li a:hover ,
+#mt-dropdown ul li a:hover{ color:#F44246; }
+#mt-dropdown ul li a:hover { color:#F44246 !important; }
+#nav li.active a ,#nav a:hover  ,#nav a.hover{ color:#f44246; }
+#nav  {  border-bottom:1px solid #f44246; }
+
+.proslider-title ,.mt-proslider-title ,.product-title { }
+
+button.button:hover span{ background-color:#f44246; }
+button.btn-checkout:hover span{ background:#2FB25C; }
+
+div.logopagenave > button, .mt_productscroller .pagenave > button ,
+.block-related .pagenav  .rprev ,
+.block-related .pagenav  .rnext{ background-color:#F44246}
+
+/* .products-list li.item .item-inner:hover ,
+.products-grid .product-image:hover , */
+#nav .sub-wrapper .mm-item-base{  }
+
+#nav .sub-wrapper { border-top:3px solid #f44246;}
+
+.navbar .btn-navbar ,.navbar-inner{ background-color:#f44246 !important;  }
+
+#options li a:hover ,#options li a.selected{background-color: #f44246;}
+
+.block .block-title { /*background:url(../images/bg-title.png) 0 0 no-repeat;*/ }
+
+.pager .view-mode strong.grid,.pager .view-mode .grid strong,
+.pager .view-mode a.grid:hover,.pager .view-mode .grid a:hover{ background:url(../images/grid.png) 0 100% no-repeat; }
+.pager .view-mode a.grid,.pager .view-mode .grid a{  background:url(../images/grid.png) 0 0 no-repeat; }
+.pager .view-mode strong.list,.pager .view-mode .list strong,
+.pager .view-mode a.list:hover,.pager .view-mode .list a:hover{  background:url(../images/list.png) 0 100% no-repeat; }
+.pager .view-mode a.list,.pager .view-mode .list a{ background:url(../images/list.png) 0 0 no-repeat; }
+
+.product-view .next, .product-view .prev{cursor: pointer;position:absolute;z-index:90;background-image:url(../images/thumbnailscroller/hor_ctr.png); width:10px;height:27px;}
+
+ul.nav-accordion li span.collapse {background:url(../images/down.png) 0 0 no-repeat !important;}
+ul.nav-accordion span {background:url(../images/up.png) 0 0 no-repeat !important;}
+
+.mtonebyone .oneByOne_item span.slide2Txt3  {background-color: #f44246;}
+

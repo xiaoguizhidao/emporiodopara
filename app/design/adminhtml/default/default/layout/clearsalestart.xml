@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <adminhtml_sales_order_view>
+        <reference name="sales_order_tabs">
+            <action method="addTab"><name>clearsalestart</name><block>clearsalestart/tab</block></action>
+        </reference>
+	</adminhtml_sales_order_view>
+
+</layout>

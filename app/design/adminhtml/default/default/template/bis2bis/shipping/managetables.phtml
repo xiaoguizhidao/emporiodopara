@@ -1,0 +1,47 @@
+<div class='content-header' >
+	<h3 class="icon-head head-products">Gerenciar Tabelas</h3>
+
+</div>
+
+<?php $collection = Mage::getModel('bis2ship/shippingtables')->getCollection(); ?>
+
+<?php $size =  $collection->getSize(); ?>
+
+<?php $params = $this->getRequest()->getParams(); ?>
+
+
+<?php if($size > 1) : ?>
+
+<ul id='pagination'>
+	<li class='forw'><a href="#">>></a></li>
+	<li class='page'>1</li>
+	<li class='back'><a href=""><<</a></li>
+</ul>
+
+<div class='clear'></div>
+
+<?php endif; ?>
+
+<table id='datatable' >
+
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Tabela</th>
+			<th>Ações</th>
+		</tr>
+	</thead>	
+	<tbody>
+		
+	
+<?php foreach($collection as $table): ?>
+<tr>
+	<td class='id'><?php echo $table->getData('entity_id'); ?></td>
+	<td><?php echo $table->getData('table_name'); ?></td>
+	<td></td>
+</tr>
+<?php endforeach; ?>
+
+</tbody>
+
+</table>

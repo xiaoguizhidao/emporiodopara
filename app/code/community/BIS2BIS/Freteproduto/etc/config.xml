@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<modules>
+		<BIS2BIS_Freteproduto>
+			<version>0.1.0</version>
+		</BIS2BIS_Freteproduto>
+	</modules>
+
+	<frontend>
+		<routers>
+			<freteproduto>
+				<use>standard</use>
+				<args>
+					<module>BIS2BIS_Freteproduto</module>
+					<frontName>freteproduto</frontName>
+				</args>
+			</freteproduto>
+		</routers>
+	</frontend>
+
+	<admin>
+		<routers>
+			<freteproduto>
+				<use>admin</use>
+				<args>
+					<module>BIS2BIS_Freteproduto</module>
+					<frontName>freteproduto</frontName>
+				</args>
+			</freteproduto>
+		</routers>
+	</admin>
+	
+    <global>
+        <models>
+            <freteproduto>
+                <class>BIS2BIS_Freteproduto_Model</class>
+                <resourceModel>freteproduto_mysql4</resourceModel>
+            </freteproduto>
+        </models>
+        <resources>
+            <freteproduto_setup>
+                <setup>
+                    <module>BIS2BIS_Freteproduto</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </freteproduto_setup>
+            <freteproduto_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </freteproduto_write>
+            <freteproduto_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </freteproduto_read>
+        </resources>
+        <blocks>
+            <freteproduto>
+                <class>BIS2BIS_Freteproduto_Block</class>
+            </freteproduto>
+        </blocks>
+        <helpers>
+            <freteproduto>
+                <class>BIS2BIS_Compracasada_Helper</class>
+            </freteproduto>
+        </helpers>
+    </global>
+
+
+</config>

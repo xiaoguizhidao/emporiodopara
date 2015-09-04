@@ -1,0 +1,188 @@
+<?php 
+/**
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ## BIS2BIS COMÉRCIO ELETRÔNICO								########################################
+ ## Autor : Guilherme de Almeida Costa						########################################
+ ## Email : guilherme.costa@bis2bis.com.br					########################################
+ ## Módulo : One Step Checkout                              ########################################  
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ */
+?>
+
+<?php $logged = Mage::getModel('customer/session')->isLoggedIn();  ?>
+<?php $customer = Mage::getModel('customer/session')->getCustomer();  ?>
+
+<div id="div_shipping_address_form" >
+	<?php echo $this->getChildHtml('shipping_address_header'); ?>
+	<form id="shipping_address_form">
+		
+	<?php if(Mage::getModel('osc/osc')->getCountAddress($customer->getId()) > 0 ): ?>
+		<fieldset class="select_address_shipping" >
+			<div class="field_row customer_address_row">
+				<span class="span_customer_address">
+					Escolha um endereço de envio cadastrado
+					ou crie um novo.
+				</span>
+				<select id="shipping_customer_address" onchange="OscCliente.selecionarEndereco(this, 'shipping');"  shipping="shipping_customer_address" name="shipping[address_id]"  >
+					<?php echo Mage::getModel("osc/osc")->getAddressesSelect($customer->getId(), "shipping"); ?>
+				</select>
+			</div>
+		</fieldset>
+
+		<script type="text/javascript">
+			jQuery(document).ready(function(){
+				jQuery(".form_shipping_fs").hide();
+			});
+		</script>	
+
+	<?php endif; ?>
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<label class="osc_label" for="osc_field_shipping_name">Nome<em class="osc_required">*</em></label>
+					<input id="osc_field_shipping_name" type="text" class="input-text osc_input shipping_input shipping_required required" name="shipping[firstname]" />
+			</div>
+		</fieldset>
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<label  class="osc_label" for="osc_field_shipping_lastname">Sobrenome<em class="osc_required">*</em></label>
+				<input id="osc_field_shipping_lastname" type="text" class="input-text osc_input shipping_input shipping_required required" name="shipping[lastname]" />
+			</div>
+		</fieldset>
+
+	
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<label  class="osc_label" for="osc_field_shipping_cep">CEP<em class="osc_required">*</em></label>
+				<input id="osc_field_shipping_cep" type="text" onblur="OscAjax.preencherEndereco(this);"  class="input-text osc_input shipping_input shipping_required required" name="shipping[postcode]" />
+			</div>
+		</fieldset>
+
+
+		<!--  ENDEREÇO  -->
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+					<label class="osc_label" for="osc_field_shipping_address">Endereço<em class="osc_required">*</em></label>
+					<input id="osc_field_shipping_address" type="text" class="input-text  osc_input shipping_input shipping_required required" name="shipping[street][0]" />
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+					<label class="osc_label" for="osc_field_shipping_number">Número<em class="osc_required">*</em></label>
+					<input id="osc_field_shipping_number" type="text" class="input-text  osc_input shipping_input shipping_required required" name="shipping[street][1]" />
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+						<label class="osc_label" for="osc_field_shipping_complement">Complemento</label>
+					<input id="osc_field_shipping_complement" type="text" class="input-text  osc_input shipping_input" name="shipping[street][2]" />
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+					<label class="osc_label" for="osc_field_shipping_neighborhood">Bairro<em class="osc_required">*</em></label>
+					<input id="osc_field_shipping_neighborhood" type="text" class="input-text  osc_input shipping_input shipping_required required" name="shipping[street][3]" />
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+					<label class="osc_label" for="osc_field_shipping_city">Cidade<em class="osc_required">*</em></label>
+					<input id="osc_field_shipping_city" type="text" class="input-text osc_input shipping_input shipping_required required" name="shipping[city]" />
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+					<label  class="osc_label" for="osc_field_shipping_region">Estado<em class="osc_required">*</em></label>
+					<select id="osc_field_shipping_region" class="shipping_select shipping_input shipping_required required" name="shipping[region_id]" >
+						<?php echo Mage::getModel("osc/osc")->getDirectoryRegions(); ?>
+					</select>
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+						<label class="osc_label" for="osc_field_shipping_telephone">Telefone<em class="osc_required">*</em></label>
+					<input id="osc_field_shipping_telephone" type="text" class="input-text osc_input shipping_input shipping_required required" name="shipping[telephone]" />
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+					<label  class="osc_label" for="osc_field_shipping_cellphone">Celular<em class="osc_required">*</em></label>
+					<input id="osc_field_shipping_cellphone" type="text" max-length='15'  class="input-text osc_input shipping_input shipping_required shipping_cellphone required" name="shipping[fax]" />
+				</div>
+			</div>
+		</fieldset>
+
+
+		<fieldset class="form_shipping_fs field_pf" >
+			<div class="field_row">
+				<div class='col-unique'>
+					<label class="osc_label" for="osc_field_shipping_reference">Ref. Entrega</label>
+					<input id="osc_field_shipping_reference"  type="text" class="input-text  osc_input shipping_input " name="shipping[reference]" />
+				</div>
+			</div>
+		</fieldset>
+
+
+		<?php if($logged): ?>
+			
+			<fieldset class="form_shipping_fs field_pf" >
+				<div class="field_row">
+					<div class='col-unique'>
+						<input id="osc_field_shipping_saveaddress"   type="checkbox"  checked='true' name="shipping[saveaddress]" /><label class="osc_label radio_label" for="osc_field_shipping_saveaddress">Salvar Endereço</label>
+					</div>
+				</div>
+			</fieldset>
+
+		<?php endif; ?>
+		
+		<input name="shipping[country_id]" type="hidden" value="BR" />
+		<input name="shipping[region]" id="osc_field_shipping_region_name"  type="hidden" />
+		
+		<br/>
+		
+		<div class='osc-validation'>
+			<span><em class='osc_required'>*</em> Campo Obrigatório</span>
+		</div>
+
+	</form>
+
+</div>

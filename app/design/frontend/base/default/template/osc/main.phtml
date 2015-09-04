@@ -1,0 +1,92 @@
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		OscGeral.inicializar(); //inicia o checkout
+	});
+</script>
+
+<?php Mage::getModel('osc/status')->call('start'); ?>
+
+<?php 
+	$osc = Mage::getModel('osc/osc')->load(1); 
+?>
+
+<?php $_quote = Mage::getSingleton('checkout/session')->getQuote(); ?>
+
+<?php if($_quote->getItemsCollection()->getSize() == 0 ):  ?>
+	<script type="text/javascript">
+		window.location = OscGeral.getUrlBase('checkout/cart');
+	</script>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('header'); ?>
+
+	<div class="col1-button">
+		<?php echo $this->getChildHtml('button_top'); ?>
+	</div>
+
+	<div class="col3-left">   
+		<?php echo $this->getChildHtml('billing_address_form'); ?>
+		<?php echo $this->getChildHtml('shipping_address_form'); ?>
+	</div>
+	
+	<div class="col3-middle">  
+		<div class="shipping-container" >
+			<?php echo $this->getChildHtml('shipping_methods'); ?>
+		</div>
+		<div class="payment-container">
+			<?php echo $this->getChildHtml('payment_methods'); ?>
+		</div>
+
+		<?php if($osc->getCoupon() == 1):  ?>	
+		<div class='coupon-container'>
+			<?php echo $this->getChildHtml('coupon_code'); ?>
+		</div>
+		<?php endif; ?>
+	</div>
+	
+	<div class="col3-right"> 
+		<div class="review-container">
+			<?php echo $this->getChildHtml('review'); ?>
+		</div>
+		<div class='alert-container'>
+			<?php echo $this->getChildHtml('alert'); ?>
+		</div>
+		<div class='back-to-cart'>
+			<a title='Voltar para o carrinho' href="<?php echo $this->getBaseUrl() . 'checkout/cart'; ?>"><?php echo $this->__('Esqueceu de algum item?'); ?></a>
+		</div>
+		<?php if($osc->getTerm() == 1):  ?>	
+			<script type='text/javascript'>
+				jQuery(document).ready(function(){
+					OscTela.desabilitarBotao(); // desabilita botao do checkout 
+				});
+			</script>
+			<div id='term_wrapper'>
+				<h2 class='title'>Termos de Compromisso</h2>
+				<br style='clear : right;' />
+				<div id='text_term'>
+					<?php echo $osc->getTextTerm(); ?>
+				</div>
+				<br/><br/><br/><br/><br/><br/>
+				<label for="accept_term"><input id='accept_term' onclick='OscTermo.aceitar();' type="checkbox"> Eu li e aceito os termos de compromisso</label>
+			</div>
+			<br style='clear : right;' />
+		<?php endif; ?>
+	</div>
+
+	<div class="button-container" >
+		<?php echo $this->getChildHtml('button'); ?>
+	</div>
+	
+	<br style="clear:both;" />
+
+	<a id='mostrarscreenlocker' href="#screenlocker"></a>
+
+	<div style="display:none"><div id="screenlocker" style='height : 400px;' ><img src="<?php echo $this->getSkinUrl('images/osc/logoloader.png'); ?>" /> <br/> <img src="<?php echo $this->getSkinUrl('images/osc/loader.gif'); ?>" /></div></div>
+
+	<div id="loading-overlay"></div>
+
+	<!--[if IE 7]>
+	<style type='text/css'>
+	label.error{ display : none !important; }
+	</style>
+	<![endif]-->

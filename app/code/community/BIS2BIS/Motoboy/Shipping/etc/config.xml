@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Pedro Teixeira
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL).
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Correio
+ * @package    Correio_Shipping
+ * @copyright  Copyright (c) 2008 Pedro Teixeira [ teixeira.pedro@gmail.com ]
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <BIS2BIS_Motoboy_Shipping>
+            <version>1.0.0</version>
+            <depends>
+                <Mage_Shipping/>
+            </depends>
+        </BIS2BIS_Motoboy_Shipping>
+    </modules>
+    <global>
+        <models>
+            <motoboyshipping>
+                <class>BIS2BIS_Motoboy_Shipping</class>
+            </motoboyshipping>
+        </models>
+        <resources>
+            <motoboyshipping_setup>
+                <setup>
+                    <module>BIS2BIS_Motoboy_Shipping</module>
+                </setup>
+                <connection>
+                    <use>directory_setup</use>
+                </connection>
+            </motoboyshipping_setup>
+            <motoboyshipping_read>
+                <connection>
+                    <use>local_read</use>
+                </connection>
+            </motoboyshipping_read>
+        </resources>
+        <sales>
+            <shipping>
+                <carriers>
+                    <motoboy_standard>
+                        <class>BIS2BIS_Motoboy_Shipping_Model_Carrier_MotoboyPost</class>
+                    </motoboy_standard>
+                </carriers>
+            </shipping>
+        </sales>
+    </global>
+
+    <default>
+        <carriers>
+            <motoboy_standard>
+                <active>1</active>
+                <model>BIS2BIS_Motoboy_Shipping_Model_Carrier_MotoboyPost</model>
+                <title>Motoboy2</title>
+                <name>Envio por Motoboy</name>
+                <prazo_entrega>0</prazo_entrega>
+                <msgprazo>%s - Em média %d dia(s)</msgprazo>
+                <valueerror>Valor de compra a cima do permitido. Por favor entre em contato conosco.</valueerror>
+                <zipcodeerror>Não foi possível calcular o frete para esse CEP</zipcodeerror>
+                <maxweighterror>Peso dos produtos a cima do permitido pela Transportadora. Por favor entre em contato conosco.</maxweighterror>
+                <urlerror>Esse método de envio está fora do ar. Por favor entre em contato conosco.</urlerror>
+                <showmethod>0</showmethod>				
+            </motoboy_standard>
+        </carriers>
+    </default>
+</config>

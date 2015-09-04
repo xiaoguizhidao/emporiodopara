@@ -1,0 +1,419 @@
+<?php 
+/**
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ## BIS2BIS COMÉRCIO ELETRÔNICO								########################################
+ ## Autor : Guilherme de Almeida Costa						########################################
+ ## Email : guilherme.costa@bis2bis.com.br					########################################
+ ## Módulo : One Step Checkout                              ########################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ ###################################################################################################
+ */
+?>
+
+<?php $logged = Mage::getModel('customer/session')->isLoggedIn();  ?>
+<?php $customer = Mage::getModel('customer/session')->getCustomer(); ?>
+<?php $count_address = Mage::getModel('osc/osc')->getCountAddress($customer->getId());  ?>
+
+
+
+<?php if( (!$logged && $count_address == 0) || ($logged && $count_address == 0) )  : ?>
+    
+	<script type='text/javascript'>
+		jQuery(document).ready(function(){
+			if(jQuery('#osc_field_billing_cep').val() != ''){
+	        	jQuery('#osc_field_billing_cep').focus();
+	        	jQuery('#osc_field_billing_cep').blur();
+	        	cep_global = jQuery('#osc_field_billing_cep').val();
+	        }
+		});
+	</script>
+
+<?php else: ?>
+	
+	<script type='text/javascript'>
+		jQuery(document).ready(function(){
+        	//onestepcheckout.updateaddresses();
+		});
+	</script>
+
+<?php endif; ?>
+
+<div id="div_billing_address_form" >
+
+<?php echo $this->getChildHtml('billing_address_header'); ?>
+
+<form id="billing_address_form">
+
+	<?php if(!$logged): ?>
+	<fieldset class="form_billing_fs" >
+		<div class="field_row">
+			<div class="col-left">
+				<input onclick="OscCliente.mudaTipoPessoa('fisica');" id="osc_field_billing_pf" type="radio" value="pf" checked="checked" name="billing[tipopessoa]" /><label class="osc_label osc_selected osc_fisica radio_label" for="osc_field_billing_pf"><strong>Pessoa Física</strong></label>
+			</div>
+			<div class="col-right">
+				<input onclick="OscCliente.mudaTipoPessoa('juridica');" id="osc_field_billing_pj" type="radio" value="pj" name="billing[tipopessoa]" /><label class="osc_label osc_juridica radio_label" for="osc_field_billing_pj"><strong>Pessoa Jurídica</strong></label>
+			</div>
+		</div>
+	</fieldset>
+	<?php endif; ?>
+
+	<?php if($count_address <= 0) : ?>
+
+	<fieldset class="form_billing_fs field_pf" >
+		<div class='field_row'>
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_name">Nome<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_name" type="text" class="input-text osc_input billing_input billing_required required" name="billing[firstname]" />
+			</div>
+		</div>	
+	</fieldset>
+
+
+	<fieldset class="form_billing_fs field_pf" >
+		<div class='field_row'>
+			<div class="col-unique">
+				<label  class="osc_label" for="osc_field_billing_lastname">Sobrenome<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_lastname" type="text" class="input-text osc_input billing_input billing_required required" name="billing[lastname]" />
+			</div>
+		</div>	
+	</fieldset>
+
+	
+	<?php if(!$logged): ?>
+	<fieldset class="form_billing_fs field_pj" >
+		<div class='field_row'>
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_ie">Insc. Estadual<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_ie" type="text" class="input-text osc_input billing_input billing_required required" name="billing[ie]" />
+				<br/>
+				<div class='left'>
+					<input id='osc_field_billing_ieisento' onclick='OscCliente.ieIsento(this);' type='checkbox' name='billing[ieisento]' />
+					<label class="osc_label osc_ieisento" for="osc_field_billing_ieisento">IE isento</label>
+				</div>
+			</div>
+		</div>	
+	</fieldset>
+	
+	<fieldset class="form_billing_fs field_pj" >
+		<div class='field_row'>
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_razaosocial">Razão Social <em class="osc_required">*</em> </label>
+				<input id="osc_field_billing_razaosocial" type="text" class="input-text  osc_input billing_input billing_required required" name="billing[razaosocial]" />
+			</div>
+		</div>	
+	</fieldset>
+	<?php endif; ?>
+	
+	<?php if(!$logged): ?>
+		<fieldset class="form_billing_fs " >
+			<div class='field_row'>
+				<div class="col-unique">
+					<label class="osc_label" for="osc_field_billing_mail">Email<em class="osc_required">*</em></label>
+					<?php /*<input id="osc_field_billing_mail" onblur="onestepcheckout.validateMailExists(this);" type="text" class="input-text  osc_input billing_input billing_required required" name="billing[email]" />*/ ?>
+					<input id="osc_field_billing_mail" type="text" class="input-text  osc_input billing_input billing_required required" name="billing[email]" />
+				</div>
+			</div>	
+		</fieldset>
+	<?php endif; ?>
+	
+	
+	<?php if(!$logged): ?>
+
+		<fieldset class="form_billing_fs field_pf" >
+			<div class="field_row">
+				<div class="col-unique">
+					<label class="osc_label" for="osc_field_billing_cpf">CPF<em class="osc_required">*</em></label>
+					<?php /*<input id="osc_field_billing_cpf" onblur="onestepcheckout.validateCpfExists(this);" type="text" class="input-text osc_input  billing_input billing_required required" name="billing[cpf]" />*/ ?>
+					<input id="osc_field_billing_cpf" type="text" class="input-text osc_input  billing_input billing_required required" name="billing[cpf]" />
+				</div>
+			</div>
+		</fieldset>
+	
+		<fieldset class="form_billing_fs field_pj" >
+			<div class="field_row">
+				<div class="col-unique">
+					<label class="osc_label" for="osc_field_billing_cpf">CNPJ<em class="osc_required">*</em></label>
+					<?php /*<input id="osc_field_billing_cnpj" onblur="onestepcheckout.validateCnpjExists(this);" type="text" class="input-text osc_input billing_input billing_required required" name="billing[cnpj]" />*/ ?>
+					<input id="osc_field_billing_cnpj" type="text" class="input-text osc_input billing_input billing_required required" name="billing[cnpj]" />
+				</div>
+			</div>
+		</fieldset>
+		
+	<?php endif; ?>
+	
+	<?php if(!$logged): ?>
+	
+		<fieldset class="form_billing_fs field_pf" >
+			<div class="field_row">
+				<div class="col-unique">
+					<label class="osc_label" for="osc_field_billing_dob">Data de Nasc.<em class="osc_required">*</em></label>
+					<input id="osc_field_billing_dob" type="text" class="input-text osc_input billing_input billing_required required" name="billing[dob]" />
+				</div>
+			</div>
+		</fieldset>
+		
+		<fieldset class="form_billing_fs field_pf" >
+			<div class="field_row">
+				<div class="col-unique">
+					<label  class="osc_label" for="osc_field_billing_gender">Sexo</label>
+					<select id='osc_field_billing_gender' name='billing[gender]'  class='billing_select billing_input'>
+						<option>Selecione...</option>
+						<option value='2' >Feminino</option>
+						<option value='1' >Masculino</option>
+					</select>
+				</div>
+			</div>
+		</fieldset>
+	
+	<?php endif; ?>
+
+
+	<?php if(!$logged): ?>
+	<fieldset class="form_billing_fs" >
+		<div class="field_row">
+			<div class="col-unique">
+				<label  class="osc_label" for="osc_field_billing_cellphone">Telefone<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_telephone" max-length='15'  type="text" class="input-text osc_input billing_input billing_required required" name="billing[telephone]" />
+			</div>
+		</div>
+	</fieldset>
+
+	<fieldset class="form_billing_fs " >
+		<div class="field_row">
+			<div class="col-unique">
+				<label  class="osc_label" for="osc_field_billing_cellphone">Celular<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_cellphone" max-length='15' type="text" class="input-text osc_input billing_input billing_required billing_cellphone required" name="billing[fax]" />
+			</div>
+		</div>
+	</fieldset>
+	<?php endif; ?>
+
+	<?php endif; ?>
+	
+	<?php if(!$logged): ?>
+
+
+        <fieldset class="form_billing_fs" >
+			<div class="field_row">
+				<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_pass">Senha<em class="osc_required">*</em></label>
+					<input id="osc_field_billing_pass" type="password" class="pass1 passfield input-text osc_input billing_input billing_required required" name="billing[pass]" />	</div>
+			</div>
+		</fieldset>
+	
+		<fieldset class="form_billing_fs " >
+			<div class="field_row">
+				<div class="col-unique">
+					<label class="osc_label" for="osc_field_billing_confirmpass">Confirm. Senha<em class="osc_required">*</em></label>
+					<input  id="osc_field_billing_confirmpass" type="password" class="pass2  input-text osc_input billing_input billing_required required" name="billing[confirmpass]" />
+				</div>
+			</div>
+		</fieldset>
+
+        <fieldset class='form_billing_fs'>
+            <div class="field_row">
+                <div class="col-unique">
+                    <input id="osc_field_billing_newsletter"  checked="checked" type="checkbox" name="billing[newsletter]" /><label class="osc_label radio_label" for="osc_field_billing_newsletter">Deseja assinar Newsletter ?</label>
+                </div>
+            </div>
+        </fieldset>
+		
+	<?php endif; ?>
+
+	
+	<?php if( $count_address > 0 ): ?>
+	
+		<div class="osc-title"  >  
+			<span class='number'>1</span><h2 class='title'>Endereço de Cobrança</h2>
+		</div>
+
+		<fieldset class="select_address_billing" >
+			<div class="field_row customer_address_row">
+				<span class="span_customer_address">
+					Escolha um endereço de cobrança cadastrado
+					ou crie um novo.
+				</span>
+				<select id="billing_customer_address" onchange="OscCliente.selecionarEndereco(this, 'billing');"  class="billing_customer_address" name="billing[address_id]"  >
+					<?php echo Mage::getModel('osc/osc')->getAddressesSelect($customer->getId(), 'billing'); ?>
+				</select>
+			</div>
+		</fieldset>
+
+		<script type="text/javascript">
+			jQuery(document).ready(function(){
+				jQuery('.form_billing_fs').hide();
+				OscCliente.selecionarEndereco(jQuery('#billing_customer_address', 'billing'));
+			});
+		</script>	
+
+		<fieldset class="form_billing_fs field_pf" >
+			<div class='field_row'>
+				<div class="col-unique">
+					<label class="osc_label" for="osc_field_billing_name">Nome<em class="osc_required">*</em></label>
+					<input id="osc_field_billing_name" type="text" class="input-text osc_input billing_input billing_required required" name="billing[firstname]" />
+				</div>
+			</div>	
+		</fieldset>
+
+
+		<fieldset class="form_billing_fs field_pf" >
+			<div class='field_row'>
+				<div class="col-unique">
+					<label  class="osc_label" for="osc_field_billing_lastname">Sobrenome<em class="osc_required">*</em></label>
+					<input id="osc_field_billing_lastname" type="text" class="input-text osc_input billing_input billing_required required" name="billing[lastname]" />
+				</div>
+			</div>	
+		</fieldset>
+
+	<?php else :  ?>
+	
+	<?php if(!$logged): ?>
+			<div class='osc-validation'>
+				<span><em class='osc_required'>*</em> Campo Obrigatório</span>
+			</div>
+			<div class="osc-title"  >  
+				<span class='number'>2</span><h2 class='title'>Endereço de Cobrança</h2>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
+
+	<fieldset class="form_billing_fs" >
+		<div class="field_row">
+			<div class="col-unique">
+				<label  class="osc_label" for="osc_field_billing_cep">CEP<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_cep" onblur="OscAjax.preencherEndereco(this); " type="text" value="<?php echo Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getPostcode(); ?>" class="input-text osc_input billing_input billing_required required" name="billing[postcode]" />
+				<br/>
+				<a class="fieldpart-postcode-link osc_anchor" target="_blank" href="http://www.buscacep.correios.com.br/servicos/dnec/index.do">Não sabe o CEP?</a>
+			</div>
+		</div>
+	</fieldset>
+
+	<!--  ENDEREÇO  -->
+	<fieldset class="form_billing_fs">
+		<div class="field_row">
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_address">Endereço<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_address" type="text" class="input-text  osc_input billing_input billing_required required" name="billing[street][0]" />
+			</div>
+		</div>
+	</fieldset>
+	
+	<fieldset class="form_billing_fs">
+		<div class="field_row">
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_number">Número<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_number" type="text" class="input-text osc_input billing_input billing_required required" name="billing[street][1]" />
+			</div>
+		</div>
+	</fieldset>
+	
+	<fieldset class="form_billing_fs" >
+		<div class="field_row">
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_complement">Complemento</label>
+				<input id="osc_field_billing_complement" type="text" class="input-text  osc_input billing_input" name="billing[street][2]" />
+			</div>
+		</div>
+	</fieldset>
+	
+	<fieldset class="form_billing_fs" >
+		<div class="field_row">
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_neighborhood">Bairro<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_neighborhood" type="text" class="input-text  osc_input billing_input billing_required required" name="billing[street][3]" />
+			</div>
+		</div>
+	</fieldset>
+
+
+	<fieldset class="form_billing_fs" >
+		<div class="field_row">
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_city">Cidade<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_city" type="text" class="input-text osc_input billing_input billing_required required" name="billing[city]" />
+			</div>
+		</div>
+	</fieldset>
+	
+	<fieldset class="form_billing_fs" >
+		<div class="field_row">
+			<div class="col-unique">
+				<label  class="osc_label" for="osc_field_billing_region">Estado<em class="osc_required">*</em></label>
+				<select id="osc_field_billing_region"  class="billing_select billing_input billing_required required" name="billing[region_id]" >
+					<?php echo Mage::getModel('osc/osc')->getDirectoryRegions(); ?>
+				</select> 
+			</div>
+		</div>
+	</fieldset>
+	
+
+	<?php if($logged): ?>
+
+	<fieldset class="form_billing_fs " >
+		<div class="field_row">
+			<div class="col-unique">
+				<label  class="osc_label" for="osc_field_billing_cellphone">Telefone<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_telephone" max-length='15'  type="text" class="input-text osc_input billing_input billing_required required" name="billing[telephone]" />
+			</div>
+		</div>
+	</fieldset>
+
+	<fieldset class="form_billing_fs " >
+		<div class="field_row">
+			<div class="col-unique">
+				<label  class="osc_label" for="osc_field_billing_cellphone">Celular<em class="osc_required">*</em></label>
+				<input id="osc_field_billing_cellphone" max-length='15' type="text" class="input-text osc_input billing_input billing_required billing_cellphone required" name="billing[fax]" />
+			</div>
+		</div>
+	</fieldset>
+
+	<?php endif; ?>
+
+	
+	<fieldset class="form_billing_fs" >
+		<div class='field_row'>
+			<div class="col-unique">
+				<label class="osc_label" for="osc_field_billing_reference">Ref. Entrega</label>
+				<input id="osc_field_billing_reference"  type="text" class="input-text  osc_input billing_input " name="billing[reference]" />
+			</div>
+		</div>	
+	</fieldset>
+
+
+	<fieldset class='field_pf'>
+		<div class="field_row">
+			<div class="col-unique">
+					<input id="osc_field_billing_useasshipping" onclick="OscTela.toggleFormularioEnvio();" checked="checked" type="checkbox" name="billing[use_for_shipping]" /><label class="osc_label radio_label" for="osc_field_billing_useasshipping">Utilizar este endereço para envio</label>
+			</div>
+		</div>
+	</fieldset>
+
+	<?php if($logged): ?>
+		<fieldset class="form_billing_fs field_pf" >
+			<div class="field_row">
+				<div class="col-unique">
+					<input id="osc_field_billing_saveaddress"   type="checkbox" checked='true' name="billing[saveaddress]" />
+					<label class="osc_label radio_label" for="osc_field_billing_saveaddress">Salvar Endereço</label>
+				</div>
+			</div>
+		</fieldset>
+	<?php endif; ?>
+	
+	<input name="billing[country_id]" type="hidden" value="BR" />
+	<input name="billing[region]" id="osc_field_billing_region_name"  type="hidden" />
+	
+	<br/>
+
+	<div class='osc-validation'>
+		<span><em class='osc_required'>*</em> Campo Obrigatório</span>
+	</div>
+</form>
+
+</div>

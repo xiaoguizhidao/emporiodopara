@@ -1,0 +1,140 @@
+    <!-- 
+    ## IMPLEMENTAÇÃO TEMPORARIA MODULO DE COR
+    -->
+    <?php $_product = Mage::registry('current_product'); ?>
+    
+    <br style='clear :left;' />
+    <div id='atributos-principal'>
+    <?php $atributos  = $_product->getTypeInstance(true)->getConfigurableAttributesAsArray($_product); ?>
+    <?php if($_product->getTypeId() == 'configurable'): ?>
+    <?php $contador_atributos = 0;  ?>
+    <?php $cor_atributo = Mage::getStoreConfig('cores/config/codigo_cor'); ?>
+    <?php foreach ($atributos as $atributo): ?>
+        <h2 > <em>*</em><?php echo $atributo['label']; ?></h2>
+        <?php if($atributo['attribute_code'] == $cor_atributo ): ?>  
+        <!-- IMAGENS DO ATRIBUTO -->
+        <?php foreach($atributo['values'] as $option): ?>
+            <?php $nome_cor = ($option['default_label']); ?>
+            <?php $opcao_cor = $option['value_index']; ?>
+            <?php $images = $_product->getTypeInstance()->getUsedProductCollection()->addAttributeToSelect('image')->addAttributeToFilter($cor_atributo, $opcao_cor)->getFirstItem(); ?>
+            <?php $_images_gallery = Mage::getModel('catalog/product')->load($images->getId())->getMediaGalleryImages(); ?>
+            <?php $color_id =  $option['value_index']; ?>
+            <div class='div_oculta' id='<?php echo 'cores'. $color_id  ?>'>
+                <ul>
+                <?php foreach($_images_gallery as $image): ?>
+                    <li>
+                        <a  href="<?php  echo Mage::helper('catalog/image')->init($images, 'image', $image->getFile())->resize(800); ?>" class="cloud-zoom-gallery" title="" rel="useZoom: 'zoom1', smallImage: '<?php echo Mage::helper('catalog/image')->init($images, 'image', $image->getFile())->resize(256);  ?>' ">
+                            <img src="<?php  echo Mage::helper('catalog/image')->init($images, 'image', $image->getFile())->resize(70); ?>" alt="">
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
+            </div>
+            
+            <script type='text/javascript'>
+                jQuery('ul.fancybox_list<?php echo $color_id?> a').fancybox({
+                    prevEffect      : "fade",
+                    nextEffect      : "fade",
+                    openEffect  : "fade",
+                    closeEffect : "fade",
+                    closeBtn        : true,
+                       helpers   : {
+                        title   : {
+                        type: 'outside'
+                        },
+                    thumbs  : {
+                        width   : 50,
+                        height  : 50
+                        }
+                    }
+                });
+            </script>
+            <?php 
+                echo '<ul class="lista-fancybox fancybox_list'.$color_id.' no-display">';
+                foreach ($_images_gallery as $_images) {
+                        echo '<a data-compare="'.Mage::helper('catalog/image')->init($_product, 'image', $_images->getFile())->resize(800).'" title="'. $title .'" rel="fancybox-button" href="'.Mage::helper('catalog/image')->init($_product, 'image', $_images->getFile())->resize(800).'"><img src="'.Mage::helper('catalog/image')->init($_product, 'thumbnail', $_images->getFile())->resize(65).'"/></a>';
+                } 
+                echo '</ul>';
+
+        endforeach; ?>
+            
+        <!-- IMAGENS DO ATRIBUTO -->
+        <ul class='cores-lista-atributos' id='dados_<?php echo $atributo['attribute_code']; ?>'>
+            <?php foreach ($atributo['values'] as $opcao ): ?>
+                    <?php $cor_valor =  Mage::getModel('cores/cores')->obterCor($opcao['default_label']);  ?>
+                    <li>
+                        <?php if($cor_valor[0] == '#'): ?>
+                            <a onclick='Cores.selecionar(this); Cores.mudarImagem(<?php echo $opcao['value_index']; ?>, this);' <?php echo Mage::helper('cores')->validarEstoque($_product, $atributo['attribute_code'], $opcao['value_index']) && $contador_atributos == 0 ? 'class="desabilitado" data-status="desabilitado" ' : '' ; ?>  data-idatributo='<?php echo $atributo['attribute_id'] ?>' title='<?php echo $opcao["default_label"]; ?>' data-index='<?php echo $contador_atributos; ?>' data-atributo="<?php echo $atributo['attribute_code']; ?>" data-valor="<?php echo $opcao['value_index']; ?>" style=" background : <?php echo $cor_valor; ?>" >  </a>
+                        <?php else: ?>
+                            <a <?php echo Mage::helper('cores')->validarEstoque($_product, $atributo['attribute_code'], $opcao['value_index']) && $contador_atributos == 0 ? 'class="desabilitado"   data-status="desabilitado"   ' : '' ; ?>  onclick='Cores.selecionar(this); Cores.mudarImagem(<?php echo $opcao['value_index']; ?>, this); '  data-idatributo='<?php echo $atributo['attribute_id'] ?>' title='<?php echo $opcao["default_label"]; ?>' data-index='<?php echo $contador_atributos; ?>'  data-atributo="<?php echo $atributo['attribute_code']; ?>"  data-valor="<?php echo $opcao['value_index']; ?>"  ><img src="<?php echo str_replace('index.php/', '',   Mage::getBaseUrl() ) . 'media/cores/'.  $cor_valor; ?>" alt=""></a>
+                        <?php endif; ?>
+                    </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php else: ?>
+        <ul class='outros-lista-atributos' id='dados_<?php echo $atributo['attribute_code']; ?>' >
+            <?php foreach ($atributo['values'] as $opcao ): ?>
+            <li>
+                <a onclick='Cores.selecionar(this);' <?php echo Mage::helper('cores')->validarEstoque($_product, $atributo['attribute_code'], $opcao['value_index']) && $contador_atributos == 0  ? 'class="desabilitado" data-status="desabilitado"  ' : '' ; ?> title='<?php echo $opcao["default_label"]; ?>' data-idatributo='<?php echo $atributo['attribute_id'] ?>' data-index='<?php echo $contador_atributos; ?>' <?php if($contador_atributos > 0): echo  "data-status='desabilitado'"; endif; ?> data-atributo="<?php echo $atributo['attribute_code']; ?>"  data-valor="<?php echo $opcao['value_index']; ?>" ><?php echo $opcao['default_label']; ?></a>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php endif; ?>
+        <input id='campo_<?php echo $atributo["attribute_code"]; ?>' data-campolabel='<?php  echo $atributo["label"]; ?>' data-campocode='<?php echo $atributo["attribute_code"] ?>' data-campoindex='<?php echo $contador_atributos; ?>'  class='campos_atributo' name='atributos[<?php echo $atributo["attribute_code"]; ?>]' type="hidden" />
+        <br style='clear : left;' />
+        <?php $contador_atributos++; ?>
+    <?php endforeach ?>
+    <?php endif; ?>
+    </div>
+
+    <script type='text/javascript'>
+        jQuery(document).ready(function(){
+            CORES_URLBASE = '<?php echo Mage::getBaseUrl(); ?>';
+            CORES_IDPRODUTO = '<?php echo $_product->getId(); ?>';
+            jQuery('.btn-cart').attr('onclick','').unbind('click');
+            jQuery('.btn-cart').click(function(){
+
+                campos = jQuery('.campos_atributo');
+                validar = true;
+                var alerta_texto = '';
+                campos.each(function(indice){
+                    codigo = jQuery(this).attr('data-campocode');
+                    if(jQuery(this).val() == ''){
+                       alerta_texto += 'Selecione ' + jQuery(this).attr('data-campolabel') + '\n' ;
+                       validar = false;
+                    }
+                });
+                if(validar){
+                    productAddToCartForm.submit(this);
+                }else{
+                    alert(alerta_texto);
+                }
+            });
+        });
+    </script>
+
+<div class='no-display'>
+ <?php
+$_product    = $this->getProduct();
+$_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+?>
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+    <dl >
+    <?php foreach($_attributes as $_attribute): ?>
+        <dt><label class="required"><em>*</em><?php echo $_attribute->getLabel() ?></label></dt>
+        <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+            <div class="input-box">
+                <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+                    <option><?php echo $this->__('Choose an Option...') ?></option>
+                  </select>
+              </div>
+        </dd>
+    <?php endforeach; ?>
+    </dl>
+    <script type="text/javascript">
+        var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
+        productConfig = spConfig;
+    </script>
+<?php endif;?>
+
+</div>

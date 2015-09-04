@@ -1,0 +1,15 @@
+		.comprejunto {}
+		.comprejunto h2 { border-bottom: 1px solid #CCCCCC; color: #666666; font-size: 15px; margin-bottom: 20px; text-transform: uppercase; width: 640px; }
+		.comprejunto .produtos {}
+		.comprejunto .produtos li.item { border: 1px solid #CCCCCC; float: left; margin-bottom: 15px; padding: 10px 5px; width: 640px; }
+		.comprejunto .produtos li.item a.produto { float: left;height: 165px; width: 165px; margin: 0 5px; }
+		.comprejunto .produtos li.item .icon_mais { background: url("../images/comprejunto/icon_mais.png") no-repeat scroll center center transparent; float: left; height: 165px; width: 25px; }
+		.comprejunto .produtos li.item .opcoes { float: right; width: 255px; }
+		.comprejunto .produtos li.item .opcoes span { background: none repeat scroll 0 0 #ECECEC; float: left; margin-bottom: 5px; padding: 5px; width: 240px; }
+		.comprejunto .produtos li.item .opcoes span a { text-decoration:none; font-weight: bold; }
+		.comprejunto .produtos li.item .opcoes .antigo { color:#666; margin-bottom: 0; float: left; }
+        .comprejunto .produtos li.item .opcoes .antigo span { background: none; float: none; }
+        .comprejunto .produtos li.item .opcoes .novo { color:#000; font-size:15px; float: left; }
+		.comprejunto .produtos li.item .opcoes .selectAttr { margin-bottom: 5px; width: 100px; }
+		.comprejunto .produtos li.item .opcoes label { float: left; width: 70px; }
+		.comprejunto .produtos li.item .opcoes .loadingattr { background: none repeat scroll 0 0 transparent; display: none; float: left; padding-top: 23px; position: absolute; text-align: center; }

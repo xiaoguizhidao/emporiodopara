@@ -1,0 +1,15 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+	<default>
+		<reference name="head">
+				<action method="addJs"><script>comprejunto/funcoes_front.js</script></action>
+				<action method="addCss"><stylesheet>css/comprejunto.css</stylesheet></action>
+        </reference>
+	</default>
+	<catalog_product_view translate="label">
+		<reference name="product.info">
+			<block type="catalog/product_view" name="comprejunto" template="comprejunto/index.phtml" />
+		</reference>
+	</catalog_product_view>
+</layout>   
+	

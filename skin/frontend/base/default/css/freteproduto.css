@@ -1,0 +1,27 @@
+/*CSS destinado ao módulo de frete por produto*/
+
+.rate-button{ height : 30px;  background : black; border : 0 !important;  cursor: pointer; padding : 5px; width : 100px; }
+
+.rate-button span{ color : white;  }
+
+.rate-button:hover{ background: gray; }
+
+#postcode{ width  : 60px; height : 25px; }
+
+#freteproduto{ border : 1px solid lightgray;  padding : 20px; }
+
+#shipping-rates{ display : block; margin-top : 10px; }
+
+#fp-loader{ display : none;  margin-top : 30px;  }
+
+#fp-loader img{ display : block; margin : 0 auto; }
+
+#shipping-rates li{ margin-top: 5px; color : gray;  }
+
+.div-title{ min-width : 220px;  display : block;  }
+
+.div-shipping{ background : #ff9a9a; border : 1px solid #ff3434; padding : 5px;  }
+
+.error-shipping{ color : #ff3434;  }
+
+.attrshipping{  display : none !important; }

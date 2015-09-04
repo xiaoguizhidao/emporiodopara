@@ -1,0 +1,60 @@
+<?php
+/* MODULO DE CORES */
+$_product_id = Mage::getSingleton('core/session')->getData('id_color');
+$_product = Mage::getModel('catalog/product')->load($_product_id);
+?>
+
+<?php if($_product->getTypeId() == 'configurable') :
+
+    $atributos  = $_product->getTypeInstance(true)->getConfigurableAttributesAsArray($_product);
+    $cor_atributo = Mage::getStoreConfig('cores/config/codigo_cor');
+    $childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null,$_product);
+    ?>
+
+    <?php foreach ($atributos as $atributo): ?>
+    
+        <?php if ($atributo['attribute_code'] == $cor_atributo): ?>
+            <ul class='colors'>
+                <?php foreach ($atributo['values'] as $cor): ?>
+
+                    <?php $cor_image =  Mage::getModel('cores/cores')->obterCor($cor['default_label']); ?>
+                    <?php $thumbnail = 'no_selection'; ?>
+                    
+                    <?php foreach ($childProducts as $child) : ?>
+                        <?php $label_cor = Mage::getModel('cores/cores')->getColorLabelByColorId($child->getData($cor_atributo)) ?>
+                        <?php if ($label_cor == $cor['default_label']) : ?>
+            
+                            <?php
+                                $child_product = $child;
+                                if ($child->getThumbnail() != 'no_selection'){
+                                    $thumbnail = Mage::helper('catalog/image')->init($child, 'thumbnail', $child->getThumbnail())->resize(180);
+                                    break;
+                                }
+                            ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    
+                    <?php // Caso não exista thumbnail é selecionada a imagem do produto configurado ?>
+                    <?php if ($thumbnail == 'no_selection'): ?>
+                        <?php $thumbnail = Mage::helper('catalog/image')->init($_product, 'thumbnail', $_product->getThumbnail())->resize(180); ?>
+                    <?php endif ?>                  
+                    
+                    <?php // Verifica se a cor é hexa ou imagem ?>
+                    <?php if ($cor_image[0] != '#'): ?>
+                        <li class="color-list image <?php echo Mage::helper('cores')->validarEstoque($_product, $atributo['attribute_code'], $child_product->getData('color')) ? 'desabilitado' : '' ?>">
+                            <img class="change-image" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'cores/'.$cor_image ?>" alt="<?php echo $child->getName() ?>" configurable-image="<?php echo $thumbnail ?>" product-image="product-img-<?php echo $_product->getId() ?>">
+                        </li>
+                    <?php else: ?>
+                        <li class="color-list <?php echo Mage::helper('cores')->validarEstoque($_product, $atributo['attribute_code'], $child_product->getData('color')) ? 'desabilitado' : '' ?>">
+                            <a class="change-image" style="background-color: <?php echo $cor_image ?>" configurable-image="<?php echo $thumbnail ?>" product-image="product-img-<?php echo $_product->getId() ?>"></a>
+                        </li>
+
+                    <?php endif; ?>
+
+                <?php endforeach; ?>
+            </ul>
+        <?php endif ?>
+    <?php endforeach ?>
+<?php endif;  ?>
+<?php /* MODULO DE CORES */ ?>
+

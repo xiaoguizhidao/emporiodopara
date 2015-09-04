@@ -1,0 +1,8 @@
+#feedback { font-size: 1.4em; }
+#selectable .ui-selecting { background: #088CA6; border: 1px solid #088CA6; color: white; font-size: 13px; }
+#selectable .ui-selected { background: #088CA6; border: 1px solid #088CA6; color: white; font-size: 13px; }
+#selectable { list-style-type: none; margin: 0; padding: 0;}
+#selectable li { border: 1px solid #12B5D5; float: left; margin-top: 1px; padding: 5px; width: 96%; cursor:pointer; }
+.first_prod, .second_prod, .desconto { border: 1px solid #CCCCCC; float: left; margin-right: 10px; padding: 5px; width: 350px; }
+.first_prod input, .second_prod input, .desconto input { border: 1px solid #666666; float: left; height: 30px; width: 96%; color: #999999; padding-left: 10px; }
+.desconto .tipodesconto { height: auto; padding: 0 10px 0 0; width: auto; margin-right: 5px; }

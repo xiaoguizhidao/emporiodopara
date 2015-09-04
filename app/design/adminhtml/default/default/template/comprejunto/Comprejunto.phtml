@@ -1,0 +1,98 @@
+<form action="<?= Mage::getModel('adminhtml/url')->getUrl('admincomprejunto/Ajax/save') ?>" name="editForm" id="editForm" method="GET">
+	<div class="first_prod">
+		<h2>Produto 01 <img id="load" style="display:none;" src="/media/loadingadmin.gif" alt=""/></h2>
+		<input type="text" name="produto1" id="produto1" />
+		<ol id="selectable" class="selectable prod1">
+		</ol>
+		<input type="hidden" name="input_produto1" id="input_produto1" />
+	</div>
+	<div class="second_prod">
+		<h2>Produto 02 <img id="load" style="display:none;" src="/media/loadingadmin.gif" alt=""/></h2>
+		<input type="text" name="produto2" id="produto2" />
+		<ol id="selectable" class="selectable prod2">
+		</ol>
+		<input type="hidden" name="input_produto2" id="input_produto2" />
+	</div>
+	<div class="desconto">
+		<h2>Desconto (R$)</h2>
+		<p><input type="radio" class="tipodesconto" value="fixo" name="tipodesconto" checked> Valor fixo (R$) </p>
+		<p><input type="radio" class="tipodesconto" value="porcent" name="tipodesconto"> Porcentagem (%)</p>
+		<input type="text" name="desconto" id="desconto" onkeypress='return SomenteNumero(event)' class="required-entry" />
+	</div>
+</form>
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		
+		// Remove a ação padrao do botão de "Salvar"
+		jQuery('.save').removeAttr('onclick');
+		
+		// Verifica campos
+		jQuery('.save').click(function(event){
+			event.preventDefault();
+			
+			if(jQuery('#input_produto1').val() == '')
+				jQuery('#produto1, .first_prod').css('border','1px dashed red');
+			else
+				jQuery('#produto1, .first_prod').css('border','1px solid #CCCCCC');
+				
+			if(jQuery('#input_produto2').val() == '')
+				jQuery('#produto2, .second_prod').css('border','1px dashed red');
+			else
+				jQuery('#produto2, .second_prod').css('border','1px solid #CCCCCC');
+			
+			if(jQuery('#desconto').val() == '')
+				jQuery('#desconto, .desconto').css('border','1px dashed red');
+			else
+				jQuery('#desconto, .desconto').css('border','1px solid #CCCCCC');
+			
+			
+			if(jQuery('#input_produto1').val() != '' && jQuery('#input_produto2').val() != '' && jQuery('#desconto').val() != '')
+				jQuery('#editForm').submit();
+			
+		});
+		
+		jQuery('.selectable').on('click','li',function(){
+			var id = jQuery(this).attr('id');
+			jQuery(this).parent().parent().find('#input_produto1, #input_produto2').val(id);
+		});
+
+		var tempo = null; 
+		jQuery('#produto1, #produto2').keyup(function() {
+			var query = jQuery(this).val();
+			var qty   = query.length;
+			var atual = jQuery(this);
+			var tipo = jQuery(this).attr('id');
+			
+			
+			if(tipo == 'produto1')
+				var tipo = 'input_produto1';
+			else if(tipo == 'produto1')
+				var tipo = 'input_produto1';
+			
+			// Verificando e setando timeout para efetuar o ajax somente quando pausar a digitação
+			if (tempo != null) {
+				clearTimeout(tempo);
+			}
+			tempo = setTimeout(function() {
+			tempo = null;  
+			
+			// Verifica se já foi digitado 3 dígitos para efetuar a busca (Evita resultados inúteis e sobrecarregamento do servidor)
+			if(qty > 3){
+				jQuery(atual).parent().find('#load').show();
+				jQuery.ajax({
+					type: "GET",
+					url: "<?= Mage::getModel('adminhtml/url')->getUrl('admincomprejunto/Ajax/autocomplete') ?>",
+					data: "query="+query+"&tipo="+tipo,
+					success: function(data){ 
+						jQuery(atual).parent().find('#load').hide();
+						jQuery(atual).parent().find('#selectable').html(data);
+					}
+				});
+			}
+
+		  }, 500);  
+		});
+
+	});
+</script>

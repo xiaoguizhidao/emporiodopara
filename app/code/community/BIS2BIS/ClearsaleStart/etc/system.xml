@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <clearsalestart translate="label" module="clearsalestart">
+            <label>Gestão de Risco</label>
+            <sort_order>1</sort_order>
+        </clearsalestart>
+    </tabs>
+    <sections>
+        <clearsalestart translate="label" module="clearsalestart">
+            <tab>clearsalestart</tab>
+            <label>ClearSale Start</label>
+            <sort_order>130</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <config translate="label" module="clearsalestart">
+                    <label>ClearsaleStart</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>
+                    <![CDATA[
+                        <div style="padding:10px;background-color:#fff;border:1px solid #ddd;margin-bottom:7px;">
+                        Este módulo foi desenvolvido pela <a href="http://www.bis2bis.com.br" target="_blank">Bis2bis Comércio Eletrônico</a>.
+                        Por favor reportar bugs para <a href="mailto:suporte@bis2bis.com.br">suporte@bis2bis.com.br</a>.
+                        </div>
+                    ]]>
+                    </comment>
+                    <expanded>1</expanded>
+                    <fields>
+                        <environment translate="label">
+                            <label>Ambiente</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>clearsalestart/environment</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </environment>
+                        <token translate="label">
+                            <label>Token</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>99</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                       </token>
+                    </fields>
+                </config>
+            </groups>
+        </clearsalestart>
+    </sections>
+</config>

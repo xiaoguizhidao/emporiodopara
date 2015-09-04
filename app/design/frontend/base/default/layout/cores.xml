@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <default>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/cores/style.css</stylesheet></action>
+            <action method="addJs"><script>cores/cores.js</script></action>
+        </reference>
+    </default>
+
+    <PRODUCT_TYPE_configurable translate="label" module="catalog">
+        <reference name='product.info.options.configurable'>
+             <action method='setTemplate'><template>cores/index.phtml</template></action>
+        </reference>
+    </PRODUCT_TYPE_configurable>
+
+</layout> 
+

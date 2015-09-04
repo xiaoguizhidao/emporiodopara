@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Paypal
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+
+<config>
+	<modules>
+		<BIS2BIS_BoletoUltimate>
+			<version>1.0.0</version>
+			<depends>
+				<Mage_Payment />
+			</depends>
+		</BIS2BIS_BoletoUltimate>
+	</modules>
+	<global>
+		<models>
+			<boleto_ultimate>
+				<class>BIS2BIS_BoletoUltimate_Model</class>
+				<resourceModel>boleto_ultimate_mysql4</resourceModel>
+			</boleto_ultimate>
+			<boleto_ultimate_mysql4>
+                <class>BIS2BIS_BoletoUltimate_Model_Mysql4</class>
+                <entities>
+					<boleto_ultimate>
+						<table>boleto_ultimate</table>
+					</boleto_ultimate>
+				</entities>
+            </boleto_ultimate_mysql4>
+		</models>
+		<helpers>
+            <boleto_ultimate>
+                <class>BIS2BIS_BoletoUltimate_Helper</class>
+            </boleto_ultimate>
+        </helpers>
+		<resources>
+            <boleto_ultimate_setup>
+                <setup>
+                    <module>BIS2BIS_BoletoUltimate</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </boleto_ultimate_setup>
+            <boleto_ultimate_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </boleto_ultimate_write>
+            <boleto_ultimate_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </boleto_ultimate_read>
+        </resources>
+        <fieldsets>
+			<sales_convert_quote_payment>
+            	<boleto_ultimate>
+                    <to_order_payment>*</to_order_payment>
+                </boleto_ultimate>
+             </sales_convert_quote_payment>
+        </fieldsets>
+		<blocks>
+            <boleto_ultimate>
+            	<class>BIS2BIS_BoletoUltimate_Block</class>
+            </boleto_ultimate>
+        </blocks>
+        <template>
+            <email>
+                <boleto_ultimate_email_template translate="label" module="boleto_ultimate">
+                    <label>Boleto Bancário</label>
+                    <file>boleto_ultimate_email_template.html</file>
+                    <type>html</type>
+                </boleto_ultimate_email_template>
+            </email>
+        </template>
+	</global>
+	<frontend>
+		<routers>
+			<boleto_ultimate>
+				<use>standard</use>
+				<args>
+					<module>BIS2BIS_BoletoUltimate</module>
+					<frontName>boleto_ultimate</frontName>
+				</args>
+			</boleto_ultimate>
+		</routers>
+		<layout>
+            <updates>
+                <boleto_ultimate>
+                    <file>boleto_ultimate.xml</file>
+                </boleto_ultimate>
+            </updates>
+        </layout>
+	</frontend>
+	<adminhtml>
+		<layout>
+            <updates>
+                <boleto_ultimate>
+                    <file>boleto_ultimate.xml</file>
+                </boleto_ultimate>
+            </updates>
+        </layout>
+        <acl>
+	        <resources>
+	            <admin>
+	                <children>
+	                    <system>
+	                        <children>
+	                            <config>
+	                                <children>
+	                                    <boleto_ultimate>
+	                                        <title>Boleto Bancário</title>
+	                                        <frontend_type>text</frontend_type>
+            								<sort_order>1050</sort_order>
+	                                    </boleto_ultimate>
+	                                </children>
+	                            </config>
+	                        </children>
+	                    </system>
+	                </children>
+	            </admin>
+	        </resources>
+	    </acl>
+	</adminhtml>
+	<default>
+		<payment>
+			<boleto_ultimate>
+				<active>0</active>
+				<title>Boleto Bancário</title>
+				<bancos_ativos>bb</bancos_ativos>
+				<segunda_via_front>1</segunda_via_front>
+				<available_order_status>pending</available_order_status>
+				<logoempresa>default/logo_empresa.png</logoempresa>
+				<active_homologacao>0</active_homologacao>
+				<email_homolagacao>suporte@bis2bis.com.br</email_homolagacao>
+				<sort_order>0</sort_order>
+				<model>BIS2BIS_BoletoUltimate_Model_Standard</model>
+				<mensagem_form>Você será redirecionado para a página de sucesso. Para gerar o boleto clique em Imprimir Boleto Bancário.</mensagem_form>
+				<active_send>0</active_send>
+                <subject_send>Segunda Via</subject_send>
+			</boleto_ultimate>
+		</payment>
+		<boleto_ultimate>
+			<layout_bb>
+				<name>Banco do Brasil</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+			</layout_bb>
+			<layout_bradesco>
+				<name>Bradesco</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+			</layout_bradesco>
+			<layout_cef>
+				<name>Caixa Econômica Federal</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+			</layout_cef>
+			<layout_cef_sinco>
+				<name>Caixa Econômica Federal Sinco</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+				<campo_fixo_obrigatorio>1</campo_fixo_obrigatorio>
+			</layout_cef_sinco>
+			<layout_cef_sigcb>
+				<name>Caixa Econômica Federal Sigcb</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+				<nosso_numero1>000</nosso_numero1>
+				<nosso_numero_const1>2</nosso_numero_const1>
+				<nosso_numero2>000</nosso_numero2>
+				<nosso_numero_const2>4</nosso_numero_const2>
+			</layout_cef_sigcb>
+			<layout_hsbc>
+				<name>HSBC</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+			</layout_hsbc>
+			<layout_itau>
+				<name>Itaú</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+			</layout_itau>
+			<layout_santander_banespa>
+				<name>Santander Banespa</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+			</layout_santander_banespa>
+			<layout_sicoob>
+				<name>Sicoob</name>
+				<vencimento>5</vencimento>
+				<instrucoes_boleto>
+- Não receber após vencimento.
+- Não receber pagamento em cheque.
+				</instrucoes_boleto>
+			    <informacoes>
+- Pagamento do pedido efetuado na loja www.bis2bis.com.br.
+- Nº do pedido: #%s, para maiores detalhes e 2ª via do boleto acesse o histórico do seu pedido.
+				</informacoes>
+                <especie>R$</especie>
+                <especie_doc>DM</especie_doc>
+				<aceite>N</aceite>
+			</layout_sicoob>
+		</boleto_ultimate>
+	</default>
+</config>

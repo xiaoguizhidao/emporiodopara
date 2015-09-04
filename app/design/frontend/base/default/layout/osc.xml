@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    
+    <!-- sobrescreve o cadastro de clientes -->
+   
+    <customer_account_create translate="label">
+        <reference name='head'>
+            <action method="removeItem"><type>js</type><name>jquery/validate.js</name></action>
+            <action method="removeItem"><type>js</type><name>jquery/util.validate.js</name></action>
+            <action method="addJs"><script>jquery/validate.js</script></action>
+            <action method="addJs"><script>jquery/util.validate.js</script></action>
+            <action method="addJs"><script>osc/jquery.maskedinput.min.js</script></action>
+            <action method="addJs"><script>osc/bis2bis_mask.js</script></action>
+            <action method="addJs"><script>osc/address_features.js</script></action>
+        </reference>
+        <reference name="customer_form_register">
+            <action method="setTemplate">
+                <template>osc/customer/form/register.phtml</template>
+            </action>
+        </reference>
+    </customer_account_create>
+    
+    <customer_account_edit translate="label">
+        <reference name='head'>
+            <action method="removeItem"><type>js</type><name>jquery/validate.js</name></action>
+            <action method="removeItem"><type>js</type><name>jquery/util.validate.js</name></action>
+            <action method="addJs"><script>jquery/validate.js</script></action>
+            <action method="addJs"><script>jquery/util.validate.js</script></action>
+            <action method="addJs"><script>osc/jquery.maskedinput.min.js</script></action>
+            <action method="addJs"><script>osc/bis2bis_mask.js</script></action>
+            <action method="addJs"><script>osc/address_features.js</script></action>
+        </reference>
+        <reference name="my.account.wrapper">
+            <block type="customer/form_edit" name="customer_edit" template="osc/customer/form/edit.phtml"/>
+        </reference>
+    </customer_account_edit>
+    
+    
+    <customer_address_form translate="label">
+        <reference name='head'>
+            <action method="removeItem"><type>js</type><name>jquery/validate.js</name></action>
+            <action method="removeItem"><type>js</type><name>jquery/util.validate.js</name></action>
+            <action method="addJs"><script>jquery/validate.js</script></action>
+            <action method="addJs"><script>jquery/util.validate.js</script></action>
+            <action method="addJs"><script>osc/jquery.maskedinput.min.js</script></action>
+            <action method="addJs"><script>osc/bis2bis_mask.js</script></action>
+            <action method="addJs"><script>osc/address_features.js</script></action>
+        </reference>
+        <reference name="customer_address_edit">
+            <action method="setTemplate" >
+                <template>osc/customer/address/edit.phtml</template>
+            </action>
+        </reference>
+    </customer_address_form>
+    
+    
+    <!-- sobrescreve o cadastro de clientes -->
+    <osc_onepage_login>         
+        <remove name="header"/>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <block type="osc/Header" name="osc/header" as="header" template="osc/header.phtml"/>
+            <action method="addCss"><stylesheet>css/osc/osc.css</stylesheet></action>
+        </reference>
+        <remove name="left" /> 
+        <reference name="content">
+            <block type="page/html" name="login" template="osc/login.phtml" >
+            </block>            
+        </reference>
+    </osc_onepage_login>
+    
+    
+    <osc_success_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/osc/osc.css</stylesheet></action>
+        </reference>
+        <remove name="left" /> 
+        <reference name="content">
+            <block type="osc/success" name="osc/success" template="osc/success.phtml" >
+            </block>
+
+        </reference>
+    </osc_success_index>
+
+
+    <osc_onepage_checkout>
+
+        <remove name="header"/>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+     
+        <reference name="head">
+            <block type="osc/Header" name="osc/header" as="header" template="osc/header.phtml"/>
+            <action method="addJs"><script>osc/jquery.validate.min.js</script></action>
+            <action method="addJs"><script>jquery/util.validate.js</script></action>
+            <action method="addJs"><script>osc/jquery.maskedinput.min.js</script></action>
+            <action method="addJs"><script>osc/bis2bis_mask.js</script></action>
+            <action method="addJs"><script>osc/jquery.fancybox.js</script></action>
+            <action method="addJs"><script>osc/Osc.js</script></action>
+            <action method="addCss"><stylesheet>css/osc/osc.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/osc/jquery.fancybox.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="osc/Main" name="osc/main" template="osc/main.phtml" >
+                
+                <block type="page/html" name="billing_address_form" as="billing_address_form" template="osc/onestepcheckout/billing/form.phtml">
+                      <block type="page/html" name="billing_address_header" as="billing_address_header" template="osc/onestepcheckout/billing/header.phtml" />
+                </block>
+                
+                <block type="page/html" name="shipping_address_form" as="shipping_address_form" template="osc/onestepcheckout/shipping/form.phtml">
+                      <block type="page/html" name="shipping_address_header" as="shipping_address_header" template="osc/onestepcheckout/shipping/header.phtml" />
+                </block>
+                
+                <block type="page/html" name="shipping_methods" as="shipping_methods" template="osc/onestepcheckout/shipping/methods/shippingmethods.phtml">
+                    <block type="page/html" name="shipping_method_header" as="shipping_method_header" template="osc/onestepcheckout/shipping/methods/header.phtml" />
+                    <block type="checkout/onepage_shipping_method" name="onestepcheckout.onepage.shipping_method" as="shipping_method" template="osc/daskboard/onepage/shipping_method.phtml">
+                        <block type="checkout/onepage_shipping_method_available" name="onestepcheckout.onepage.shipping_method.available" as="available" template="osc/daskboard/onepage/shipping_method/available.phtml"/>
+                        <block type="onestepcheckout/checkout_onepage_shippingmethod_deliverydate" name="onestepcheckout.onepage.shippingmethod.deliverydate" as="deliverydate" template="osc/daskboard/onepage/shipping_method/deliverydate.phtml"/>           
+                    </block>
+                </block>
+
+                <block type="page/html" name="payment_methods" template="osc/onestepcheckout/payment/paymentmethod.phtml">
+                    <block type="page/html" name="payment_method_header" as="payment_method_header" template="osc/onestepcheckout/payment/header.phtml" />
+                    <block type="checkout/onepage_payment" name="onestepcheckout.onepage.payment" as="payment" template="osc/daskboard/onepage/payment.phtml">
+                        <block type="checkout/onepage_payment_methods" name="onestepcheckout.onepage.payment.methods" as="methods" template="osc/daskboard/onepage/payment/methods.phtml"/>
+                    </block>
+                </block>
+
+                <block type="page/html" name="coupon_code" template="osc/onestepcheckout/coupon/coupon.phtml">
+                    <block type="page/html" name="coupon_header" template="osc/onestepcheckout/coupon/header.phtml">
+                    </block>
+                    <block type="page/html" name="coupon_container" template="osc/onestepcheckout/coupon/container.phtml">
+                    </block>
+                </block>
+
+                <block type="page/html" name="review" template="osc/daskboard/onepage/review.phtml" >
+                    <block type="page/html" name="review_header" as="review_header" template="osc/onestepcheckout/review/header.phtml" />
+                    <block type="checkout/onepage_review_info" name="info"  template="osc/daskboard/onepage/review/info.phtml">
+                        <action method="addItemRender">
+                            <type>default</type>
+                            <block>checkout/cart_item_renderer</block>
+                            <template>osc/daskboard/onepage/review/item.phtml</template>
+                        </action>
+                        <action method="addItemRender">
+                            <type>grouped</type>
+                            <block>checkout/cart_item_renderer_grouped</block>
+                            <template>osc/daskboard/onepage/review/item.phtml</template>
+                        </action>
+                        <action method="addItemRender">
+                            <type>configurable</type>
+                            <block>checkout/cart_item_renderer_configurable</block>
+                            <template>osc/daskboard/onepage/review/item.phtml</template>
+                        </action>
+                        <action method="addItemRender">
+                            <type>bundle</type>
+                            <block>bundle/checkout_cart_item_renderer</block>
+                            <template>osc/daskboard/onepage/review/item.phtml</template>
+                        </action>
+                        <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="osc/daskboard/onepage/review/totals.phtml"/>
+                        <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before"/>
+                    </block>
+                    <block type="onestepcheckout/checkout_onepage_review_options" name="checkout.onepage.review.options" as="options" template="osc/daskboard/onepage/review/options.phtml">
+                        <block type="checkout/onepage_shipping_method_additional" name="onestepcheckout.onepage.shipping_method.additional" as="additional" template="osc/daskboard/onepage/review/options/additional.phtml"/>
+                        <block type="checkout/cart_coupon" name="checkout.onepage.coupon" as="coupon" template="osc/daskboard/onepage/coupon.phtml"/>
+                    </block>
+                    <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="osc/daskboard/onepage/agreements.phtml"/>
+
+                </block>
+                <block type="page/html" name="alert" as="alert" template="osc/alert.phtml"></block>
+                <block type="page/html" name="loader" as="loader" template="osc/loader.phtml"></block>
+                <block type="page/html" name="button_top" as="button_top" template="osc/button_top.phtml"></block>
+                <block type="page/html" name="button" as="button" template="osc/button.phtml"></block>
+                <block type="osc/Footer" name="osc_footer" as="osc_footer" template="osc/footer.phtml">
+                </block>
+             </block>
+             
+        </reference>
+    </osc_onepage_checkout>
+
+
+</layout> 
+

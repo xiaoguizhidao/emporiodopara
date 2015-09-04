@@ -1,0 +1,75 @@
+/*
+
+  ░░░░░░░░  ░░  ░░░░░░░░  ░░░░░░░░  ░░░░░░░░  ░░  ░░░░░░░░        
+  ░░    ░░  ░░  ░░░             ░░  ░░    ░░  ░░  ░░
+  ░░░░░░░░  ░░  ░░░░░░░░  ░░░░░░░░  ░░░░░░░░  ░░  ░░░░░░░░
+  ░░    ░░  ░░        ░░  ░░        ░░    ░░  ░░        ░░
+  ░░░░░░░░  ░░  ░░░░░░░░  ░░░░░░░░  ░░░░░░░░  ░░  ░░░░░░░░
+
+  ░░░░░░░░  ░░░░░░░░  ░░░░░░░░
+  ░░        ░░		    ░░
+  ░░		    ░░░░░░░░  ░░░░░░░░
+  ░░              ░░  		  ░░
+  ░░░░░░░░  ░░░░░░░░  ░░░░░░░░
+
+############################################################################################
+############################################################################################
+########  BIS2BIS - COMÉRCIO ELETRÔNICO                                                    #
+########  Módulo : Banner                                                                  #
+########  Desenvolvedor : Guilherme Costa                                                  #
+########  Email : guilherme.costa@bis2bis.com.br                                           #
+########  Descrição : ESTILOS CSS                                                          #
+############################################################################################
+############################################################################################
+*/
+
+
+/*ESQUERDA*/
+#banner_left li{ width: 100%; margin-bottom : 5px; }
+
+/*DIREITA*/
+#banner_right li{ width: 100%; margin-bottom : 5px; }
+
+
+/*RODAPÉ*/
+#banner_footer li{ margin-bottom : 5px; float : left; display: block; }
+#banner_footer{ margin-bottom : 5px;}
+
+/*CONTEÚDO*/
+#banner_container li{ width: 100%; height: 300px; }
+#banner_container li #flash_container{ width : 100%; height: 300px; }
+
+
+/*CATEGORIA*/
+#banner_category li{ width: 100%; margin-bottom : 5px; height: 300px; }
+#banner_category li #flash_container{ width : 100%;  }
+
+/*TOPO*/
+
+
+#banner_top{height:458px; }
+#banner_top li{ width: 100% !important; height: 100%; /* -> responsive */}
+#banner_top li #flash_container{ width : 100%; height: 400px; }
+#banner_top img { width: 100%; }
+
+ul#banner_top { width:100%; margin-left:0;}
+
+#banner_wrapper_top .setas { z-index: 99;}
+
+/*#banner_wrapper_top .setas .next,
+#banner_wrapper_top .setas .prev  { background: transparent url("../images/next.png") no-repeat top center; height: 37px; width: 22px; position:absolute; right:25%; bottom:17%; z-index:9999;}
+#banner_wrapper_top .setas .prev { background: transparent url("../images/prev.png") no-repeat top center; right:28%;}*/
+
+#BannerHome .content-static{position: relative;z-index: 999;width:995px;margin:-3% auto 0;}
+#BannerHome .content-static ul{ margin:0; }
+#BannerHome .content-static ul li{ margin:0; text-align:center;display:inline-block; margin-left:-5px;width:33%;}
+#BannerHome .content-static ul li.last{ margin:0; }
+#BannerHome .content-static ul li img{ width:100%; border:1px solid #fff;}
+
+/*WRAPPER*/
+#banner_wrapper_top{ /* responsive */ width : 67%; margin : 0; position:relative; float: left }
+
+/*PAGINAÇÃO*/
+.pager-banner{ float : right; margin-top : -43px; margin-bottom : 5px; position: absolute; right: 0; z-index: 9; }
+.pager-banner a{ padding : 2px 7px; background: #4C8E47; text-decoration : none; display : block; float : left; margin-left : 5px; color : #FFF; font-family: arial; font-weight: bold; }
+.pager-banner a.activeSlide{ background: #194822; color: #000;}

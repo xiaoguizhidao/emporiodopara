@@ -1,0 +1,205 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Category layered navigation state
+ *
+ * @see Mage_Catalog_Block_Layer_State
+ */
+?>
+<?php $_filters = $this->getActiveFilters() ?>
+<?php if(!empty($_filters)): ?>
+<div class="currently">
+    <p class="block-subtitle"><?php echo $this->__('Currently Shopping by:') ?></p>
+    <ol>
+    <?php foreach ($_filters as $_filter): ?>
+        <?php 
+         // ==========================
+         // Configuração do Preço
+         // ==========================
+         ?>
+
+        <?php if(get_class($_filter->getFilter()) != 'Mage_Catalog_Model_Layer_Filter_Category'): ?>
+        
+        <?php  $cor = Mage::getStoreConfig('filtro/config/atributo_cor');  ?>
+        <?php  $atributo_cor = $cor ; ?>
+        <?php  $cod_atributo = $_filter->getFilter()->getAttributeModel()->getAttributeCode(); ?>
+
+        <?php if($cod_atributo != 'price'): ?>
+        <?php  $preco_habilitado = Mage::getStoreConfig('filtro/config/preco_habilitado');  ?>
+        <?php if($preco_habilitado == 1): ?>
+            <li>
+                <a href="<?php echo $_filter->getRemoveUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
+                <span class="label"><?php echo $this->__($_filter->getName()) ?>:</span> 
+                <?php if($cod_atributo == $atributo_cor): ?>
+                    <?php 
+                    $modulo = Mage::getStoreConfig('filtro/config/modulo_cor');
+                    if($modulo == BIS2BIS_Filtro_Model_Cores::SEM_MODULO){
+                    ?>
+                         <?php echo $this->stripTags($_filter->getLabel()) ?>
+                    <?php
+                    }else if($modulo == BIS2BIS_Filtro_Model_Cores::ANTIGO_MODULO){
+
+                    }else if($modulo == BIS2BIS_Filtro_Model_Cores::V1_MODULO){
+
+                        $option =  $_filter->getValueString();
+                        $color_model = Mage::getModel('color/colorregister')->getCollection()->addFieldToFilter('color_id', $option)->getFirstItem();
+                        $color_img = $color_model->getData('color_img');
+                        $color_value = $color_model->getData('color_value');
+
+                        if($color_img != ''){
+                        ?>
+                            <a  ><img src="<?php echo Mage::helper('attributeoptionimage')->getAttributeOptionImage($option); ?>" alt="<?php echo $_filter->getLabel(); ?>" title="<?php echo $_item->getLabel(); ?>"    ></a>
+                        <?php }else{ ?>
+                            <a   style="width : 20px;  height : 20px; display : block; background : <?php echo $color_value; ?>"  alt="<?php echo $_filter->getLabel(); ?>" title="<?php echo $_filter->getLabel(); ?>"  > </a>
+                        <?php }
+                        
+                    }else if($modulo == BIS2BIS_Filtro_Model_Cores::V2_MODULO){
+
+                        $cor = Mage::getModel('cores/cores')->obterCor($_filter->getLabel());
+                        if($cor[0] == '#'){
+                            ?>
+                            <a  title='<?php echo $_filter->getLabel(); ?>' style="display : inline-block; background : <?php echo $cor; ?>; width : 20px; height : 20px;">  </a>
+                            <?php
+                        }else if($cor[0]){
+                            ?>
+                            <img width='20' height='20' src="<?php echo str_replace('/index.php',  '' , Mage::getBaseUrl() . 'media/cores/'.  $cor ); ?>" alt="">
+                            <?php
+                        }
+                        
+                    }else if($modulo == BIS2BIS_Filtro_Model_Cores::UPLOAD_IMAGEM){
+                    ?> 
+                        <?php $option =  $_filter->getValueString();  ?>
+                        <img src="<?php echo Mage::helper('attributeoptionimage')->getAttributeOptionImage($option); ?>" alt="<?php echo $_filter->getLabel(); ?>" title="<?php echo $_filter->getLabel(); ?>"    >
+                    <?php 
+                    }
+                    ?>
+                <?php else: ?>
+                    <?php echo $this->stripTags($_filter->getLabel()) ?>
+                <?php endif; ?>
+            </li>
+        <?php endif; ?>
+        <?php else : ?>
+            <?php 
+            $preco = $this->getRequest()->getParam('price');
+            $preco = explode(',', $preco);
+            $preco_2 = ($preco[1]*$preco[0]) - 2;
+            $preco_1 = ($preco_2 - $preco[1]) + 2;
+            ?>
+
+            <?php 
+            
+            $categoria_atual = Mage::registry('current_category');
+            
+
+
+            $contador_parametros =  count($this->getRequest()->getParams());
+
+
+            if($contador_parametros <= 1){
+
+                $url_cat = $categoria_atual->getUrl() . '?' ;
+            
+            }else{
+                // $url_cat = str_replace("/index.php/", '', Mage::getBaseUrl()) . $_SERVER['REQUEST_URI'] . '&' ;
+                $url_cat = $categoria_atual->getUrl() . '?' . $_SERVER['REDIRECT_QUERY_STRING'] . '&' ;
+                $price = ($this->getRequest()->getParam("price"));
+                $price = str_replace(',', '%2C', $price);
+                $url_cat = str_replace('price=' . $price . '&', '', $url_cat);
+                $url_cat = str_replace('price=' . $price  , '', $url_cat);
+            }
+
+            
+            $produtos = $categoria_atual->getProductCollection();
+            
+            // $menor_preco =  $produtos->addAttributeToSelect('price')->setOrder('price', 'ASC')->getFirstItem()->getFinalPrice();
+
+            $item = $produtos->addAttributeToSelect('price')->setOrder('price', 'ASC')->getFirstItem();
+            if($item->getTypeId() == 'bundle'){
+                $menor_preco = $item->getMaxPrice();
+            }else{
+                $menor_preco = $item->getFinalPrice();
+            }
+
+            $produtos = $categoria_atual->getProductCollection();
+
+            // $maior_preco =  $produtos->addAttributeToSelect('price')->setOrder('price', 'DESC')->getFirstItem()->getFinalPrice();
+
+            $item = $produtos->addAttributeToSelect('price')->setOrder('price', 'DESC')->getFirstItem();
+            if($item->getTypeId() == 'bundle'){
+                $maior_preco = $item->getMaxPrice();
+            }else{
+                $maior_preco = $item->getFinalPrice();
+            }
+
+            $menor_preco -= 50;
+
+            $maior_preco += 50;
+
+            if($menor_preco <= 0){
+                $menor_preco = 1 ;
+            }
+
+
+            ?>
+            <br/>
+            <input id="pricefilter" type="slider" name="price" value="<?php echo $preco_1 ?>;<?php echo $preco_2; ?>" />
+
+            <script type='text/javascript'>
+            jQuery.noConflict();
+
+            jQuery(document).ready(function(){
+                jQuery("#pricefilter").slider({ 
+                    from: <?php echo $menor_preco; ?>,  to: <?php echo $maior_preco; ?>,  
+                    format: { format: '##.00', locale: 'pt' },  
+                    step: 2, smooth: true, round: 2,
+                    skin: 'blue',
+                    callback: function( value ){
+                        valores = value.split(';');
+                        valor_1 = valores[0];
+                        valor_2 = parseFloat(valores[1]) + 2;
+                        diferenca = valor_2 - valor_1;
+                        inicio = valor_2/diferenca;
+                        string_busca = inicio + '%2C' + (diferenca);
+                        window.location = "<?php echo $url_cat; ?>price="+string_busca;
+
+                    }
+                });
+            });
+            </script>
+        <?php endif; ?>
+    <?php else: ?>
+        <a href="<?php echo $_filter->getRemoveUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
+            <span class="label"><?php echo $this->__($_filter->getName()) ?>:</span> 
+            <?php echo $this->stripTags($_filter->getLabel()) ?>
+    <?php endif; ?>
+    <?php endforeach; ?>
+    </ol>
+    <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+</div>
+<?php endif; ?>
+

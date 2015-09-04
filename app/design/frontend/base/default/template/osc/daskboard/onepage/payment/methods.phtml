@@ -1,0 +1,90 @@
+<dl class="sp-methods" id="checkout-payment-method-load">
+
+<?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+
+    <dt>
+	    <?php if(sizeof($this->getMethods()) > 1 ): ?>
+	        <input  id="p_method_<?php echo $_code ?>"  data-code='<?php echo $_code; ?>'  value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>"   <?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> class="radio payment_method_handle" />
+	    <?php else: ?>
+	        <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" class="radio payment_method_handle" /></span>
+	    <?php endif; ?>
+
+	    <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+
+    </dt>
+
+	<?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
+		<dd>
+			<form class="formpaymentmethod form_payment_<?php echo $_code ?>" method="POST" >
+				<?php echo $html; ?>
+			</form>
+		</dd>
+	<?php endif; ?>
+
+
+<?php if(sizeof($this->getMethods()) == 1): ?>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('.form-list').show();
+		metodo_pagamento = '<?php echo $_code; ?>';
+	});
+</script>
+<?php endif; ?>
+	
+<?php endforeach; ?>
+</dl>
+
+<ul id='payment_error' class="error_osc_msg">
+
+</ul>
+
+<script type='text/javascript'>
+	// Fix ONCLICK! - Foi feito a correção do Onclick pois em algumas lojas não estavam fechando pedido no Internet Explorer!
+	jQuery(document).ready(function(){
+		var i = 0;
+        jQuery('#checkout-payment-method-load.sp-methods dt').each(function(){
+            i++;
+        });
+        if(i > 1){
+            jQuery('.payment_method_handle').click(function(){
+                OscPagamento.mudarMetodoPagamento(jQuery(this).attr('data-code'));
+                OscPagamento.limparErroPagamento();
+            });
+        }else{
+        	OscPagamento.mudarMetodoPagamento(metodo_pagamento);
+        	OscPagamento.limparErroPagamento();
+        }
+
+        /*
+        Guilherme Costa : 22/10/2013
+        Caso o cliente selecione um método de pagamento que tenha formulário e depois atualize um passo anterior
+        foi criado esse passo para corrigir esse problema.
+        */
+        if(!jQuery('#p_method_'+metodo_pagamento).is(':checked')){
+            jQuery('#p_method_'+metodo_pagamento).click(); // fix
+        }
+
+        if(OscTela.isFormulario(metodo_pagamento)){
+        	jQuery('#p_method_'+metodo_pagamento).click();
+        }
+	})
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

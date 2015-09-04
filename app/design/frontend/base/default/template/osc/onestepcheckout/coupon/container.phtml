@@ -1,0 +1,34 @@
+<div id='coupon_container'>
+	<fieldset>
+		<label for="coupon">
+			Código : 
+			<?php $carrinho = Mage::getSingleton('checkout/cart'); ?>
+			<?php $cupomDesconto = $carrinho->getQuote()->getCouponCode(); ?>
+			<input id='coupon' class='text_coupon input-text' type="text" />
+			<span class='span_coupon'><?php echo $cupomDesconto;  ?></span>
+			<button title='Usar cupom' class='button_coupon_use' onclick='OscCupom.usar();' ><span>Usar</span></button >
+			<button title='Remover cupom' class='button_coupon_cancel' onclick='OscCupom.remover();' ><span>Cancelar</span></button>
+		</label>
+	</fieldset>
+	
+	<ul id='coupon_error' class="error_osc_msg">
+	</ul>
+
+	<ul id='coupon_success' class="success_osc_msg">
+	</ul>
+
+</div>
+
+<?php if($cupomDesconto): ?>
+<script type='text/javascript'>
+	jQuery(document).ready(function(){
+		OscCupom.cupomExiste(); // exibe o span com o cupom
+	});
+</script>
+<?php else: ?>
+<script type='text/javascript'>
+	jQuery(document).ready(function(){
+		OscCupom.cupomNExiste(); // exibe campo de texto
+	});
+</script>
+<?php endif; ?>

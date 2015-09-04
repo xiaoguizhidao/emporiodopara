@@ -1,0 +1,16 @@
+<div class="header-container">
+
+<?php $customer = Mage::getSingleton("customer/session"); ?>
+
+	<div class="header">
+		
+		<a href='<?php echo $this->getBaseUrl(); ?>' class="logo"><img  src='<?php echo $this->getSkinUrl() . 'images/logo.png'; ?>' /></a>
+		
+		<div class="back-to-catalog">
+			<p>Atendimento e Televendas: <?php echo Mage::getStoreConfig('general/store_information/phone');  ?></p>
+			<a href='<?php echo $this->getBaseUrl(); ?>'>Voltar ao catálogo</a>
+		</div>
+
+	</div>
+
+</div>

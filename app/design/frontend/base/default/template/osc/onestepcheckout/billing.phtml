@@ -1,0 +1,33 @@
+<?php 
+# Módulo OneStepCheckout
+# Página Billing
+?>
+<?php $customer = Mage::getSingleton("customer/session"); ?>
+<?php 
+if($customer->isLoggedIn())
+{
+    $customer_model = Mage::getModel("customer/customer")->load($customer->getCustomer()->getData("entity_id"));
+    $number_of_address = count($customer_model->getAddresses());
+}
+?>
+<br/>
+	<!-- @DEPRECATED
+    <table>
+        <tr>
+            <td style="vertical-align: middle;">
+                <img src='<?php echo $this->getSkinUrl() . "images/osc/onestepcheckout-numbers-1.png" ; ?>' />
+            </td>
+            <td style="vertical-align: middle;">
+                <span class="billing_header_text" >ENDERE&Ccedil;O DE COBRAN&Ccedil;A</span>
+            </td>
+        </tr>
+    </table>
+    -->
+    <ul class="ul_billing_address_header">
+		<li class="li_billing_address_header" ><img src='<?php echo $this->getSkinUrl() . "images/osc/onestepcheckout-numbers-1.png" ; ?>' /></li>
+		<li class="li_billing_address_header" ><h4>ENDERE&Ccedil;O DE COBRAN&Ccedil;A</h4></li>
+	</ul>
+<?php if(!$customer->isLoggedIn()): ?>
+    <?php echo $this->getChildHtml("osc/onestepcheckout_billing_form"); ?>
+<?php endif; ?>
+

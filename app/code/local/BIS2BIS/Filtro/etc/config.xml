@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+    
+    <modules>
+        <BIS2BIS_Filtro>
+            <version>0.1.0</version>
+        </BIS2BIS_Filtro>
+    </modules>
+
+    <frontend>
+        <routers>
+            <filtro>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Filtro</module>
+                    <frontName>filtro</frontName>
+                </args>
+            </filtro>
+        </routers>
+        <layout>
+            <updates>
+                <filtro>
+                    <file>filtro.xml</file>
+                </filtro>
+            </updates>
+        </layout>  
+    </frontend>
+    
+    <admin>
+        <routers>
+            <filtro>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Filtro</module>
+                    <frontName>filtro</frontName>
+                </args>
+            </filtro>
+        </routers>    
+    </admin>
+    
+    <adminhtml> 
+        <layout>
+            <updates>
+                <filtro>
+                    <file>filtro.xml</file>
+                </filtro>
+            </updates>
+        </layout>  
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <filtro>
+                                            <title>Configuração de Filtro</title>
+                                        </filtro>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+
+    
+    <global>
+     
+        <models>
+            <filtro>
+                <class>BIS2BIS_Filtro_Model</class>
+                <resourceModel>filtro_mysql4</resourceModel>
+            </filtro>
+            <filtro_mysql4>
+                <class>BIS2BIS_Filtro_Model_Mysql4</class>
+                <entities>
+                    <filtro>
+                        <table>filtro</table>
+                    </filtro>
+                </entities>
+            </filtro_mysql4>
+        </models>
+        <resources>
+            <filtro_setup>
+                <setup>
+                    <module>BIS2BIS_Filtro</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </filtro_setup>
+            <filtro_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </filtro_write>
+            <filtro_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </filtro_read>
+        </resources>
+        <blocks>
+            <filtro>
+                <class>BIS2BIS_Filtro_Block</class>
+            </filtro>
+            <catalog>
+                <rewrite>
+                    <layer_filter_price>BISB2IS_Filtro_Block_Catalog_Layer_Filter_Price</layer_filter_price>
+                    <layer_filter_attribute>BIS2BIS_Filtro_Block_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
+                    <layer_filter_category>BIS2BIS_Filtro_Block_Catalog_Layer_Filter_Category</layer_filter_category>
+                    <layer_filter_decimal>BIS2BIS_Filtro_Block_Catalog_Layer_Filter_Decimal</layer_filter_decimal>
+                    <layer_view>BIS2BIS_Filtro_Block_Catalog_Layer_View</layer_view>
+                    <layer_state>BIS2BIS_Filtro_Block_Catalog_Layer_State</layer_state>
+                </rewrite>
+            </catalog>
+            
+        </blocks>
+        <helpers>
+            <filtro>
+                <class>BIS2BIS_Filtro_Helper</class>
+            </filtro>
+        </helpers>
+
+    </global>
+
+</config>

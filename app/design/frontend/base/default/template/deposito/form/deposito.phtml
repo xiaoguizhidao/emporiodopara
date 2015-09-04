@@ -1,0 +1,66 @@
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('.logo_banco').click(function(){
+			var id = jQuery(this).attr('id');
+			
+			// remove as classes ativas e remove as informações dos bancos de modo geral
+			jQuery('.logo_banco').removeClass('active');
+			jQuery('.info_bancos span').hide();
+
+			// adiciona a classe ativa para o elemento atual e mostra a informação do mesmo
+			jQuery(this).addClass('active');
+			jQuery('.info_bancos span.'+id).show();
+
+            jQuery('#'+id+'_deposito').attr("checked",true);
+            jQuery('#'+id+'_deposito').delay(800).click();
+		});
+	});
+</script>
+<style type="text/css">
+	li.opcoes_deposito { display:none; }
+	.logo_banco { float: left; height: 45px; margin: 5px 5px 0 0; width: 46px; cursor:pointer; border: 2px solid #fff; }
+	.logo_banco.active { border: 2px solid #006C81; }
+	#payment_form_deposito { float: left; margin-bottom: 20px; }
+	.info_bancos span { border: 1px solid #CCCCCC; border-radius: 5px; float: left; margin-top: 10px; padding: 10px; width: 210px; display:none; }
+</style>
+<?php $_code = $this->getMethodCode() ?>
+<?php $_options = $this->getOptions(); ?>
+<ul class="form-list crediario-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
+<?php
+	$bancos = Mage::getModel('deposito/bancos')->getBancos();
+	$bancos_ativos = explode(',',$this->getMethod()->getConfigData('bancos'));
+	foreach($bancos_ativos as $banco){
+		$label = Mage::getModel('deposito/bancos')->getBancos($banco);
+		$id_banco = $banco;
+		?>	
+			<div class="logo_banco" id="<?= $id_banco ?>" >
+					<img src="<?= str_replace('index.php/', '', $this->getBaseUrl()) ?>media/deposito/<?php echo $id_banco ?>_deposito.png" />
+
+			</div>
+			<li class="opcoes_deposito">
+		        <span class="input-box">
+		        	<input type="radio" title="<?php echo $label ?>" class="required-entry" id="<?php echo $id_banco ?>_deposito" name="payment[deposito]" value="<?php echo $label; ?>" />
+		            <label for="<?php echo $id_banco ?>_deposito" class="required"><?php echo $label ?></label>
+		        </span>
+		    </li>
+		<?php
+	}
+?>
+
+<div class="info_bancos">
+	<?php
+		foreach($bancos_ativos as $info){
+			$dados = $this->getMethod()->getConfigData("$info"."_bancos");
+			if(!empty($dados))
+				echo '<span class="'.$info.'"><h4>Dados Bancários:</h4>'.nl2br($dados).'</span>';
+			else
+				echo '<span class="'.$info.'">Nenhuma informação cadastrada.</span>';
+		}
+	?>
+</div>
+
+</ul>
+
+<!--div>
+    <?php echo $this->getMethod()->getConfigData('message');?>
+</div-->

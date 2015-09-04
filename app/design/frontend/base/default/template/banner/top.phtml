@@ -1,0 +1,58 @@
+<div id='banner_wrapper_top'>
+
+	<?php  $banners = Mage::getModel('banner/banner')->getCollection()->addFieldToFilter('active', 0)->addFieldToFilter('type', 1); 
+	$banners->getSelect()->order('main_table.ordem ASC');
+	$bannerconfig = Mage::getModel('banner/bannerconfig')->load(1);
+	
+	/**
+	 * Url
+	 */
+	$currentUrl = rtrim(Mage::helper('core/url')->getCurrentUrl(), "/");
+	$currentUrl = str_replace("https", "http", $currentUrl);
+	$baseUrl = rtrim(Mage::getBaseUrl(), "/");
+	$baseUrl = str_replace("https", "http", $baseUrl);
+	?>
+
+	<?php // if( $this->getRequest()->getControllerName() == 'index' ) : ?>
+	<?php if($currentUrl == $baseUrl): ?>
+
+	<script type='text/javascript'>
+		jQuery(document).ready(function(){
+			banner.starttop();
+		});
+	</script>
+
+
+	<ul id='banner_top' >
+		<?php foreach($banners as $banner): ?>
+
+			<?php $_first_date = $banner->getData('first_date'); ?>
+			<?php $_final_date = $banner->getData('final_date'); ?>
+			<?php $date = new Zend_Date(); ?>
+			<?php $init_date = new Zend_Date($_first_date); ?>
+			<?php $end_date = new Zend_Date($_final_date); ?>
+			<?php $valid_date = false; ?>
+			<?php if( ( $date->compare($init_date) == 0 || $date->compare($init_date) == 1 ) &&  ( $date->compare($end_date) == 0 || $date->compare($end_date) == -1 )  ) :    ?>
+				<?php $valid_date = true;  ?>
+			<?php endif; ?>
+
+			<?php $image = $banner->getImage() ?>
+		 	<?php $type = substr($image,(strlen($image)-3),strlen($image));  ?>
+			<?php $image_url = $bannerconfig->getBaseUrl()  . $image; ?>
+			<?php if($valid_date): ?>
+				<?php if($type == 'swf') :  ?>
+				<li> <a href="<?php echo $banner->getLink(); ?>" title='<?php echo $banner->getName(); ?>'><object id='flash_container' data="<?php echo $image_url; ?>" ></object></a></li>
+				<?php else : ?>
+				<li> <a href="<?php echo $banner->getLink(); ?>" title='<?php echo $banner->getName(); ?>'><img src="<?php echo $image_url; ?>" alt="<?php echo $banner->getName(); ?>"/></a></li>
+				<?php endif; ?>
+			<?php endif; ?>
+			
+		<?php endforeach; ?>
+	</ul>
+
+	<br style='clear : right' />
+
+	<?php endif; ?>
+
+
+</div>

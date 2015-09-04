@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <modules>
+        <Mage_Osc>
+            <version>3.7.0</version>
+        </Mage_Osc>
+    </modules>
+
+    <frontend>
+        <routers>
+            <osc>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Osc</module>
+                    <frontName>osc</frontName>
+                </args>
+            </osc>
+            <customer>
+            	<use>standard</use>
+            	<args>
+            	    <modules>
+            	    	<Mage_Osc before="Mage_Customer" >Mage_Osc</Mage_Osc>
+            	    </modules>
+            	</args>
+            </customer>
+            <checkout>
+                <use>standard</use>
+                <args>
+                    <modules>
+                    	<Mage_Osc before="Mage_Checkout" >Mage_Osc</Mage_Osc>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+        <layout>
+            <updates>
+                <front_osc>
+                    <file>osc.xml</file>
+                </front_osc>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <osc>
+                <use>admin</use>
+                <args>
+                    <module>Mage_Osc</module>
+                    <frontName>osc</frontName>
+                </args>
+            </osc>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Mage_Osc_Adminhtml before="Mage_Adminhtml">Mage_Osc</Mage_Osc_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>    
+    </admin>
+    
+    <adminhtml>   
+        <menu>
+            <osc translate="title" module="osc">
+                <title>OSC [3.7]</title>
+                <sort_order>1500</sort_order>
+                <children>
+                    <onestepcheckoutconfig translate="title" module="osc">
+                        <title>Gerenciador de Checkout</title>
+                        <sort_order>1</sort_order>
+                        <action>osc/admin/config</action>
+                    </onestepcheckoutconfig>
+                    <onestepcheckoutstatus translate="title" module="osc">
+                        <title>Status dos Pedidos</title>
+                        <sort_order>2</sort_order>
+                        <action>osc/admin/status</action>
+                    </onestepcheckoutstatus>
+                    <onestepcheckoutlog translate="title" module="osc">
+                        <title>Log de erros</title>
+                        <sort_order>3</sort_order>
+                        <action>osc/admin/log</action>
+                    </onestepcheckoutlog>
+                </children>
+            </osc>  
+        </menu>
+        <layout>
+          <updates>
+              <osc>
+                  <file>osc.xml</file>
+              </osc>
+          </updates>
+        </layout>
+
+    </adminhtml>
+    
+    <global>
+        <fieldsets>
+            <sales_convert_quote_address>
+                <reference><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></reference>
+            </sales_convert_quote_address>
+            <sales_convert_order_address>
+                <reference><to_quote_address>*</to_quote_address></reference>
+            </sales_convert_order_address>
+        </fieldsets>
+
+        <models>
+            <osc>
+                <class>Mage_Osc_Model</class>
+                <resourceModel>osc_mysql4</resourceModel>
+            </osc>
+            <osc_mysql4>
+                <class>Mage_Osc_Model_Mysql4</class>
+                <entities>
+                    <osc>
+                        <table>checkout_config_data</table>
+                    </osc>
+                    <status>
+                        <table>checkout_status</table>
+                    </status>
+                    <log>
+                        <table>checkout_log</table>
+                    </log>
+                </entities>
+
+            </osc_mysql4>
+        </models>
+        
+    
+        <resources>
+            <osc_setup>
+                <setup>
+                    <module>Mage_Osc</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </osc_setup>
+            <osc_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </osc_write>
+            <osc_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </osc_read>
+        </resources>
+
+        <blocks>
+            <osc>
+                <class>Mage_Osc_Block</class>
+            </osc>
+            <adminhtml>
+                <rewrite>
+                    <customer_edit_tab_account>Mage_Osc_Block_Adminhtml_Customer_Edit_Tab_Account</customer_edit_tab_account>
+                    <customer_grid>Mage_Osc_Block_Adminhtml_Customer_Grid</customer_grid>
+                    <customer_edit_tab_addresses>Mage_Osc_Block_Adminhtml_Customer_Edit_Tab_Addresses</customer_edit_tab_addresses>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+
+        <helpers>
+            <osc>
+                <class>Mage_Osc_Helper</class>
+            </osc>
+        </helpers>
+
+    </global>
+
+</config>

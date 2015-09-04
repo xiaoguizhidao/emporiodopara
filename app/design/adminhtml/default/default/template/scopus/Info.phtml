@@ -1,0 +1,25 @@
+<?php
+	$dados = $this->getMethod()->getData();
+	$order = $dados["info_instance"]->getOrder();
+	$id_order = $order->getIncrementId();
+	$tipo = $order->getPayment()->getData('cc_type');	
+	
+	// Pega a URL do ambiente produção/teste e ID da loja na Scopus
+	$model_standard = Mage::getModel('scopus/standard');
+	$url = $model_standard->getUrlScopus(Mage::getStoreConfig('payment/scopus/ambiente'));
+	$id_loja = Mage::getStoreConfig('payment/scopus/loja');
+?>
+<?php if ($tipo == "boleto"){ ?>
+	<!-- Imagem boleto Bradesco -->
+	<p> <img src="<?= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>boleto_bradesco.jpg" alt=""/> </p>
+
+	<!-- Imagem e botão 2ª via -->
+	<p>
+		<a href="<?= $url ?>MerchantId=<?= $id_loja ?>&OrderId=<?= $id_order ?>&" target="_blank" >
+			<img src="<?= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>2via_icon.jpg" alt=""/>
+		</a>
+	</p>
+<?php } elseif ($tipo == "transferencia"){ ?>
+	<!-- Imagem Transferência Online -->
+	<p> <img src="<?= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>transferencia_bradesco.jpg" alt=""/> </p>
+<?php }  ?>

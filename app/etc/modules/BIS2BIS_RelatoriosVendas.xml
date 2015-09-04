@@ -1,0 +1,8 @@
+<config>  
+    <modules>  
+        <BIS2BIS_RelatoriosVendas>  
+            <active>true</active>  
+            <codePool>community</codePool>  
+        </BIS2BIS_RelatoriosVendas>  
+    </modules>  
+</config> 

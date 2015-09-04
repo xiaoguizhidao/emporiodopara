@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MagenThemes_MTDendAdmin>
+            <version>2.0.6</version>
+        </MagenThemes_MTDendAdmin>
+    </modules>
+    <frontend>
+        <routers>
+            <mtdendadmin>
+                <use>standard</use>
+                <args>
+                    <module>MagenThemes_MTDendAdmin</module>
+                    <frontName>mtdendadmin</frontName>
+                </args>
+            </mtdendadmin>
+        </routers>
+        <layout>
+            <updates>
+                <mtdendadmin>
+                    <file>mtdendadmin.xml</file>
+                </mtdendadmin>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+	       <mtdendadmin>
+				<use>admin</use>
+				<args>
+				    <module>MagenThemes_MTDendAdmin</module>
+				    <frontName>mtdendadmin</frontName>
+				</args>
+	       </mtdendadmin>
+        </routers>
+    </admin>
+    <adminhtml>
+		<layout>
+		    <updates>
+			<mtdendadmin>
+			    <file>mtdendadmin.xml</file>
+			</mtdendadmin>
+		    </updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <mtdendadmin>
+                <class>MagenThemes_MTDendAdmin_Model</class>
+            </mtdendadmin>
+        </models>
+        <resources>
+            <mtdendadmin_setup>
+                <setup>
+                    <module>MagenThemes_MTDendAdmin</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </mtdendadmin_setup>
+            <mtdendadmin_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </mtdendadmin_write>
+            <mtdendadmin_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </mtdendadmin_read>
+        </resources>
+        <blocks>
+            <mtdendadmin>
+                <class>MagenThemes_MTDendAdmin_Block</class>
+            </mtdendadmin>
+        </blocks>
+        <helpers>
+            <mtdendadmin>
+                <class>MagenThemes_MTDendAdmin_Helper</class>
+            </mtdendadmin>
+        </helpers>
+    </global>
+    <default>
+		<mtdendadmin>
+		     <mtdendadmin_appearance>
+				<theme_styles>red</theme_styles>
+		    	<theme_responsive>1</theme_responsive>
+				<bg_color>#ffffff</bg_color>
+				<text_color>#424141</text_color>
+				<link_color>#727272</link_color> 
+				<link_hover_color>#F44246</link_hover_color>
+				<link_active_color>#F44246</link_active_color>
+				
+				<pattern_body_select>pattern_3.png</pattern_body_select> 
+				<pattern_header_select>none</pattern_header_select>   
+				<pattern_footer_select>none</pattern_footer_select> 
+				
+				<header_bg_color>#ffffff</header_bg_color>
+				<header_text_color>#151515</header_text_color>
+				<header_link_color>#151515</header_link_color>
+				<header_link_hover_color>#F44246</header_link_hover_color>
+				<header_link_active_color>#333333</header_link_active_color>
+				
+				<!--<top_bg_color>#89B9C5</top_bg_color>
+				<top_bg_hover_color>#FFFFFF</top_bg_hover_color>
+				<top_text_color>#757575</top_text_color>
+				<top_link_color>#FFFFFF</top_link_color>
+				<top_link_hover_color>#89B9C5</top_link_hover_color>
+				<top_link_active_color>#89B9C5</top_link_active_color>-->
+				
+				<icons_bg_color>#CFCFCF</icons_bg_color>
+				<icons_bg_hover_color>#F44246</icons_bg_hover_color>
+				
+				<buttons_bg_color>#CFCFCF</buttons_bg_color>
+				<buttons_bg_hover_color>#F44246</buttons_bg_hover_color>
+				
+				<addtocart_bg_color>#F44246</addtocart_bg_color>
+				<addtocart_bg_hover_color>#CFCFCF</addtocart_bg_hover_color>
+				
+				<mainmenu_bg_color>#F44246</mainmenu_bg_color>
+				<mainmenu_dropdown_bg_color>#FFFFFF</mainmenu_dropdown_bg_color>
+				<mainmenu_bg_hover_color>#F44246</mainmenu_bg_hover_color>
+				<mainmenu_bg_active_color>#F44246</mainmenu_bg_active_color>
+				<mainmenu_text_color>#424141</mainmenu_text_color>
+				<mainmenu_link_color>#151515</mainmenu_link_color>
+				<mainmenu_link_hover_color>#FFFFFF</mainmenu_link_hover_color> 
+				<mainmenu_link_active_color>#FFFFFF</mainmenu_link_active_color>
+				<mainmenu_link_sub_hover_color>#F44246</mainmenu_link_sub_hover_color> 
+						
+				<footer_static_bg_color>#151515</footer_static_bg_color>
+				<footer_static_text_color>#c5c5c5</footer_static_text_color>
+				<footer_static_link_color>#ffffff</footer_static_link_color>
+				<footer_static_link_hover_color>#F44246</footer_static_link_hover_color>
+				<footer_static_link_active_color>#F44246</footer_static_link_active_color>
+				
+				<h_font></h_font>
+				<b_font></b_font>
+				<m_font></m_font>
+				<color_panel>1</color_panel>
+				<back_top>1</back_top>
+				<favicon>favicon.ico</favicon>
+		    </mtdendadmin_appearance>
+		    <navigation>
+		    	<menu_effect>slide</menu_effect>
+		    	<home>1</home>
+		    	<show_type>static</show_type>
+		    	<show_learn_more>1</show_learn_more>
+		    </navigation>
+		    <custom_menu>
+		    	<enable_custom>1</enable_custom>
+		    	<static_identifier>custom_menu</static_identifier>
+		    </custom_menu>
+		    <catalog> 
+		    	<catalog_grid_2col>3</catalog_grid_2col>
+		    	<catalog_grid_1col>4</catalog_grid_1col>
+		    </catalog>
+		    <product>
+                <product_bestseller>1</product_bestseller>
+                <product_bestseller_title>Best Seller</product_bestseller_title>
+                <product_bestseller_numb>3</product_bestseller_numb>
+		    	<product_show_newlabel>1</product_show_newlabel>
+		    	<product_newlabel_positions>top-right</product_newlabel_positions>
+		    	<product_show_salelabel>1</product_show_salelabel>
+		    	<product_salelabel_positions>top-left</product_salelabel_positions>
+		    </product>
+		    <thumbnailscroller> 
+				<direction>horizontal</direction>
+				<control>1</control>
+				<items>5</items>
+				<width>57</width>
+				<height>52</height>
+				<auto_scroll>4000</auto_scroll>
+				<speed>500</speed>
+				<enabled_scroller>1</enabled_scroller>
+				<enabled_zoom>1</enabled_zoom>
+				<enabled_lightbox>1</enabled_lightbox>
+				<width_z>300</width_z>
+				<height_z>300</height_z>
+				<width_lbox>600</width_lbox>
+				<height_lbox>600</height_lbox>
+			</thumbnailscroller>
+			<smartmenu>  
+				<title>Smart Menu</title>
+				<menustyle>Accordion</menustyle>
+				<event>click</event>
+		    </smartmenu>
+			<productslist>
+				<enabled>1</enabled>
+				<title>Products List</title>
+                <fillter_cat>1</fillter_cat>
+                <fillter_order>1</fillter_order>
+				<addtocart>1</addtocart>
+				<addtowishlist>0</addtowishlist>
+				<addtocompare>0</addtocompare>
+				<price>1</price>
+				<review>0</review>
+				<shortdescription>1</shortdescription>
+				<maxlength>10</maxlength>
+				<qty>12</qty>
+				<items_width>270</items_width>
+				<width>250</width>
+				<height>200</height>
+				<detail>1</detail>
+		    </productslist>
+            <productsscroller>
+                <enabled>1</enabled>
+                <auto>6000</auto>
+                <mode>latest</mode>
+                <title>MT Products Scroller</title>
+                <price>1</price>
+                <qty>20</qty>
+                <items>4</items>
+                <items_scroll>1</items_scroll>
+                <addtocart>1</addtocart>
+                <detail>0</detail>
+                <review>0</review>
+                <catsid></catsid>
+                <main_width>1170</main_width>
+                <main_height>300</main_height>
+                <width_item>200</width_item>
+                <width>200</width>
+                <height>135</height>
+                <animation>1000</animation>
+                <review>0</review>
+            </productsscroller>
+            <logoscroller>
+                <enabled>0</enabled>
+                <hoverpause>1</hoverpause>
+                <main_width>1088</main_width>
+                <main_height>60</main_height>
+                <width_item>215</width_item>
+                <items_scroll>5</items_scroll>
+                <auto>5000</auto>
+                <animation>1000</animation>
+               <logo_path><![CDATA[<logo title="Magento Themes" link="http://www.9magentothemes.com">media/wysiwyg/logo/9magentotheme.jpg</logo>
+<logo title="Magento Themes" link="http://www.9magentothemes.com">media/wysiwyg/logo/magentheme.jpg</logo>
+<logo title="Joomla Templates" link="http://www.zootemplate.com">media/wysiwyg/logo/zootemplate.jpg</logo>
+<logo title="Joomla Templates" link="http://www.joomvision.com">media/wysiwyg/logo/joomvison.jpg</logo>
+<logo title="Seo" link="http://www.idichvuseo.com">media/wysiwyg/logo/idichvuseo.jpg</logo>
+<logo title="Seo" link="http://www.zo2framework.org">media/wysiwyg/logo/Zo2Framework.jpg</logo>
+<logo title="Next Cms" link="http://www.nextcms.org">media/wysiwyg/logo/NextCMS.jpg</logo>]]></logo_path>
+            </logoscroller>
+				    <static_config>
+		    	<static_header><![CDATA[<div class="support">
+<div class="support-inner">
+<h4>Support: +444 (100) 1234</h4>
+<p>Monday to Friday: 10:00am - 05:00pm </p><p>
+</p></div>
+</div>]]></static_header>
+		    	<static_mainright><![CDATA[<div class="content-static">
+<ul>
+<li><a href="#"><img alt="" src="{baseurl}media/wysiwyg/static-1.png"></a></li>
+<li><a href="#"><img alt="" src="{baseurl}media/wysiwyg/static-2.png"></a></li>
+</ul>
+</div>]]></static_mainright>
+		    	<static_mainbottom1><![CDATA[<div class="block block-subscribe">
+    <div class="block-title">
+        <strong><span>Newsletter</span></strong>
+    </div>
+    <form id="newsletter-validate-detail" method="post" action="newsletter/subscriber/new/">
+        <div class="block-content">
+            <div class="form-subscribe-header">
+                <label for="newsletter">Sign up for newsletter</label>
+            </div>
+            <div class="input-box">
+               <input type="text" class="input-text required-entry validate-email" title="Newsletter" id="newsletter" name="email">
+            </div>
+            <div class="actions">
+                <button class="button" title="Subscribe" type="submit"><span><span>Subscribe</span></span></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    //&lt;![CDATA[
+        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+    //]]&gt;
+    </script>
+</div>]]></static_mainbottom1>
+		    	<static_mainbottom2><![CDATA[<div class="mt-shipping">
+<div class="mt-shipping-inner">
+<h3>Free Shipping in VIETNAM</h3>
+</div>
+</div>]]></static_mainbottom2>
+		    	<static_mainbottom3></static_mainbottom3>
+		    	<static_mainbottom4></static_mainbottom4>
+		    	<!-- <static_footer1><![CDATA[<div class="about-us">
+<div class="footer-static-title">
+<h2>About Us</h2>
+</div>
+<div class="footer-static-content">
+<p>Sed consequat cursus condimentum? Nullam tempus; turpis ac congue placerat, mi purus sodales risus, non dictum turpis nulla vel risus. Cras sapien arcu, placerat quis consectetur ac; dictum sit amet massa. Fusce cursus molestie massa nec vulputate. Sed purus arcu; scelerisque nec consequat at, fringilla in ante.</p>
+</div>
+</div>]]></static_footer1> -->
+		    	<!-- <static_footer2><![CDATA[<div class="Featured">
+<div class="footer-static-title">
+<h2>FEATURED</h2>
+</div>
+<div class="footer-static-content">
+<ul>
+<li>Vivamus metus mi, egestas cursus</li>
+<li>Nullam ac est vitae elit hendrerit adipiscing</li>
+<li>Mauris molestie, felis in rhoncus vestibulum</li>
+<li>Nam varius justo a leo luctus eget</li>
+</ul>
+</div>
+</div>]]></static_footer2> -->
+		    	<static_footer1><![CDATA[
+<div class="we-do-accept">
+<div class="footer-static-title">
+<h2>WE DO ACCEPT</h2>
+</div>
+<div class="footer-static-content">
+<p>Aenean commodo auctor mollis. Morbi pellentesque nunc in nulla pretium vestibulum congue enim convallis.Donec nec sapien at enim adipiscing consequat vitae sit amet nulla. Pellentesque eu augue leo.Morbi pellentesque nunc in nulla pretium vestibulum congue enim convallis.</p>
+<ul>
+<li><a href="#"><img alt="" src="{baseurl}media/wysiwyg/accept-1.png"></a></li>
+<li><a href="#"><img alt="" src="{baseurl}media/wysiwyg/accept-2.png"></a></li>
+<li><a href="#"><img alt="" src="{baseurl}media/wysiwyg/accept-3.png"></a></li>
+<li><a href="#"><img alt="" src="{baseurl}media/wysiwyg/accept.png"></a></li>
+<li><a href="#"><img alt="" src="{baseurl}media/wysiwyg/accept-5.png"></a></li>
+</ul>
+</div>
+</div>]]></static_footer1>
+		    	<static_footer2><![CDATA[
+<div class="contact-us">
+<div class="footer-static-title">
+<h2>CONTACT US</h2>
+</div>
+<div class="footer-static-content">
+<ul>
+<li>Add: 304 17t3 Trung Hoa - Nhan Chinh</li>
+<li>Email: support@9magentothemes.com</li>
+<li>Tel: 04-61234567</li>
+<li>Hotline: 0912345678</li>
+</ul>
+</div>
+</div>]]></static_footer2>
+		    	<static_mainbottom1_cols>7</static_mainbottom1_cols>
+		    	<static_mainbottom2_cols>5</static_mainbottom2_cols>
+		    	<static_mainbottom3_cols></static_mainbottom3_cols>
+		    	<static_mainbottom4_cols></static_mainbottom4_cols>
+		    	<static_footer1_cols></static_footer1_cols>
+		    	<static_footer2_cols></static_footer2_cols>
+		    	<static_footer3_cols>6</static_footer3_cols>
+		    	<static_footer4_cols>6</static_footer4_cols>
+		    </static_config>
+			<social_config>
+				<twitter_account>9magentothemes</twitter_account>
+				<twitter_numb>3</twitter_numb>
+				<facebook_page>http://www.facebook.com/magentothemes</facebook_page>
+			</social_config>
+			<otherconfig>			
+		    	<enabled_ajax>1</enabled_ajax>
+		    	<enabled_priceslider>1</enabled_priceslider>
+		    	<enable_quicklook>1</enable_quicklook>
+		    	<enabled_compare>1</enabled_compare>
+		    	<enabled_wisthlist>1</enabled_wisthlist>
+		    	<enabled_social>1</enabled_social>
+		    	<social_position>right</social_position>
+		    	<fb_link>https://www.facebook.com/magentothemes</fb_link>
+		    	<twitter_link>https://twitter.com/9magentothemes</twitter_link>
+		    	<google_link>http://9magentothemes.com</google_link>
+		    	<rss_link>http://9magentothemes.com</rss_link>
+		    	<p_link>http://9magentothemes.com</p_link>
+		    	<y_link>http://9magentothemes.com</y_link>			
+		    </otherconfig>
+		</mtdendadmin>
+    </default>
+</config>

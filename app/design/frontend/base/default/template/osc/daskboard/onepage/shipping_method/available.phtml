@@ -1,0 +1,112 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php $loop_methods = 0; ?>
+
+<?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
+    <p><?php echo $this->__('Informe o CEP para ver prazo e preço'); ?></p>
+<?php else: ?>
+
+<dl id="checkout-shipping-method-loadding" class="sp-methods">
+    <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+        <dt><?php echo $this->getCarrierName($code) ?></dt>
+        <dd>
+            <ul>
+            <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+    
+                <li>
+                   <?php if ($_rate->getErrorMessage()): ?>
+                   		<ul class="messages"><li class="error-msg"><ul><li><?php echo $_rate->getErrorMessage() ?></li></ul></li></ul>
+                   <?php else: ?>
+                        <?php $metodo = $_rate->getCode(); ?>
+                        <?php $metodos_de_envio++;  ?>
+                        <?php if ($_sole) : ?>
+                        <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" /></span>
+                        <?php else: ?>
+                        <input name="shipping_method" data-code='<?php echo $_rate->getCode(); ?>' type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio shipping_method_handle" />
+                        <?php endif; ?>
+                        <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $_rate->getMethodTitle() ?>
+                        <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                        <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                        <?php echo $_excl; ?>
+                        <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                            (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                        <?php endif; ?>
+                        </label>
+                   <?php endif ?>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        </dd>
+    <?php endforeach; ?>
+</dl>
+<?php endif; ?>
+
+<ul id='shipping_error' class="error_osc_msg">
+</ul>
+
+<script type='text/javascript'>
+    // Fix ONCLICK! - Foi feito a correção do Onclick pois em algumas lojas não estavam fechando pedido no Internet Explorer!
+    jQuery(document).ready(function(){
+        jQuery('.shipping_method_handle').click(function(){
+            code_shipping = jQuery(this).attr('data-code');
+            OscTela.mostrarScreenlocker();
+            OscAjax.atualizarMetodoEnvio(code_shipping).done(function(resposta){
+                var resposta = eval('(' + resposta + ')');
+                jQuery('.payment-container').html(resposta.payment);
+                jQuery('.review-container').html(resposta.review);
+                // jQuery('#checkout-payment-method-load input[type="radio"]').prop('checked', false);
+                OscTela.esconderScreenlocker();
+            });
+        });
+    });
+</script>
+
+<?php 
+// Para quando houver apenas 1 método de envio
+$osc = Mage::getModel('osc/osc');
+if($metodos_de_envio == 1){
+    $metodo_atual = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getShippingMethod();
+    if(!$metodo_atual){
+        $osc->salvarEnvio($metodo);
+        ?>
+        <script type='text/javascript'>
+            jQuery(document).ready(function(){
+                OscTela.bloquearTela(); // bloqueia a tela
+                OscAjax.atualizarMetodoEnvio('<?php echo $metodo; ?>').done(function(resposta){
+                    var resposta = eval('(' + resposta + ')');
+                    jQuery('.payment-container').html(resposta.payment);
+                    jQuery('.review-container').html(resposta.review);
+                    OscTela.liberarTela(); // libera a tela
+                });
+            });
+        </script>
+        <?php
+    }         
+?>
+<?php } ?>
+

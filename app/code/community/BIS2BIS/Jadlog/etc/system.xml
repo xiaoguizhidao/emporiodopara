@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <sections>
+    <carriers>
+      <groups>
+        <jadlog translate="label" module="shipping">
+          <label>Jadlog</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>99</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <fields>
+          
+				<active translate="label">
+				  <label>Habilitado</label>
+				  <frontend_type>select</frontend_type>
+				  <source_model>adminhtml/system_config_source_yesno</source_model>
+				  <sort_order>1</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</active>
+				<title translate="label">
+				  <label>Título</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>2</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</title>
+				
+				<!--  Campos personalizados Jadlog -->
+				<usuario translate="label">
+				  <label>Usuário</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>2</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</usuario>
+				<senha translate="label">
+				  <label>Senha</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>3</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</senha>
+				<modalidade translate="label">
+                  <label>Modalidade</label>
+                  <frontend_type>select</frontend_type>
+                  <sort_order>4</sort_order>
+                  <source_model>BIS2BIS_Jadlog_Model_Modalidade</source_model>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                </modalidade>
+				<valorcoleta translate="label">
+				  <label>Valor da Coleta</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>5</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</valorcoleta>
+				<url translate="label">
+				  <label>URL Web Service</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>6</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</url>
+				<active_free_shipping translate="label">
+				  <label>Entrega Gratuita</label>
+				  <frontend_type>select</frontend_type>
+				  <source_model>adminhtml/system_config_source_yesno</source_model>
+				  <sort_order>7</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				  <comment>Quando usar um cupom oferecendo frete gratuito.</comment>
+				</active_free_shipping>
+                <!--  Campos personalizados Jadlog -->
+
+				<sallowspecific translate="label">
+				  <label>Ship to Applicable Countries</label>
+				  <frontend_type>select</frontend_type>
+				  <sort_order>90</sort_order>
+				  <frontend_class>shipping-applicable-country</frontend_class>
+				  <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>0</show_in_store>
+				</sallowspecific>
+				
+				<specificcountry translate="label">
+				  <label>Ship to Specific Countries</label>
+				  <frontend_type>multiselect</frontend_type>
+				  <sort_order>91</sort_order>
+				  <source_model>adminhtml/system_config_source_country</source_model>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>0</show_in_store>
+				  <can_be_empty>1</can_be_empty>
+				</specificcountry>
+				
+          </fields>
+        </jadlog>
+      </groups>
+    </carriers>
+  </sections>
+</config>

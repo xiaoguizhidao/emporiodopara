@@ -1,0 +1,48 @@
+Depósito Bancário:
+	{{pdf_row_separator}}
+<?php
+$info = $this->getInfo();
+ switch($info->getDeposito()){
+            case 'Banco Itaú':
+                $codeposito = "itau";
+                break;
+            case 'Banco do Brasil':
+                $codeposito = "bb";
+                break;
+            case 'Banco Santander':
+                $codeposito = "sant";
+                break;
+            case 'Bradesco':
+                $codeposito = "brad";
+                break;
+            case 'Caixa Econômica':
+                $codeposito = "caix";
+                break;
+            case 'HSBC Bank Brasil':
+                $codeposito = "hsbc";
+                break;
+            case 'Sicredi':
+                $codeposito = "sicr";
+                break;
+            default:
+                $codeposito = "";
+                break;
+        }?>
+    Banco Selecionado: <?php echo $info->getDeposito()?>
+<?php 
+    if($codeposito != ""){
+    	$arrayDeposito = explode("\n", Mage::getStoreConfig('payment/deposito/'.$codeposito.'_bancos'));
+    ?>
+    {{pdf_row_separator}} 
+    Informações: 
+    {{pdf_row_separator}}
+    <?php  foreach ($arrayDeposito as $key => $value) {
+    	echo $value;?>
+    	{{pdf_row_separator}}
+    <?php }
+    }else{ ?>
+        Informações: Não foi possível recuperar a instância do pagamento.
+    <?php } ?>
+
+
+

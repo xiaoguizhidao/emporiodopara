@@ -1,0 +1,100 @@
+<?php $_quote = Mage::getSingleton("checkout/session")->getQuote(); ?>
+
+<?php if($_quote->getItemsCollection()->getSize() == 0 ):  ?>
+	<script type="text/javascript">
+		window.location = onestepcheckout.baseurl('checkout/cart');
+	</script>
+<?php endif; ?>
+
+<?php $session_message = Mage::getSingleton('core/session')->getOscloginerror(); ?>
+
+<?php if(isset($session_message)) : ?>
+
+<ul class="messages">
+	<li class="error-msg">
+		<ul>
+			<li>
+				<span><?php echo $session_message; ?></span>
+			</li>
+		</ul>
+	</li>
+</ul>
+<?php  $session_message = Mage::getSingleton('core/session')->setOscloginerror(null); ?>
+<?php endif; ?>
+
+<div class='wrapper login-wrapper'>
+
+	
+		<div class="page-title">
+			<h1>Cadastre-se ou entre em sua conta para finalizar a compra   </h1>
+		</div>
+
+		<div class='f-left'>
+		
+			<div class='login-panel login-customer'>
+			
+				<h2>Já sou cliente</h2>
+				
+				<span class='required-alert'><span>*</span>Campos obrigatórios</span>
+				
+				<form action='<?php echo $this -> getBaseUrl() . 'osc/onestepcheckout/login'; ?>' id='form-login'>
+					<fieldset>
+						<legend>
+							Login
+						</legend>
+
+						<label for='login'> 
+							  E-mail <span class='field-required'>*</span>
+							 <input id='login' class='input-text required' name='login' type='text' />
+						</label>
+						
+						<label for='password'> 
+							  Senha <span class='field-required' >*</span>
+							  <input id='password' class='input-text required' name='password' type='password' />
+						</label>
+
+						<a href='<?php echo $this -> getBaseUrl() . 'customer/account/forgotpassword'; ?>'>Esqueceu a senha ?</a>
+					</fieldset>
+					<br/>
+					<button type='submit' class='btn-login button' >
+						<span><span>Entrar e Finalizar Compra</span></span>
+					</button>
+				</form>
+			</div>
+
+			<div class='login-panel login-new-customer'>
+				<h2>Sou novo cliente</h2>
+				<span class='new-customer-span' >Em apenas um passo, crie uma conta na <?php echo  Mage::app()->getStore()->getName(); ?> e finalize sua compra. É rápido e seguro!</span>
+				<button class='btn-register button' onclick='setLocation("<?php echo $this -> getBaseUrl() . 'osc/onepage/checkout'; ?>");'>
+					<span><span>Cadastrar e finalizar compra</span></span>
+				</button>
+			</div>
+
+		</div>
+
+		<div class='f-right'>
+
+			<div class='login-panel login-security-purchase'>
+
+				<h2>Compra Segura</h2>
+				<p>
+					Comprar na <?php echo  Mage::app()->getStore()->getName(); ?> é muito seguro.
+					Site seguro com criptografia (SSL).
+					Blindado contra roubo de informações e clonagem de cartão.
+					Selo de excelência por avaliações positivas em vários quesitos.
+				</p>
+				
+
+			</div>
+
+		</div>
+
+		<div class='box-ajuda'>
+			<h4>Precisa de <span>ajuda?</span> Dúvidas sobre o pedido <span><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></span></h4>
+		</div>
+		
+
+	
+</div>
+
+<br style='clear : both'/>

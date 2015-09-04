@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <modules>
+        <BIS2BIS_Ebit>
+            <version>0.1.0</version>
+        </BIS2BIS_Ebit>
+    </modules>
+
+    <frontend>
+        <routers>
+            <ebit>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Ebit</module>
+                    <frontName>ebit</frontName>
+                </args>
+            </ebit>
+        </routers>
+    </frontend>
+
+    <admin>
+        <routers>
+            <ebit>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Ebit</module>
+                    <frontName>ebit</frontName>
+                </args>
+            </ebit>
+        </routers>
+    </admin>
+
+    <adminhtml>
+
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ebit>
+                                            <title>Configuração Ebit</title>
+                                        </ebit>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+                
+            </resources>
+        </acl>
+
+    </adminhtml>
+
+    <global>
+         <models>
+            <ebit>
+                <class>BIS2BIS_Ebit_Model</class>
+            </ebit>
+        </models>
+        <helpers>
+            <ebit>
+                <class>BIS2BIS_Ebit_Helper</class>
+            </ebit>
+        </helpers>
+    </global>
+
+
+    <default>  
+        <ebit>  
+            <config> 
+                <script>Preencha o script aqui</script>
+            </config>
+        </ebit>
+    </default>
+
+</config>

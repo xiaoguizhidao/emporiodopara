@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+	<default>
+        <reference name="head">
+        	<action method="addCss"><stylesheet>css/marcascategoria/marcascategoria.css</stylesheet></action>
+        	<action method="addJs"><script>jquery/jquery.jcarousel.min.js</script></action>
+        </reference>
+	</default>
+
+    <cms_index_index translate="label">
+        <label>CMS Home Page</label>
+        <reference name="content">
+			<!-- <block type="marcascategoria/listas_view" name="lista.home" after="-" as="marcas-home" template="marcascategoria/home.phtml"/> -->
+        </reference>
+    </cms_index_index>
+
+
+	<catalog_category_default translate="label">
+		<reference name="content">
+			<block type="marcascategoria/listas_view" name="lista.category" after="product_list" template="marcascategoria/category.phtml"/>
+		</reference>
+	</catalog_category_default>
+
+
+    <catalog_category_layered translate="label">
+        <reference name="content">
+            <block type="marcascategoria/listas_view" name="lista.category" after="product_list" template="marcascategoria/category.phtml"/>
+        </reference>
+    </catalog_category_layered>
+
+</layout> 

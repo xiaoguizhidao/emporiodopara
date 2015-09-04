@@ -1,0 +1,75 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php $order = $this->getOrder() ?>
+
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>
+<?php if($order): ?>
+	<?php $standard = Mage::getModel('boleto_ultimate/standard') ?>
+	<?php $additional_data = unserialize($order->getPayment()->getAdditionalData()) ?> 
+	<?php $code_banco = $additional_data['code_banco'] ?>
+	<?php $data_vencimento = $additional_data['data_vencimento'] ?>
+	<fieldset id="boleto_ultimate">
+		<ul>
+			<li>
+				<p>Banco escolhido: <span class="nome-banco"><?php echo $this->escapeHtml($standard->getNomeBanco($code_banco)) ?></span></p>
+				<p>Data de vencimento: <span class="data-vencimento"><?php echo $data_vencimento ?></span></p>
+			</li>
+			<?php if($standard->isAvailablePrint($order->getStatus())): ?>
+				<li>
+					<input type="text" class="input-text data-vencimento-input" placeholder='DD/MM/YYY' data-orderid="<?php echo $order->getId() ?>" value="<?php echo $data_vencimento ?>"></input>
+		    		<button type='button' class="scalable alterar-vencimento" onclick='BoletoUltimateAdmin.alterarVencimento()'>
+		    			<span>
+							<span>Alterar</span>
+						</span>
+		    		</button>
+		    		<div class="mensagem_alterar"></div>
+				</li>
+				<li>
+					<button type="button" class="scalable print-boleto" onclick="window.open('<?php echo Mage::getUrl('boleto_ultimate/standard/view/order_id/' . $order->getId()) ?>')">
+						<span>
+							<span>Imprimir Boleto Bancário</span>
+						</span>
+					</button>
+					<?php if($standard->isAvailableSendEmail()): ?>
+						<button type="button" class="scalable send-boleto" onclick='BoletoUltimateAdmin.enviarBoleto(<?php echo $order->getId() ?>)'>
+							<span>
+								<span>Enviar 2ª via ao Cliente por e-mail</span>
+							</span>
+						</button>
+						<div class="mensagem_enviar"></div>
+					<?php endif ?>
+				</li>
+			<?php endif ?>
+		</ul>
+	</fieldset>
+	<script>
+		jQuery(document).ready(function(){
+			BoletoUltimateAdmin.init();
+		});
+	</script>
+<?php endif ?>

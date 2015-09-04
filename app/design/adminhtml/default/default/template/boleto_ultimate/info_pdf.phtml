@@ -1,0 +1,11 @@
+<?php $order = $this->getOrder(); ?>
+<?php $standard = Mage::getModel('boleto_ultimate/standard') ?>
+<?php $additional_data = unserialize($order->getPayment()->getAdditionalData()) ?> 
+<?php $code_banco = $additional_data['code_banco'] ?>
+<?php $data_vencimento = $additional_data['data_vencimento'] ?>
+
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>
+	{{pdf_row_separator}}
+Banco escolhido: <?php echo $this->escapeHtml($standard->getNomeBanco($code_banco)) ?>
+	{{pdf_row_separator}}
+Data de vencimento: <?php echo $data_vencimento ?>

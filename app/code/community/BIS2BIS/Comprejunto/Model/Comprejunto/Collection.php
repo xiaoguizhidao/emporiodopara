@@ -1,0 +1,4 @@
+<?php
+class BIS2BIS_Comprejunto_Model_Collection extends Comprejunto_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract{
+	
+} 

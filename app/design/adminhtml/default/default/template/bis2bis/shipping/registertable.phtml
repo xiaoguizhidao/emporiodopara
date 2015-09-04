@@ -1,0 +1,271 @@
+<?php 
+
+?>
+<?php $id = 0; ?>
+<?php $shippingtables = ''; ?>
+<?php $table_name = ''; ?>
+<?php $fields = array(); ?>
+<?php $params = $this->getRequest()->getParams(); ?>
+<?php $active = 0; ?>
+<?php 
+if(array_key_exists('id', $params)){
+	$id = $params['id'];
+	$shippingtables = Mage::getModel('bis2ship/shippingtables')->load($id);
+	$table_name = $shippingtables->getTableName();
+	$titulo = $shippingtables->getTitulo();
+	$cubado = $shippingtables->getCubado();
+	$excedente = $shippingtables->getExcedente();
+	$fields = $shippingtables->getFields();
+	$fields = 	(unserialize($fields));
+	$active = $shippingtables->getActive();
+	$nf_estado = $shippingtables->getNfEstado();
+?>
+
+<script type='text/javascript'>
+	jQuery(document).ready(function(){
+		jQuery('#titulo').attr('disabled', true);
+		jQuery('#carrier').attr('disabled', true);
+        jQuery('.btn-add-campo').attr('disabled', true);
+	});
+</script>
+<?php 
+
+}
+	
+?>
+
+<script type='text/javascript'>
+// inserção de mascaras
+jQuery(document).ready(function(){
+	jQuery('#name').mask('AAA?AAAAAAAAAAAAAAA');
+	jQuery('#carrier').mask('AAA?AAAAAAAAAAAAAAA');
+});
+
+</script>
+
+<div id='registertable_content'>
+	
+	<div id="messages_shipping" class='messages_error hidden'>
+		<ul class="messages">
+			<li class="error-msg">
+				<ul>
+					<li>
+						<span id='msg_txt'></span>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+
+
+	
+	<div class='content-header' >
+		<h3 class="icon-head head-products">Cadastro de Tabela</h3>
+		<div class='right'>
+            <?php if(!$active): ?>
+			    <button onclick='ship.save();' class='button scalable save'><span>Salvar</span></button>
+			    <button onclick='ship.deletetable();' class='button scalable delete'><span>Deletar</span></button>
+            <?php endif; ?>
+            <button type="button" class="scalable back" onclick="setLocation('<?php echo Mage::helper('adminhtml')->getUrl('bis2ship/admin/manageTables'); ?>')" style=""><span>Voltar</span></button>
+        </div>
+	</div>
+
+
+	
+	
+	<div class='entry-edit'>
+		  <div class="entry-edit-head">
+			    <h4 class="icon-head head-edit-form fieldset-legend">Nome da transportadora</h4>
+			    <div class="form-buttons"></div>
+		  </div>
+		  <div>
+		  	  <form id='createtable_form' method='POST' action="<?php echo $this->getBaseUrl() . 'bis2ship/admin/saveRegisterTable'; ?>">
+		  	  	  <?php $formKey = Mage::getSingleton('core/session')->getFormKey(); ?> 
+		  	  	  <input name='id' type='hidden' value='<?php echo $id; ?>' />
+		  	  	  <?php foreach($fields as $field): ?>
+				  	  <input type='hidden' class='hidden_field' name='hidden[]'  value='<?php echo $field; ?>' />
+		  	  	  <?php endforeach; ?>
+				  <input name="form_key" type="hidden" value="<?php echo $formKey; ?>" kl_vkbd_parsed="true">
+				  <fieldset>
+
+					  	<label for="titulo">Título da tabela : </label>
+						<input id='titulo' type="text" placeholder="Digite o título da tabela.."  value='<?php echo $titulo;  ?>' name='titulo' class='input-text ' />
+						
+						<br/><br/>
+
+				  		<label for="carrier">Nome da Tabela : </label>	
+				  		<input id='carrier' value='<?php echo $table_name;  ?>' onblur='ship.verify_table();' name='carrier' class='input-text ' type="text" placeholder="Digite o nome da tabela..">
+				  		<span class='alert'> Esse campo será usado no banco de dados, preencher sem acentos e letra maiúscula. </span>
+						
+						<br/><br/>
+				  		
+				  		<label for="cubado"> Usar peso cubado : </label>	
+				  		<select value='<?php echo $cubado; ?>' name="cubado" id="cubado">
+				  			<option value="0" <?php echo ($cubado==0) ? 'selected' : '' ; ?>>Não</option>
+				  			<option value="1" <?php echo ($cubado==1) ? 'selected' : '' ; ?>>Sim</option>
+				  		</select>
+
+						<br/><br/>
+				  		
+				  		<label for="nf_estado"> Nota Fiscal por Estado: </label>	
+				  		<select value='<?php echo $nf_estado; ?>' name="nf_estado" id="nf_estado">
+				  			<option value="0" <?php echo ($nf_estado==0) ? 'selected' : '' ; ?>>Não</option>
+				  			<option value="1" <?php echo ($nf_estado==1) ? 'selected' : '' ; ?>>Sim</option>
+				  		</select>
+						<br/><br/>
+
+				  		<label for="excedente"> Cálculo frete excedente : </label>	
+				  		<select value='<?php echo $excedente; ?>' name="excedente" id="excedente">
+				  			<option value="0" <?php echo ($excedente==0) ? 'selected' : '' ; ?> >Á partir do total</option>
+				  			<option value="1" <?php echo ($excedente==1) ? 'selected' : '' ; ?> >Apenas do que excedeu</option>
+				  		</select>
+
+				  </fieldset>
+			  </form>
+		  </div>
+	
+		  <br/>
+
+
+        <?php if(!array_key_exists('id', $params)): ?>
+            <div class="entry-edit-head ship-head">
+                    <h4 class="icon-head head-edit-form fieldset-legend">Novos campos</h4>
+                    <div class="form-buttons"></div>
+            </div>
+
+            <fieldset class='ship-fielset'>
+                    <legend>Adicionar Campos</legend>
+                    <div class='left'>
+                        <label for='name'>Nome :</label>
+                    </div>
+                    <div class='right'>
+                        <input id='name' class= 'input-text' type="text" placeholder="Digite o nome do campo..">
+                    </div>
+                    <br/><br/>
+                    <div class='left'>
+                        <label id='data_type'>Tipo de Dado : </label>
+                    </div>
+                    <div class='right'>
+                        <select name="data_type" class='select' id="data_type">
+                            <option value="0">Selecione o tipo...</option>
+                            <option value="1">Inteiro</option>
+                            <option value="2">Numérico</option>
+                            <option value="3">Texto</option>
+                        </select>
+                    </div>
+
+                    <br/><br/>
+                    <button type="button" class="btn btn-add-campo" onclick='ship.addfield();'><span>Adicionar Campo<span></button>
+              </fieldset>
+         <?php endif; ?>
+	  </form>
+	</div>
+	
+	<div class='table-container'>
+		
+		<table >
+				<tr >
+					<th >Nome</th>
+					<th >Tipo de Dado</th>
+				    <th> Deletar </th>
+				</tr>
+				<tr class='pattern' >
+					<td >cep_inicial</td>
+					<td >Inteiro</td>
+					<td class='a-center'> - </td>
+				</tr>
+				<tr class='pattern' >
+					<td >cep_final</td>
+					<td >Inteiro</td>
+					<td class='a-center'> - </td>
+				</tr>
+				<tr class='pattern' >
+					<td >peso_inicial</td>
+					<td >Numérico</td>
+					<td class='a-center'> - </td>
+				</tr>
+	
+				<tr class='pattern' >
+					<td >peso_final</td>
+					<td >Numérico</td>
+					<td class='a-center' > - </td>
+				</tr>
+				
+				<tr class='pattern' >
+					<td >valor_excedente</td>
+					<td >Numérico</td>
+					<td class='a-center' > - </td>
+				</tr>
+
+				<tr class='pattern' >
+					<td >prazo_entrega</td>
+					<td >Texto</td>
+					<td class='a-center' > - </td>
+				</tr>
+
+				<?php foreach($fields as $field): ?>
+				<?php $field_exploded  = explode('#', $field);?>
+				<tr>
+					<td><?php echo str_replace(' ', '_', $field_exploded[0]); ?></td>
+					<td><?php echo Mage::helper('bis2ship')->getTypeField($field_exploded[1]); ?>
+					<?php $btn_counter++; ?>
+					<td></td>
+				</tr>
+				<?php endforeach; ?>
+		
+		</table>
+
+		
+
+	</div>
+
+    <br/>
+
+	
+
+	<?php if($id): ?>
+
+	<form id='formtable_delete' method='POST' action="<?php echo $this->getBaseUrl() . 'bis2ship/admin/deleteTable'; ?>"  >
+		<?php $formKey = Mage::getSingleton('core/session')->getFormKey(); ?> 
+  	  	<input name='table_id' type='hidden' value='<?php echo $id; ?>' />
+  	  	<input name="form_key" type="hidden" value="<?php echo $formKey; ?>" kl_vkbd_parsed="true">
+	</form>
+	
+	<div class='entry-edit'>
+		<div class="entry-edit-head ship-head">
+			<h4 class="icon-head head-edit-form fieldset-legend">Habilitar/Desabilitar Transportadora</h4>
+			<div class="form-buttons"></div>
+		</div>
+		
+		<?php if($shippingtables->getActive() == 0) : ?>
+			<fieldset class='ship-fielset'>
+				<div id='term_accept_shipping'>
+					- Estou ciente que sou responsável pelo cadastramento e configuração desta tabela de transportadora em minha loja e que qualquer divergência apresentada em qualquer um de seus itens é de minha inteira responsabilidade.
+					<br/>
+					<br/>
+					- Estou ciente que não é responsabilidade da Bis2Bis E-Commerce o cadastramento e configuração desta tabela de transportadora juntamente com quaisquer testes que devam ser feitos antes da liberação da mesma.
+				</div>
+				<br/>
+				<input type="checkbox" id='checkbox_accept'> <label for="checkbox_accept">Eu li e aceito os termos de compromisso</label>
+				<button onclick='ship.activatetable();' class='scalable save'><span>Ativar</span></button>
+				<form id='activetable_form' method='POST' action="<?php echo $this->getBaseUrl() . 'bis2ship/admin/activeTable'; ?>" >
+					<?php $formKey = Mage::getSingleton('core/session')->getFormKey(); ?> 
+			  	  	<input name='id' type='hidden' value='<?php echo $id; ?>' />
+			  	  	<input name="form_key" type="hidden" value="<?php echo $formKey; ?>" kl_vkbd_parsed="true">
+				</form>
+			</fieldset>
+		<?php else : ?>
+		<fieldset class='ship-fielset'>
+		<button onclick='ship.deactivatetable();' class='scalable delete'><span>Desativar</span></button>
+		<form id='deactivetable_form' method='POST' action="<?php echo $this->getBaseUrl() . 'bis2ship/admin/deactivateTable'; ?>" >
+			<?php $formKey = Mage::getSingleton('core/session')->getFormKey(); ?> 
+			<input name='id' type='hidden' value='<?php echo $id; ?>' />
+			<input name="form_key" type="hidden" value="<?php echo $formKey; ?>" kl_vkbd_parsed="true">
+		</form>
+		</fieldset>
+		<?php endif; ?>
+	</div>
+	<?php endif; ?>
+
+</div>

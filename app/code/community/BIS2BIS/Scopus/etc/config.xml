@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+       <BIS2BIS_Scopus>
+          <version>0.1.0</version>
+       </BIS2BIS_Scopus>
+    </modules>
+ 
+    <global>
+        <blocks>
+            <scopus>
+                <class>BIS2BIS_Scopus_Block</class>
+            </scopus>
+        </blocks>
+ 
+        <models>
+            <scopus>
+                <class>BIS2BIS_Scopus_Model</class>
+            </scopus>
+        </models>
+ 
+        <resources>
+            <scopus_setup>
+                <setup>
+                    <scopus>BIS2BIS_Scopus</scopus>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </scopus_setup>
+            <scopus_write>
+                <connection>
+                  <use>core_write</use>
+                </connection>
+            </scopus_write>
+            <scopus_read>
+               <connection>
+                <use>core_read</use>
+              </connection>
+            </scopus_read>
+        </resources>
+    </global>
+	<frontend>      
+        <routers>
+            <scopus>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Scopus</module>
+                    <frontName>scopus</frontName>
+                </args>
+            </scopus>
+        </routers>
+    </frontend>
+    <default>
+        <payment>
+            <scopus>
+                <active>1</active>
+                <model>scopus/Standard</model>
+                <order_status>pending</order_status>
+                <title>Boleto ou Transferência Online (Bradesco)</title>
+                <msg>Após a finalização de compra clique no botão para impressão do boleto.</msg>
+                <banco>237</banco>
+                <senha>12345678</senha>
+                <payment_action>authorize</payment_action>
+                <scopus_tipo>boleto</scopus_tipo>
+				<ambiente>teste</ambiente>
+				<vencimento>2</vencimento>
+				<shopfacil>0</shopfacil>
+				<emailteste>suporte@bis2bis.com.br</emailteste>
+            </scopus>
+         </payment>
+    </default>
+</config>

@@ -1,0 +1,207 @@
+<div id='recipe_full_wrapper'>
+<?php 
+$id = $this->getRequest()->getParam('id');
+$model_table = Mage::getModel('bis2ship/shippingtables')->load($id);
+$model_recipe = Mage::getModel('bis2ship/recipe')->getCollection()->addFieldToFilter('table_id', $id )->getFirstItem();
+
+if($model_recipe->getId()){
+	$recipe_id = $model_recipe->getId();
+}else{
+	$recipe_id = 0;
+}
+?>
+
+<?php if($model_table->getActive()): ?>
+	
+	<script type="text/javascript" >
+		jQuery(document).ready(function(){
+			jQuery('#recipe_full_wrapper button').attr('disabled', 'disabled');
+			jQuery('#recipe_full_wrapper button').css('opacity', '0.2');
+            jQuery('#recipe_full_wrapper button.back').removeAttr('disabled');
+            jQuery('#recipe_full_wrapper button.back').css('opacity', '1');
+		});
+
+	</script>
+
+
+<?php endif; ?>
+
+<script type="text/javascript">
+
+	jQuery(document).ready(function(){
+		
+			var table = (jQuery(this).val());
+			jQuery.ajax({
+	  			 url : '<?php echo $this->getBaseUrl() . "bis2ship/index/getfields/";  ?>',
+				 type : "POST",
+				 data : { table : "<?php echo $model_table->getTableName(); ?>" },
+				 async : false
+	  		}).done(function(response){
+	  			
+	  			jQuery('#add_field').html('');
+	  			var myResponse = eval('(' + response + ')');
+	  			for(var k = 0; k < myResponse.length; k++){
+	  				new_field = jQuery('<option></option>');
+	  				new_field.html(myResponse[k]);
+	  				new_field.attr('value', myResponse[k]);
+	  				jQuery('#add_field').append(new_field);
+	  			}
+	  		});
+
+	  		// criar ajax para carregar stack da fórmula
+
+	  		jQuery.ajax({
+	  			 url : '<?php echo $this->getBaseUrl() . "bis2ship/index/getrecipes/";  ?>',
+				 type : "POST",
+				 data : { table_id : "<?php echo $model_table->getId(); ?>" },
+				 async : false
+	  		}).done(function(response){
+	  			var myResponse = eval('(' + response + ')');
+	  			for(var k = 0; k < myResponse.length; k++){
+	  				recipe_stack.push(myResponse[k]);
+	  			}
+	  		});
+
+	});
+
+</script>
+
+<div id="messages_shipping" class='messages_error hidden'>
+	<ul class="messages">
+		<li class="error-msg">
+			<ul>
+				<li>
+					<span id='msg_txt'></span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class='content-header' >
+	<h3 class="icon-head head-products">Gerenciamento de Fórmulas</h3>
+	<div class='right'>
+        <button type="button" class="scalable back" onclick="setLocation('<?php echo Mage::helper('adminhtml')->getUrl('bis2ship/admin/manageTables'); ?>')" style=""><span>Voltar</span></button>
+        <button onclick='ship.save_recipe();' class='button scalable save'><span>Salvar</span></button>
+    </div>
+</div>
+
+<div class='entry-edit'>
+		
+<?php $_coll_tables = Mage::getModel('bis2ship/shippingtables')->getCollection(); ?>
+
+
+<strong class='label'> Tabela : <?php echo $model_table->getTableName(); ?></strong>
+
+<form id='managerecipe_form' method='POST' action="<?php echo $this->getBaseUrl() . 'bis2ship/admin/saveRecipe'; ?>">
+	  <?php $formKey = Mage::getSingleton('core/session')->getFormKey(); ?> 
+	  <input name="form_key" type="hidden" value="<?php echo $formKey; ?>" kl_vkbd_parsed="true">
+	  <input name="table" type='hidden' value='<?php echo $model_table->getId(); ?>' />
+	  <input name="recipe_id" value='<?php echo $recipe_id; ?>' type="hidden" />
+	
+	  <?php if($model_recipe->getId()): ?>
+		  <?php $recipes = (unserialize($model_recipe->getData('recipe'))); ?>
+		  <?php foreach($recipes as $recipe): ?>
+			<input type="hidden" class="recipe_hidden" name="compose_recipe[]" value="<?php echo $recipe; ?>" kl_vkbd_parsed="true">
+		  <?php endforeach; ?>
+	  <?php endif; ?>
+</form>
+
+<div class='manage-recipe'>
+
+	<div class='left recipe-left'>
+		<label for='add_field'>Adicionar Campo : </label>
+		<select id='add_field'>
+			<option>
+			</option>
+		</select>
+		<button onclick='ship.addfields();' ><span>Adicionar</span></button>
+	</div>
+
+	<br/>
+	<br/>
+
+	<div class='left recipe-left'>
+		<label for='add_operand'>Adicionar Operando : </label>
+		<select id='add_operand'>
+			<option value='+'>+</option>
+			<option value='-'>-</option>
+			<option value='*'>*</option>
+			<option value='/'>/</option>
+		</select>
+		<button onclick='ship.addoperand();' ><span>Adicionar</span></button>
+	</div>
+
+	<br/>
+	<br/>
+
+	<div class='left recipe-left'>
+		<label for='add_parenteses'>Adicionar Parenteses : </label>
+		<select id='add_parenteses'>
+			<option value='('>(</option>
+			<option value=')'>)</option>
+		</select>
+		<button onclick='ship.addparenteses();'><span>Adicionar</span></button>
+	</div>
+
+	<?php /*if(!$model_table->getData('nf_estado')){*/ ?>
+        <br/>
+        <br/>
+        <div class='left recipe-left'>
+            <label for='add_pctnota'>Adicionar % da Nota Fiscal : </label>
+            <select id='add_pctnota'>
+                <?php $i = 0; ?>
+                <?php while($i < 99.9 ): ?>
+                        <?php $i = $i + 0.1; ?>
+                        <option value='<?php echo number_format($i,1); ?>% NF'><?php echo number_format($i,1); ?>%</option>
+                <?php endwhile; ?>
+            </select>
+            <button onclick='ship.addpctnota();'><span>Adicionar</span></button>
+        </div>
+    <?php /*}*/ ?>
+
+	<br/>
+	<br/>
+
+	<div class='left recipe-left'>
+		<label for='add_freevalue'>Adicionar Valor : </label>
+		<input id='add_freevalue' type="text" />
+		<button onclick='ship.addfreevalue();'><span>Adicionar</span></button>
+	</div>
+
+	<br style='clear:left;' />
+
+</div>
+
+<br/>
+	
+<button class='scalable back reset_recipe' onclick='ship.back_recipe();'>
+	<span>Voltar << </span>
+</button>
+
+<br/>
+
+
+
+<div id='recipe_ul_wrapper' >
+	<ul id='recipe_ul'>
+		<?php if($model_recipe->getId()): ?>
+			<?php $recipes = (unserialize($model_recipe->getData('recipe'))); ?>
+			<?php foreach($recipes as $recipe): ?>
+			<li><?php echo $recipe; ?></li>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		
+	</ul>
+	<br style='clear:both;' />
+</div>
+
+<br/>
+
+<button class='scalable save' onclick='ship.validate_recipe();'>
+	<span>Validar Fórmula</span>
+</button>
+
+</div>
+</div>
+

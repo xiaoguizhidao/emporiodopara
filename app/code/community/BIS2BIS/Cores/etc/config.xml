@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <modules>
+        <BIS2BIS_Cores>
+            <version>0.1.0</version>
+        </BIS2BIS_Cores>
+    </modules>
+
+    <frontend>
+        <routers>
+            <cores>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Cores</module>
+                    <frontName>cores</frontName>
+                </args>
+            </cores>
+        </routers>
+
+         <layout>
+            <updates>
+                <cores>
+                    <file>cores.xml</file>
+                </cores>
+            </updates>
+        </layout>  
+
+
+    </frontend>
+    
+    <admin>
+        <routers>
+            <cores>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Cores</module>
+                    <frontName>cores</frontName>
+                </args>
+            </cores>
+        </routers>    
+    </admin>
+    
+    <adminhtml>   
+        
+        <layout>
+            <updates>
+                <cores>
+                    <file>cores.xml</file>
+                </cores>
+            </updates>
+        </layout>  
+
+        <menu>
+            <cores translate="title" module="cores">
+                <title>Configuração de Cores</title>
+                <sort_order>50</sort_order>
+                <children>
+                    <cores_registro translate="title" module="cores">
+                        <title>Cadastro de Cores</title>
+                        <sort_order>2</sort_order>
+                        <action>cores/admin/lista</action>
+                    </cores_registro>
+                </children>
+            </cores>  
+        </menu>
+         <acl>
+            <resources>
+                 <all>
+                    <title>Allow Everything</title>
+                </all>
+
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <cores>
+                                            <title>Cores</title>
+                                        </cores>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <cores translate="title" module="catalog">
+                             <title>Configuração de Cores</title>
+                             <sort_order>5</sort_order>
+                             <children>
+                                 <cores_registro>
+                                     <title>Cadastro de Cores</title>
+                                     <sort_order>300</sort_order>
+                                 </cores_registro>
+                             </children>
+                        </cores>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    
+    <global>
+    	
+        <models>
+            <cores>
+                <class>BIS2BIS_Cores_Model</class>
+                <resourceModel>cores_mysql4</resourceModel>
+            </cores>
+            <cores_mysql4>
+                <class>BIS2BIS_Cores_Model_Mysql4</class>
+                <entities>
+                    <cores>
+                        <table>cores</table>
+                    </cores>
+                </entities>
+            </cores_mysql4>
+        </models>
+        
+        <resources>
+            <cores_setup>
+                <setup>
+                    <module>BIS2BIS_Cores</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </cores_setup>
+            <cores_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cores_write>
+            <cores_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cores_read>
+        </resources>
+        <blocks>
+            <cores>
+                <class>BIS2BIS_Cores_Block</class>
+            </cores>
+        </blocks>
+        <helpers>
+            <cores>
+                <class>BIS2BIS_Cores_Helper</class>
+            </cores>
+        </helpers>
+    </global>
+
+                 
+    <default>  
+        <cores>  
+            <config> 
+                <codigo_cor>color</codigo_cor>
+            </config>
+        </cores>
+    </default>
+
+</config>

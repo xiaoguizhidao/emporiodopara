@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <modules>
+        <BIS2BIS_ClearsaleStart>
+            <version>0.1.3</version>
+        </BIS2BIS_ClearsaleStart>
+    </modules>
+
+    <frontend>
+        <routers>
+            <clearsalestart>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_ClearsaleStart</module>
+                    <frontName>clearsalestart</frontName>
+                </args>
+            </clearsalestart>
+        </routers>
+        <layout>
+            <updates>
+                <front_clearsalestart>
+                    <file>clearsalestart.xml</file>
+                </front_clearsalestart>
+            </updates>
+        </layout>
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <clearsalestart_observer>
+                        <class>clearsalestart/observer</class>
+                        <method>analyseOrder</method>
+                    </clearsalestart_observer>
+                </observers>
+            </sales_order_place_after>
+        </events>
+    </frontend>
+
+    <admin>
+        <routers>
+            <clearsalestart>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_ClearsaleStart</module>
+                    <frontName>clearsalestart</frontName>
+                </args>
+            </clearsalestart>
+        </routers>
+    </admin>
+
+    <global>
+
+        <models>
+            <clearsalestart>
+                <class>BIS2BIS_ClearsaleStart_Model</class>
+                <resourceModel>clearsalestart_mysql4</resourceModel>
+            </clearsalestart>
+            <clearsalestart_mysql4>
+                <class>BIS2BIS_ClearsaleStart_Model_Mysql4</class>
+                <entities>
+                    <payment>
+                        <table>clearsalestart_payment</table>
+                    </payment>
+                </entities>
+            </clearsalestart_mysql4>
+        </models>
+
+        <resources>
+            <clearsalestart_setup>
+                <setup>
+                    <module>BIS2BIS_ClearsaleStart</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </clearsalestart_setup>
+            <clearsalestart_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </clearsalestart_write>
+            <clearsalestart_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </clearsalestart_read>
+        </resources>
+
+        <blocks>
+            <clearsalestart>
+                <class>BIS2BIS_ClearsaleStart_Block</class>
+            </clearsalestart>
+        </blocks>
+        <helpers>
+            <clearsalestart>
+                <class>BIS2BIS_ClearsaleStart_Helper</class>
+            </clearsalestart>
+        </helpers>
+
+    </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <clearsalestart>
+                    <file>clearsalestart.xml</file>
+                </clearsalestart>
+            </updates>
+        </layout>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <clearsalestart>
+                                            <title>ClearsaleStart</title>
+                                        </clearsalestart>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+</config>

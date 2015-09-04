@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <comprejunto translate="label" module="comprejunto">
+            <label>Módulos</label>
+            <sort_order>10</sort_order>
+        </comprejunto>
+    </tabs>
+    <sections>
+        <comprejunto translate="label" module="comprejunto">
+            <label>Presente</label>
+            <tab>comprejunto</tab>
+            <sort_order>1</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <config translate="label" module="comprejunto">
+                    <label>Configuração</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <taxa translate="label">
+                            <label>Taxa</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </taxa>
+                    </fields>
+                </config>
+            </groups>
+        </comprejunto>
+    </sections>
+</config>

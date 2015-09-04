@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+
+    <modules>
+        <BIS2BIS_Motoboyconfig>
+            <version>0.1.0</version>
+        </BIS2BIS_Motoboyconfig>
+    </modules>
+
+
+
+    <frontend>
+        <routers>
+            <motoboyconfig>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Motoboyconfig</module>
+                    <frontName>motoboyconfig</frontName>
+                </args>
+            </motoboyconfig>
+        </routers>
+    </frontend>
+
+    
+
+    <admin>
+        <routers>
+            <motoboyconfig>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Freeshippingconfig</module>
+                    <frontName>motoboyconfig</frontName>
+                </args>
+            </motoboyconfig>
+        </routers>
+    </admin>
+
+    
+
+    <adminhtml>   
+        <menu>
+            <parameters translate="title" module="motoboyconfig">
+                <title>Motoboy</title>
+                <sort_order>48</sort_order>
+                <children>
+
+                    <rangecep translate="title" module="motoboyconfig">
+
+                        <title>Faixa de CEP - Motoboy</title>
+
+                        <sort_order>4</sort_order>
+
+                        <action>motoboyconfig/admin/rangecep</action>
+
+                    </rangecep>
+
+                </children>
+
+            </parameters>  
+
+        </menu>
+
+        <acl>
+
+            <resources>
+
+                <admin>
+
+                    <children>
+
+                        <parameters translate="title" module="catalog">
+
+                            <title>Motoboy</title>
+
+                            <sort_order>500</sort_order>
+
+                            <children>
+
+                                <rangecep>
+                                    <title>Faixa de CEP - Motoboy</title>
+                                    <sort_order>500</sort_order>
+                                </rangecep>
+
+                            </children>
+
+                        </parameters>
+
+                    </children>
+
+                </admin>
+
+            </resources>
+
+        </acl>                       
+
+
+    </adminhtml>
+
+
+
+   
+
+    <global>
+
+        <models>
+
+            <motoboyconfig>
+                <class>BIS2BIS_Motoboyconfig_Model</class>
+                <resourceModel>motoboyconfig_mysql4</resourceModel>
+            </motoboyconfig>
+
+            <motoboyconfig_mysql4>
+                <class>BIS2BIS_Motoboyconfig_Model_Mysql4</class>
+                <entities>
+                    <motoboyconfig>
+                        <table>motoboyconfig</table>
+                    </motoboyconfig>
+                </entities>
+            </motoboyconfig_mysql4>
+
+        </models>
+
+        <resources>
+            <motoboyconfig_setup>
+                <setup>
+                    <module>Motoboyconfig</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </motoboyconfig_setup>
+
+            <motoboyconfig_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </motoboyconfig_write>
+
+            <motoboyconfig_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </motoboyconfig_read>
+        </resources>
+
+        <blocks>
+            <motoboyconfig>
+                <class>BIS2BIS_Motoboyconfig_Block</class>
+            </motoboyconfig>
+        </blocks>
+
+        <helpers>
+            <motoboyconfig>
+                <class>BIS2BIS_Motoboyconfig_Helper</class>
+            </motoboyconfig>
+        </helpers>
+
+    </global>
+
+
+</config>

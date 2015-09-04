@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+	<BIS2BIS_Fretegratis>
+	  <version>0.1.0</version>
+	</BIS2BIS_Fretegratis>
+  </modules>
+ 
+  <global>
+	<models>
+	  <fretegratis>
+		<class>BIS2BIS_Fretegratis</class>
+	  </fretegratis>
+	</models>
+ 	<helpers>
+        <fretegratis>
+            <class>BIS2BIS_Fretegratis_Helper</class>
+        </fretegratis>
+    </helpers>
+	<resources>
+	  <fretegratis_setup>
+		<setup>
+		  <module>BIS2BIS_Fretegratis</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </fretegratis_setup>
+	</resources>
+  </global>
+  
+  <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Banners</title>
+				</all>
+				<admin>
+					<children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+										<gerfrete>
+											<title>Gerenciar Frete Grátis</title>
+										</gerfrete>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<marcas>
+				    <file>banner.xml</file>
+				</marcas>
+			</updates>
+		</layout>
+	</adminhtml>
+
+ 	<default>
+		<carriers>
+			<fretegratis>
+				<active>1</active>
+				<model>BIS2BIS_Fretegratis_Model_Carrier_ShippingMethod</model>
+				<title>Frete Grátis</title>
+				<valor>200</valor>
+				<sort_order>1</sort_order>
+			</fretegratis>
+		</carriers>
+	</default>
+  
+</config>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+    
+    <modules>
+        <BIS2BIS_Jadlog>
+            <version>0.1.0</version>
+        </BIS2BIS_Jadlog>
+    </modules>
+
+    <frontend>
+        <routers>
+            <jadlog>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Jadlog</module>
+                    <frontName>jadlog</frontName>
+                </args>
+            </jadlog>
+        </routers>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <jadlog>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Jadlog</module>
+                    <frontName>jadlog</frontName>
+                </args>
+            </jadlog>
+        </routers>    
+    </admin>
+    
+    <adminhtml> 
+        <layout>
+            <updates>
+                <jadlog>
+                    <file>jadlog.xml</file>
+                </jadlog>
+            </updates>
+        </layout>  
+
+    </adminhtml>
+    
+    <global>
+        <models>
+            <jadlog>
+                <class>BIS2BIS_Jadlog_Model</class>
+                <resourceModel>jadlog_mysql4</resourceModel>
+            </jadlog>
+            <jadlog_mysql4>
+                <class>BIS2BIS_Jadlog_Model_Mysql4</class>
+                <entities>
+                    <jadlog>
+                        <table>jadlog</table>
+                    </jadlog>
+                </entities>
+            </jadlog_mysql4>
+        </models>
+        <resources>
+            <jadlog_setup>
+                <setup>
+                    <module>BIS2BIS_Jadlog</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </jadlog_setup>
+            <jadlog_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </jadlog_write>
+            <jadlog_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </jadlog_read>
+        </resources>
+        <blocks>
+            <jadlog>
+                <class>BIS2BIS_Jadlog_Block</class>
+            </jadlog>
+        </blocks>
+        <helpers>
+            <jadlog>
+                <class>BIS2BIS_Jadlog_Helper</class>
+            </jadlog>
+        </helpers>
+        <sales>
+            <shipping>
+                <carriers>
+                    <jadlog>
+                        <class>BIS2BIS_Jadlog_Model_Carrier</class>
+                    </jadlog>
+                </carriers>
+            </shipping>
+        </sales>
+
+    </global>
+
+           
+    <default>
+        <carriers>
+              <jadlog>
+                   <active>1</active>
+                   <model>BIS2BIS_Jadlog_Model_Carrier</model>
+                   <title>Jadlog</title>
+                   <name>Jadlog</name>
+                   <url>http://www.jadlog.com.br:8080/JadlogEdiWs/services/ValorFreteBean?method=valorar</url>
+                   <modalidade>5</modalidade>
+                   <showmethod>1</showmethod>
+                   <active_free_shipping>0</active_free_shipping>
+              </jadlog>
+        </carriers>
+    </default>
+
+</config>

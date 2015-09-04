@@ -1,0 +1,31 @@
+<?php
+    $product    = Mage::getModel('catalog/product')->load($this->getRequest()->getParam('id'));
+    $categorias = Mage::getModel('gmerchant/categorias')->getCollection()->setOrder('name','ASC');
+    $categoria_ = $product->getGoogleCategoria();
+?>
+
+<div class="grid">
+    <table cellspacing="0" id="" class="data">
+        <colgroup>
+            <col width="30">
+            <col width="30">
+            <col>
+        </colgroup>
+        <thead>
+            <tr class="headings">
+                <th><span class="nobr"><span class="sort-title"></span></span></th>
+                <th><span class="nobr"><span class="sort-title">ID</span></span></th>
+                <th class=" last"><span class="sort-title">Nome</span></span></th>
+            </tr>
+        </thead>
+        <tbody id="">
+            <?php foreach($categorias as $categoria){ ?>
+                <tr class="even">
+                    <td><input type="radio" name="product[google_categoria]" id="teste" value="<?php echo $categoria->getId() ?>" <?php echo ($categoria->getId() == $product->getGoogleCategoria())? 'checked' : '' ?>></td>
+                    <td><?php echo $categoria->getId() ?></td>
+                    <td><?php echo $categoria->getName() ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>

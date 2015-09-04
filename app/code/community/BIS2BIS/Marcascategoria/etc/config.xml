@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <modules>
+        <BIS2BIS_Marcascategoria>
+            <version>0.1.0</version>
+        </BIS2BIS_Marcascategoria>
+    </modules>
+
+    <frontend>
+        <routers>
+            <marcascategoria>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Marcascategoria</module>
+                    <frontName>marcascategoria</frontName>
+                </args>
+            </marcascategoria>
+    
+        </routers>
+        <layout>
+            <updates>
+                <front_marcascategoria>
+                    <file>marcascategoria.xml</file>
+                </front_marcascategoria>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <marcascategoria>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Marcascategoria</module>
+                    <frontName>marcascategoria</frontName>
+                </args>
+            </marcascategoria>
+        </routers>    
+    </admin>
+
+    <adminhtml>   
+        <menu>
+            <marcascategoria translate="title" module="marcascategoria">
+                <title>Marcas</title>
+                <sort_order>50</sort_order>
+                <action>marcascategoria/admin/parametro</action>
+                <children>
+                    <marcascategoria_config translate="title" module="marcascategoria">
+                        <title>Configurações</title>
+                        <sort_order>1</sort_order>
+                        <action>marcascategoria/admin/config</action>
+                    </marcascategoria_config>
+                    <marcascategoria_marcas translate="title" module="marcascategoria">
+                        <title>Gerenciar Marcas</title>
+                        <sort_order>2</sort_order>
+                        <action>marcascategoria/admin/listamarcas</action>
+                    </marcascategoria_marcas>
+                    <marcascategoria_register translate="title" module="marcascategoria">
+                        <title>Gerenciar Listas</title>
+                        <sort_order>3</sort_order>
+                        <action>marcascategoria/admin/listas</action>
+                    </marcascategoria_register>                    
+                </children>
+            </marcascategoria>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <marcascategoria translate="title" module="marcascategoria">
+                            <title>Marcas de Categoria</title>
+                            <sort_order>5</sort_order>
+                            <children>
+                            	<marcascategoria_config translate="title" module="marcascategoria">
+			                        <title>Configurações</title>
+			                        <sort_order>1</sort_order>
+			                        <action>marcascategoria/admin/config</action>
+			                    </marcascategoria_config>
+			                    <marcascategoria_marcas translate="title" module="marcascategoria">
+			                        <title>Gerenciar Marcas</title>
+			                        <sort_order>2</sort_order>
+			                        <action>marcascategoria/admin/listamarcas</action>
+			                    </marcascategoria_marcas>
+			                    <marcascategoria_register translate="title" module="marcascategoria">
+			                        <title>Gerenciar Listas</title>
+			                        <sort_order>3</sort_order>
+			                        <action>marcascategoria/admin/listas</action>
+			                    </marcascategoria_register> 
+                            </children>
+                        </marcascategoria>
+                    </children>
+                </admin>    
+            </resources>
+        </acl>
+    </adminhtml>
+
+    <global>
+        <models>
+            <marcascategoria>
+                <class>BIS2BIS_Marcascategoria_Model</class>
+                <resourceModel>marcascategoria_mysql4</resourceModel>
+            </marcascategoria>
+            <marcascategoria_mysql4>
+                <class>BIS2BIS_Marcascategoria_Model_Mysql4</class>
+                <entities>
+                    <marcas>
+                        <table>marcas</table>
+                    </marcas>
+                    <config>
+                        <table>marcas_config</table>
+                    </config>
+                 </entities>
+            </marcascategoria_mysql4>
+        </models>
+        <resources>
+            <marcascategoria_setup>
+                <setup>
+                    <module>BIS2BIS_Marcascategoria</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </marcascategoria_setup>
+            <marcascategoria_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </marcascategoria_write>
+            <marcascategoria_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </marcascategoria_read>
+        </resources>
+        <blocks>
+            <marcascategoria>
+                <class>BIS2BIS_Marcascategoria_Block</class>
+            </marcascategoria>
+         </blocks>
+        <helpers>
+            <marcascategoria>
+                <class>BIS2BIS_Marcascategoria_Helper</class>
+            </marcascategoria>
+        </helpers>
+    </global>
+
+</config>

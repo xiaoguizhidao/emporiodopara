@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+	
+    <catalog_category_default translate="label">
+         
+         <reference name="content">
+            <block type="page/html"  before='product_list' name="banner_category" as="banner_category"  template="banner/category.phtml"/>
+         </reference>
+
+    </catalog_category_default>
+
+    <catalog_category_layered translate="label">
+         
+         <reference name="content">
+            <block type="page/html"  before='product_list' name="banner_category" as="banner_category"  template="banner/category.phtml"/>
+         </reference>
+
+    </catalog_category_layered>
+	
+    <default>
+        <reference name='head'>
+            <action method="addJs"><script>banner/jquerycycle.js</script></action> 
+            <action method="addJs"><script>banner/banner.js</script></action> 
+            <action method="addCss"><stylesheet>css/banner.css</stylesheet></action>
+        </reference>
+        <reference name="left">
+            <block type="page/html"  name="banner_left" as="banner_left"  template="banner/left.phtml"/>
+        </reference>
+        <reference name="right">
+            <block type="page/html"  name="banner_right" as="banner_right"  template="banner/right.phtml"/>
+        </reference>
+		<reference name="header">
+            <block type="page/html"  before='topMenu' name="banner_top" as="banner_top"  template="banner/top.phtml"/>
+		</reference>
+
+        <reference name="footer">
+            <block type="page/html"   name="banner_footer" as="banner_footer"  template="banner/footer.phtml"/>
+        </reference>
+	</default>
+   
+</layout> 
+

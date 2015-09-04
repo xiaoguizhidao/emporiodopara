@@ -1,0 +1,114 @@
+<?php 
+	$_product = $this->getProduct(); 
+	$collection = Mage::getModel('comprejunto/comprejunto')->getCollection();
+	$collection->addFieldToFilter('id_prods',array('finset' => $_product->getId()));
+	$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+//	$color = Mage::getModel('color/color')->load(1);
+//	$color_code = ($color->getData('attribute'));
+	if(count($collection) > 0){
+?>
+	<div class="comprejunto">
+		<h2>Compre junto com desconto</h2>
+		<ul class="produtos">
+			<?php			
+				foreach($collection as $compra){
+						$ids = explode(',',$compra['id_prods']);
+						$desconto = $compra['desconto'];
+						$desconto_full = $compra['desconto'];
+						$tipodesconto = $compra['tipodesconto'];
+						
+						// Usando para pegar a imagem dos produtos e carregar com resize
+						$block = Mage::getBlockSingleton('catalog/product_list');
+						
+						// Verificando o array dos ids e carregando o produto 2 para mostrar, pois o primeiro já é o produto atual da página acessada.
+						$_product2 = ($ids[0] != $_product->getId()) ? $ids[0] : $ids[1];
+						$_product2 = Mage::getModel('catalog/product')->load($_product2);
+						
+						//precos
+						$_product_price  = number_format($_product->getFinalPrice(),2,',','.');
+						$_product2_price = number_format($_product2->getFinalPrice(),2,',','.');
+						$total = $_product->getFinalPrice()+$_product2->getFinalPrice();
+						
+						if($tipodesconto == 'porcent'){
+							$desconto = (100-$desconto)/100;
+							$total_desconto = number_format($total*$desconto,2,',','.');
+						} else {
+							$total_desconto = number_format($total-$desconto,2,',','.');
+						}
+							
+						// Mostrando a compra casada somente se os produtos estiverem disponíveis para venda(Em estoque)
+						if($_product2->isSalable() && $_product->isSalable()){
+						
+							// Array para fazer o loop das opções de cores, tamanhos ou nada caso seja produto simples.
+							$opcoes = array($_product->getId() => $_product, $_product2->getId() => $_product2);
+						?>
+							<!-- Mostrando os dois produtos, sempre por primeiro o produto atual acessado -->
+							<li class="item">
+								<a id="<?php echo $_product->getId() ?>" href="<?= $_product->getProductUrl() ?>" title="<?= $_product->getName() ?>" class="produto">
+									<img src="<?= $block->helper('catalog/image')->init($_product, 'small_image')->resize(165) ?>" alt="<?= $_product->getName() ?>"/>
+								</a>								
+								
+								<span class="icon_mais"></span>
+								
+								<a id="<?php echo $_product2->getId() ?>" href="<?= $_product2->getProductUrl() ?>" title="<?= $_product2->getName() ?>"  class="produto">
+									<img src="<?= $block->helper('catalog/image')->init($_product2, 'small_image')->resize(165) ?>" alt="<?= $_product2->getName() ?>"/>
+								</a>
+								
+								<div class="opcoes">
+									<form name="addcart_desconto" class="formcomprejunto" action="<?= $this->getUrl('comprejunto/standard/addcart') ?>" method="POST">
+										
+										<?php foreach($opcoes as $prod){ ?>
+											<span class="product" id="<?= $prod->getId() ?>">
+												<span class="loadingattr"><img src="media/loadingattr.gif" /></span>
+												<a href="<?= $prod->getProductUrl() ?>"> <?= $prod->getName() ?> </a>
+												<?php
+													if($prod->getTypeId() == 'configurable'){
+														$attrs  = $prod->getTypeInstance(true)->getConfigurableAttributesAsArray($prod);
+														
+														foreach($attrs as $key => $attr){
+															echo '<br/><label for="super_attribute['.$attr['attribute_id'].']">'.$attr['label'].' : </label>';
+															echo '<select name="configuravel['.$prod->getId().']['.$attr['attribute_id'].']" class="selectAttr '.(($key==1)?'nextattr':'firstattr').'" id="'.$attr['attribute_code'].'">';
+															echo '<option value="">Selecione...</option>';
+															if($key == 0){
+																foreach($attr['values'] as $option){
+																	$_products = $prod->getTypeInstance()->getUsedProductCollection()->addAttributeToSelect('*')->addFieldToFilter($attr['attribute_code'], $option['value_index']);
+																	Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($_products);
+																	if(count($_products) > 0)																
+																		echo '<option value="'.$option['value_index'].'">'.$option['default_label'].'</option>';
+																}
+															}
+															echo '</select>';
+														}
+													} else {
+														echo '<input type="hidden" name="produtosimples['.$prod->getId().']" value="'.$prod->getId().'" />';
+													}
+												?>
+											</span>
+										<?php } ?>
+
+										<input type="hidden" name="desconto" id="desconto" value="<?= $desconto_full ?>" />
+										<input type="hidden" name="tipodesconto" id="tipodesconto" value="<?= $tipodesconto ?>" />
+
+										<p class="antigo">
+											Preço total: 
+											R$ <span class="update1" id="<?= $_product->getId() ?>" data-precoattr1="0" data-precooriginal="<?= number_format($_product->getFinalPrice(),2,'.','') ?>"><?= $_product_price ?></span>
+											+ 
+											R$ <span class="update2" id="<?= $_product2->getId() ?>"  data-precooriginal="<?= number_format($_product2->getFinalPrice(),2,'.','') ?>"><?= $_product2_price ?></span>
+											= 
+											<del>R$ <?php echo number_format($total,2,',','.') ?></del>
+										</p>
+										
+										<p class="novo">Comprando junto: <b>R$ <?= $total_desconto ?></b></p>									
+										<input type="button" class="btnadd" value="COMPRE JUNTO" />
+
+									</form>
+								</div>
+							</li>
+						<?php
+					}
+				}
+				
+			?>
+		</ul>
+	</div>
+<?php } ?>

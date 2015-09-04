@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <googletagmanager translate="label">
+            <label>Google Tag Manager</label>
+            <tab>general</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1001</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <type translate="label">
+                    <label>Type of Tag</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <type_google_analytics translate="label">
+                            <label>Tag Google Analytics</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>BIS2BIS_GoogleTagManager_Model_TypeGoogleAnalytics</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </type_google_analytics>
+                    </fields>
+                </type>
+                <config translate="label">
+                    <label>Google Analytics</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active_google_analytics translate="label">
+                            <label>Habilitar</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active_google_analytics>
+                        <id_google_analytics translate="label">
+                            <label>ID Track</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                <![CDATA[ID identificador do site.</br>
+                                Ex: <span class="notice">UA-XXXXXXXX-0</span>]]>
+                            </comment>
+                        </id_google_analytics>
+                        <domain_google_analytics translate="label">
+                            <label>Domínio</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                <![CDATA[Domínio identificador do site.</br>
+                                Ex: <span class="notice">dominio.com.br</span>]]>
+                            </comment>
+                        </domain_google_analytics>
+                        <active_google_analytics_commerce translate="label">
+                            <label>Tag e-Commerce</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                <![CDATA[Todos os métodos de pagamento.]]>
+                            </comment>
+                        </active_google_analytics_commerce>
+                    </fields>
+                </config>
+            </groups>
+        </googletagmanager>
+    </sections>
+</config>

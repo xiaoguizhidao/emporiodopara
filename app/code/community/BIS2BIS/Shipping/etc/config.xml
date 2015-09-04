@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+    
+    <modules>
+        <BIS2BIS_Shipping>
+            <version>0.3.0</version>
+        </BIS2BIS_Shipping>
+    </modules>
+
+    <frontend>
+        <routers>
+            <bis2ship>
+                <use>standard</use>
+                <args>
+                    <module>BIS2BIS_Shipping</module>
+                    <frontName>bis2ship</frontName>
+                </args>
+            </bis2ship>
+        </routers>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <bis2ship>
+                <use>admin</use>
+                <args>
+                    <module>BIS2BIS_Shipping</module>
+                    <frontName>bis2ship</frontName>
+                </args>
+            </bis2ship>
+        </routers>    
+      
+    </admin>
+    
+    <adminhtml> 
+        <layout>
+            <updates>
+                <bis2ship>
+                    <file>bis2ship.xml</file>
+                </bis2ship>
+            </updates>
+        </layout>  
+        <menu>
+            <bis2ship translate="title" module="bis2ship">
+                <title>Gerenciar Frete</title>
+                <sort_order>30</sort_order>
+                <children>
+                    <bis2ship_managetables translate="title" module="bis2ship">
+                        <title>Gerenciar Tabelas</title>
+                        <sort_order>0</sort_order>
+                        <action>bis2ship/admin/manageTables</action>
+                    </bis2ship_managetables>
+                </children>
+            </bis2ship>  
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <bis2ship translate="title" module="catalog">
+                             <title>Gerenciar Frete</title>
+                             <sort_order>5</sort_order>
+                             <children>
+                                 <bis2ship_managetables>
+                                     <title>Gerenciar Tabelas</title>
+                                     <sort_order>300</sort_order>
+                                 </bis2ship_managetables>
+                             </children>
+                        </bis2ship>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    
+    <global>
+        <models>
+            <bis2ship>
+                <class>BIS2BIS_Shipping_Model</class>
+                <resourceModel>bis2ship_mysql4</resourceModel>
+            </bis2ship>
+            <bis2ship_mysql4>
+                <class>BIS2BIS_Shipping_Model_Mysql4</class>
+                <entities>
+                    <shippingtables>
+                        <table>shipping_tables</table>
+                    </shippingtables>
+                    <recipe>
+                        <table>shipping_recipes</table>
+                    </recipe>
+                </entities>
+            </bis2ship_mysql4>
+        </models>
+        <resources>
+            <bis2ship_setup>
+                <setup>
+                    <module>BIS2BIS_Shipping</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </bis2ship_setup>
+            <bis2ship_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </bis2ship_write>
+            <bis2ship_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </bis2ship_read>
+        </resources>
+        <blocks>
+            <bis2ship>
+                <class>BIS2BIS_Shipping_Block</class>
+            </bis2ship>
+        </blocks>
+        <helpers>
+            <bis2ship>
+                <class>BIS2BIS_Shipping_Helper</class>
+            </bis2ship>
+        </helpers>
+        <sales>
+            <shipping>
+                <carriers>
+                    <bis2ship>
+                        <class>BIS2BIS_Shipping_Model_Carrier</class>
+                    </bis2ship>
+                </carriers>
+            </shipping>
+        </sales>
+
+    </global>
+
+           
+    <default>
+        <carriers>
+          <bis2ship>
+               <active>1</active>
+               <model>bis2ship/carrier</model>
+               <title>Transportadoras</title>
+               <allow_free_method>0</allow_free_method>
+               <free_methods></free_methods>
+          </bis2ship>
+      
+        </carriers>
+
+    </default>
+
+</config>

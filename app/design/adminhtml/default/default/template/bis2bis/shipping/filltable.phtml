@@ -1,0 +1,189 @@
+<div id='filltable_full_wrapper'>
+
+<div id='screenlocker'>
+	<div><img src="<?php echo $this->getSkinUrl('images/shipping/loader.gif'); ?>" alt=""></div>
+</div>
+
+
+<script type='text/javascript'>
+	var grid;
+	var data = [];
+</script>
+
+<div id="messages_shipping" class='messages_error hidden'>
+	<ul class="messages">
+		<li class="error-msg">
+			<ul>
+				<li>
+					<span id='msg_txt'></span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class='content-header' >
+	<h3 class="icon-head head-products">Preenchimento de Tabela</h3>
+	<div class='right'>
+        <button type="button" class="scalable back" onclick="setLocation('<?php echo Mage::helper('adminhtml')->getUrl('bis2ship/admin/manageTables'); ?>')" style=""><span>Voltar</span></button>
+        <button onclick='ship.save_filltable(data);' id='fill_button' class='button scalable save'><span>Salvar Tabela</span></button>
+	</div>
+</div>
+
+<div class='entry-edit'>
+
+
+  <?php   $params = $this->getRequest()->getParams(); ?>
+  <?php   $id = $params['id']; ?>
+  <?php   $table = Mage::getModel('bis2ship/shippingtables')->load($id); ?>
+  <?php   $fields = unserialize($table->getData('fields')); ?>
+
+
+<?php if($table->getActive()): ?>
+	<script type="text/javascript" >
+		jQuery(document).ready(function(){
+			jQuery('#filltable_full_wrapper button').attr('disabled', 'disabled');
+			jQuery('#filltable_full_wrapper button').css('opacity', '0.2');
+            jQuery('#filltable_full_wrapper button.back').removeAttr('disabled');
+            jQuery('#filltable_full_wrapper button.back').css('opacity', '1');
+		});
+	</script>
+<?php endif; ?>
+
+<h3 class="shipping-head"><img src="<?php echo $this->getSkinUrl('images/shipping/delivery.png'); ?>">&nbsp; <?php echo ucfirst($table->getTableName()); ?></h3>
+
+<form action="<?php echo $this->getBaseUrl() . 'bis2ship/admin/saveFillTable'; ?>" method='POST' id='form_filltable'>
+	 	<?php $formKey = Mage::getSingleton('core/session')->getFormKey(); ?> 
+	  	<input name="form_key" type="hidden" value="<?php echo $formKey; ?>" kl_vkbd_parsed="true">
+		<input type="hidden" name='data' id='data_filltable' />
+		<input type="hidden" name='table_id' id='table_id' value='<?php echo $table->getId();	 ?>'>
+</form>
+
+<ul id='icons_list'>
+	<li>
+		<a href="#" onclick='ship.duplicatelastrows();'  title='Duplicar última linha' ><img src="<?php echo $this->getSkinUrl('images/shipping/duplicate_icon.png'); ?>" alt="Duplicar última linha"></a>
+	</li>
+	<li>
+		<a href="#" onclick='ship.duplicateselectedrows();'  title='Duplicar linha selecionada' ><img src="<?php echo $this->getSkinUrl('images/shipping/copy_icon.png'); ?>" alt="Duplicar linha selecionada"></a>
+	</li>
+	<li>
+		<a href="#" onclick='ship.deleteselectedrows();' title='Deletar selecionados' ><img src="<?php echo $this->getSkinUrl('images/shipping/trash_icon.png'); ?>" alt="Deletar selecionados"></a>
+	</li>
+</ul>
+<br style='clear :left;' />
+<div id="myGrid" style="min-height : 500px;"></div>
+</div>
+
+<script type='text/javascript'>
+
+  function requiredFieldValidator(value) {
+    if (value == null || value == undefined || !value.length) {
+      return {valid: false, msg: "This is a required field"};
+    } else {
+      return {valid: true, msg: null};
+    }
+  }
+
+
+  jQuery(function () {
+
+  	jQuery('#screenlocker').fadeIn();
+
+    jQuery.ajax({
+	  type: "POST",
+      url : '<?php echo $this->getBaseUrl() . "bis2ship/index/buildeditabletable/";  ?>',
+	  data: { id : jQuery('#table_id').val() }
+	}).done(function( msg ) {
+	    jQuery.ajax({
+	  		type: "POST",
+	  		url : '<?php echo $this->getBaseUrl() . "bis2ship/index/gettabledata/";  ?>',
+	  		data: { id : jQuery('#table_id').val() }
+		}).done(function( datas ) {
+				data = eval('(' + datas + ')');
+			    var columns = eval('(' + msg + ')');
+
+				for(var k = 0; k < columns.length; k++){
+
+					if(columns[k].editor == 'Slick.Editors.Text'){
+						columns[k].editor = Slick.Editors.Text;
+					}else{
+						columns[k].editor = Slick.Editors.Integer;
+					}
+
+
+					if(k != 5)// não valida a coluna de prazo
+					columns[k].validator = requiredFieldValidator;
+
+					if(columns[k].formatter == 'Slick.Formatters.Decimal'){
+						columns[k].formatter = Slick.Formatters.Decimal;
+					}
+				}
+			
+				var options = {
+				    editable: true,
+				    enableAddRow: true,
+				    enableCellNavigation: true,
+				    autoEdit: true
+				};
+
+				data_validar = new Array(); // vetor que armazenará as colunas para validação
+
+				for(var k = 0; k <= (columns.length-1); k++){
+					 data_validar.push(columns[k].id.replace(' ', '_'));
+				}
+
+			    grid = new Slick.Grid("#myGrid", data, columns, options);
+
+			    //grid.setSelectionModel(new Slick.CellSelectionModel());
+				grid.setSelectionModel(new Slick.RowSelectionModel());
+			    
+			    grid.onAddNewRow.subscribe(function (e, args) {
+				      var item = args.item;
+				      grid.invalidateRow(data.length);
+				      data.push(item);
+				      grid.updateRowCount();
+				      grid.render();
+			    });
+
+			    var copyManager = new Slick.CellCopyManager();
+
+			    grid.registerPlugin(copyManager);
+
+		   	    copyManager.onPasteCells.subscribe(function (e, args) {
+			        if (args.from.length !== 1 || args.to.length !== 1) {
+			          throw "This implementation only supports single range copy and paste operations";
+			        }
+
+				    var from = args.from[0];
+				    var to = args.to[0];
+				    var val;
+				    
+				    for (var i = 0; i <= from.toRow - from.fromRow; i++) {
+				        for (var j = 0; j <= from.toCell - from.fromCell; j++) {
+				          if (i <= to.toRow - to.fromRow && j <= to.toCell - to.fromCell) {
+				            val = data[from.fromRow + i][columns[from.fromCell + j].field];
+				            data[to.fromRow + i][columns[to.fromCell + j].field] = val;
+				            grid.invalidateRow(to.fromRow + i);
+				          }
+				        }
+				    }
+				    grid.render();
+				});
+
+				ship.startvalidate(data_validar);
+
+		  
+		     	jQuery('#screenlocker').fadeOut();
+			});
+
+			jQuery('#myGrid').css('display', 'block');
+
+	});
+
+	  
+
+  })
+</script>
+
+
+</div>

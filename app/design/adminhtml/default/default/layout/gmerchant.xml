@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+        	<action method="addCss"><name>gmerchant.css</name></action>
+        	<action method="addJs"><script>gmerchant/gmerchant.js</script></action> 
+        </reference>
+    </default>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>gmerchant_tab</name>
+                <block>gmerchant_tabs/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+</layout>

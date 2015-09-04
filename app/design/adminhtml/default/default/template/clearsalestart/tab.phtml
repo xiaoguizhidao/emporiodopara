@@ -1,0 +1,17 @@
+<button id="consultaClearsale">Consultar Clearsale</button>
+<div id="resultadoConsulta"></div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#consultaClearsale").click(function() {
+			jQuery('#resultadoConsulta').html("<p>Carregando...</p>");
+			jQuery.ajax({
+				type: "post",
+				url: "/clearsalestart/avaliacao/index",
+				data: { orderId: <?php echo $this->getOrder()->getId() ?> }
+			}).done(function(resposta_clearsale) {
+				jQuery('#resultadoConsulta').html(resposta_clearsale);
+			});
+		});
+	});
+</script>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<BIS2BIS_BoletoUltimate>
+			<active>true</active>
+			<codePool>community</codePool>
+		</BIS2BIS_BoletoUltimate>
+	</modules>
+</config>
