@@ -188,8 +188,8 @@ div.product-title { float: left; padding: 0 ;}
 #options li a {
   display: block;
   padding: 0.4em 0.5em;
-  background:#ddd;
-  color: #fff;
+  background:none;
+  color: #ce2027;
   font-weight: bold;
 }
 

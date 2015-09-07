@@ -24,12 +24,14 @@
  */
 
  @media (max-width: 989px) {
- 	.footer { background: #468241; }
+ 	.footer { background: #ce2027; }
+     .footer::before { content:none !important }
  }
 @media (min-width: 960px) and (max-width: 1200px) { 
      .slide_item h2 { top:200\6px !important; }
 	 .slide_item p.description {top:236px !important; font-size:425% !important;}
 	 .slide_item p.readmore { top:301px !important;}
+     .footer::before { content:none !important }
 	}
 @media (min-width: 940px) and (max-width: 1170px) {
     #nav ul.level0 li { width:165px !important; }
@@ -163,6 +165,7 @@
 	.products-grid div.item { width:50%; float:left;}
 	
 		.mt-logoscroller .product-title  { position: absolute; float:left !important;   width:50% !important;  margin:0 -25px !important;}
+     .footer::before { content:none !important }
 
 	}
 
@@ -205,6 +208,8 @@
 	div.order-fillter ,.logopagenave ,.mtpagenave  {margin-top:50px;  width:100% !important;}
 	.mtpagenave  {margin:30px 0 20px;  width:100% !important;}
     .mt_productscroller { position:static;}
+         .footer::before { content:none !important }
+
     }
 	
 @media (max-width: 480px) {
@@ -217,10 +222,13 @@
 	.newsletter .sombra { bottom: -3px; }
 	body.cms-home #BannerHome .miniban { width: 100%; margin: 0; }
 	#banner_top { height: 277px; }
+         .footer::before { content:"" }
+
 }
 
 @media (max-width: 360px) {
 	#banner_top { height: 208px; }
+     .footer::before { content:none }
 
 }
 
@@ -341,6 +349,8 @@
 	
 	.products-grid div.item .item-inner { margin: 0 auto 20px;float:none;width: 273px;}
 	.products-grid div.item { width:100%; float:left;}
+         .footer::before { content:none }
+
 }
 @media only screen and (min-width: 240px) and (max-width: 320px){
 	.jcarousel-skin-tango .jcarousel-container-vertical,
@@ -365,6 +375,8 @@
 	div.product-title { width: 100%; }
 	#mtcontainer .element { border: 0 none; margin: 0 !important; padding: 0; width: 100% !important; }
 	#banner_top { height: 184px; }
+         .footer::before { content:none }
+
 
    }
    @media only screen and (min-width: 240px) and (max-width: 320px){
@@ -375,6 +387,7 @@
     .top-cart {top:35px !important;}
 	.content-home .item button{top:30px !important;}
 	.footer > .container { padding: 15px 0; }
+     .footer::before { content: none }
 
    }
    

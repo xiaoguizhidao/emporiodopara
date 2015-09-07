@@ -29,7 +29,7 @@ a:hover {color:#F44246;}
 .block-related .block-content li.item .product-name a:hover ,
 .block-layered-nav dd li a:hover ,
 .block-account .block-content li.current ,
-.block-account .block-content li a:hover ,.nivo-caption p{ color:#468241; }
+.block-account .block-content li a:hover ,.nivo-caption p{ color:#ce2027; }
 
 #nav li.level0 ul li a:hover ,
 #mt-dropdown ul li a:hover{ color:#F44246; }
@@ -68,7 +68,7 @@ a:hover {color:#F44246;}
 
 .proslider-title ,.mt-proslider-title ,.product-title {  }
 
-button.button:hover span{ background-color:#4d381e; }
+button.button:hover span{ background-color:#f1ef0f; border:1px solid #fff }
 button.btn-checkout:hover span{ background:#2FB25C; }
 
 div.logopagenave > button, .mt_productscroller .pagenave > button ,
@@ -79,9 +79,9 @@ div.logopagenave > button, .mt_productscroller .pagenave > button ,
 .products-grid .product-image:hover , */
 #nav .sub-wrapper .mm-item-base{ border-top: 1px solid #3f8641; }
 
-#nav .sub-wrapper { border-top: 1px solid #317038 !important; }
+#nav .sub-wrapper { border-top: 1px solid #d6c555 !important; }
 
-.navbar .btn-navbar ,.navbar-inner{ background-color:#468241 !important;  }
+.navbar .btn-navbar ,.navbar-inner{ background-color:#eb1c24 !important;  }
 
 #options li a:hover ,#options li a.selected{ 1background-color: #902284;}
 

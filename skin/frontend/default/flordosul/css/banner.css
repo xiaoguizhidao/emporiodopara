@@ -71,5 +71,5 @@ ul#banner_top { width:100%; margin-left:0;}
 
 /*PAGINAÇÃO*/
 .pager-banner{ float : right; margin-top : -43px; margin-bottom : 5px; position: absolute; right: 0; z-index: 9; }
-.pager-banner a{ padding : 2px 7px; background: #4C8E47; text-decoration : none; display : block; float : left; margin-left : 5px; color : #FFF; font-family: arial; font-weight: bold; }
-.pager-banner a.activeSlide{ background: #194822; color: #000;}
+.pager-banner a{ padding : 2px 7px; background: #f1ef0f; text-decoration : none; display : block; float : left; margin-left : 5px; color : #FFF; font-family: arial; font-weight: bold; }
+.pager-banner a.activeSlide{ background: #ce2027; color: #000;}
