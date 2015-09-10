@@ -172,9 +172,120 @@ input.increase {background: url("../images/increase.png") no-repeat; border: 0 n
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 button.button { overflow:visible; width:auto; border:0; padding:0; margin:0; background:transparent; cursor:pointer; }
-button.button span { display:block; border:0; padding:7px 10px; font-family: "Lato", sans-serif; font-size: 12px; text-align:center; text-transform:uppercase; white-space:nowrap; color: #ce2027; 
-background:none; border:1px solid #ce2027;
+button.button span { 
+    padding:7px 10px; 
+    font-size: 12px; 
+    text-align:center; 
+    text-transform:uppercase; 
+    white-space:nowrap; 
+    color: #ce2027; 
+    background:none;
+    border:1px solid #ce2027;
+    
+    
+    
+    
+    
 }
+
+
+/* Shutter In Horizontal */
+.button.button span {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  background: #fff;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.button.button span:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+  -webkit-transform-origin: 50%;
+  transform-origin: 50%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.button.button span:hover, .button.button span:focus, .button.button span:active {
+  color: #ce2027;
+}
+.button.button span:hover:before, .button.button span:focus:before, .button.button span:active:before {
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+}
+
+
+
+.btn-cart span{
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  background: #e1e1e1;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.btn-cart span:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: green !important;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: 50%;
+  transform-origin: 50%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5    s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.btn-cart span:hover, .btn-cart span:focus, .btn-cart span:active {
+  color: white; background: #4a8e45 !important;
+}
+.btn-cart span:hover:before, .btn-cart span:focus:before, .btn-cart span:active:before {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+
+
+
+
+
+
 button.button span span { border:0 !important; padding:0; }
 .cart .buttons-set button.button span span {display: table-caption;}
 button.disabled span { transition: all 400ms ease-in-out 0s;border-color:#bbb !important; background:#bbb !important; }
@@ -1810,7 +1921,6 @@ ul.nav-accordion li a {text-shadow:none !important;background:#fff !important; b
 
 /*botao comprar*/
 .product-view .product-shop .btn-cart > span { 
-background: green;
     font-family: "Lato", sans-serif;
     font-size: 21px; 
     font-weight: bold; 

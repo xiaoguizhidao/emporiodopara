@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+  <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><?php echo $buttonTitle ?></span></button>
   <?php if ($this->helper('wishlist')->isAllow()) : ?>
     <a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
   <?php endif; ?>
