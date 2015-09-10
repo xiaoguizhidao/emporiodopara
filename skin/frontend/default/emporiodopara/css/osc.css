@@ -1,0 +1,184 @@
+/*CSS Destinado ao One Step Checkout*/
+
+/* == FIX DA ESTRUTURA == */
+
+.wrapper{ min-width:auto; }
+
+/* == HEADER == */
+
+.header .back-to-catalog{ float:right; text-align:center; }
+.header .back-to-catalog p{ color:#FFF; margin:0; }
+
+
+  /* ================= */
+ /* ===== LOGIN ===== */
+/* ================= */
+
+/* == BOXES PRINCIPAIS == */
+
+.login-panel{ float:left; width:300px; height:220px; border:1px solid #CCC; padding:10px; background:#FFF; }
+.login-panel fieldset:first-child{margin-bottom:-10px;}
+.login-panel{margin-bottom:2px;}
+.login-panel.login-new-customer{margin:0 2px 2px;}
+.login-new-customer{ margin-left:18px; }
+.login-security-purchase{ width:200px; }
+.login-panel h2{ margin-bottom:10px; }
+.login-panel label{ display:block; }
+.login-panel input{ margin:3px 0 6px; }
+.field-required{ color:#FF0000; margin-left:5px;  }
+.required-alert{ font-size:12px; float:right; display:block; margin-bottom:10px;   }
+.required-alert span{ color:#FF0000;  }
+
+/* == BOX DE AJUDA == */
+
+.box-ajuda{ width:100%; border:1px solid #ccc; text-align:center; margin:20px auto 0 auto; float:left; padding:10px 0; }
+.box-ajuda h4{ font-size:20px; color:#666; }
+.box-ajuda h4 span{ color:#008AFF; text-transform:uppercase; }
+
+
+  /* ==================== */
+ /* ===== CHECKOUT ===== */
+/* ==================== */
+
+.col1-button{ width:100%; height:42px; margin-bottom:10px; }
+
+.col3-left,
+.col3-middle,
+.col3-right{ float:left; margin-right:10px; border : 1px dashed #cbcbcb;  }
+
+.col3-left{ width:268px; clear:both; }
+/*.col3-left .input-text{ margin:0; }*/
+.col3-middle { width:248px; position:relative; }
+.col3-right{ width:358px; margin:0; }
+
+
+.button-container{ float:right; margin-top:10px; }
+
+.payment-messages{ display : none; width : 210px;  }
+.shipping-messages{ display : none; }
+
+.loader-field{ font-size:10px; }
+.osc-loader{ width:100%; height:100px; text-align:center; vertical-align:middle; }
+.osc-loader img{ margin-top:35px; }
+
+/* == ALERTA DE VALIDAÇÃO == */
+
+.osc-validation{ width: 100%; height: 20px;  }
+.osc-validation span{ font-family: Arial;  font-size : 10px; float : right; color : #666; font-weight: bold; margin-right: 10px; }
+label.error_field{ color : #FF3300; float : left; margin-left : 185px;  }
+
+/* == FOMULÁRIOS == */
+
+#div_shipping_address_form{ display:none; margin-bottom:20px; }
+#div_billing_address_form{ margin-bottom:20px; }
+.sp-methods .form-list { padding : 0px !important; }
+.form-list input.input-text { width: 200px; }
+.form-list select { width: 210px; }
+.sp-methods select.month { margin-right: 10px; width: 104px; }
+.field_row{ margin-top:10px; }
+.osc_anchor{ float : right;  margin-right : 10px; font-size: 12px; }
+.osc_input{ padding:2px; width : 150px;  float : right; margin-right: 10px; }
+.osc_label { font-size : 10px; padding-left: 10px; }
+.osc_label strong{ font-weight: bold; font-size : 12px; color : #b9b9b9; }
+.osc_selected strong{ font-weight: bold;  color : #000000;}
+.billing_unique, .shipping_unique{ width:98%; }
+.billing_select, .shipping_select{ width:155px; padding:2px; float : right; margin-right: 10px; }
+label.error{ color: #FF0000; display: block; float: left; font-size: 11px; font-weight: normal; margin-left: 155px; position: relative; text-align: right; width: 100px; }
+input.error, select.error{ color:#666; font-weight:normal; background:#FFC0C0 !important; }
+.osc_required{ color:#F00; font-weight:bold; margin-left:3px; }
+#ship-method{ margin:10px 20px 20px; }
+.field_pj{ display:none; }
+.col-unique{ position : relative; }
+.col-unique .left{ margin-left : 190px; }
+.col-left{ float: left; width: 47%; margin-right:3%; }
+.col-right{ float: right; width: 47%; }
+
+#billing_customer_address, #shipping_customer_address { width : 250px;}
+
+.formpaymentmethod .input-box{ position : relative; }
+.formpaymentmethod label.error { display:  none !important; }
+.formpaymentmethod .messages{ width : 85% !important;}
+
+.col-left .osc_input,
+.col-right .osc_input{ width:120px; }
+#osc_field_billing_useasshipping, #osc_field_billing_pf, #osc_field_billing_saveaddress, #osc_field_shipping_saveaddress { margin-left : 10px; }
+
+
+.osc-title{ background: #BBBBBB;  height: 25px; }
+.osc-title .number{ text-align : center; line-height : 25px; background: #F78800; display: block; font-size: 18px; font-weight: bold; color : #FFFFFF; float : left; width : 25px; height: 25px;    }
+.osc-title h2{ font-size:12px; color: #F2F2F2; text-transform: uppercase; font-weight: bold; line-height: 25px; margin-left : 40px;  }
+
+.osc_error_div{ background : #F5A9A9;  margin-bottom : 10px;  border : 1px solid #8A0808; height: 25px; width: 885px; display : none; }
+.osc_error_div span{ color: #8A0808; display: block; font-family: arial; font-size: 1em; margin-bottom: 5px; margin-left: 5px; margin-top: 5px; }
+
+button.disabled_ckt{ background: #BBB !important; }
+
+#co-payment-form{ padding-right : 10px; padding-left : 10px; }
+
+/* == SCREEN LOCKER == */
+
+#screenlocker{ display:none; background:transparent url(../images/screenlock.png) repeat; width:100%; height:100%; position:absolute; top:0; left:0; z-index:1001; }
+#screenlocker > div { width:260px; height:90px; padding:10px; background:#FFF; border-radius:5px; text-align: center;  position:absolute;  left:50%;  margin-left:-130px; }
+
+/* == BOTÃO CHECKOUT == */
+
+.btn-checkout{ float: right; display : block;  width : 180px !important; height : 42px; background: url(../images/osc/button.png) no-repeat top !important; padding : 20px; }
+.btn-checkout:hover{ background: url(../images/osc/button_hover.png) no-repeat top !important; }
+.btn-checkout-disabled{ opacity : 0.2; }
+
+/* == POPUPS == */
+
+.hover-img{ display:none; position:absolute; left:55px; top:0px; border:1px solid #CCC; box-shadow:0px 0px 15px rgba(0,0,0, .5); }
+.img-product{ cursor:pointer; }
+.img-wrapper{ position:relative; }
+.alert{ display:none; color:#B94A48; background-color:#F2DEDE; border:1px solid #EED3D7; border-radius:5px; padding:5px 10px; margin:5px; }
+ 
+ /* ================= */
+ /* ===== CIELO ===== */
+/* =================+ */
+
+.form-list .select_cartoes{width: 35px;}
+div#payment_form_cielo{ margin-bottom : 20px; }
+.pagamento_cartoes table{margin-top: 5px;}
+.pagamento_cartoes table tr{height: 15px;}
+ul.bandeiras_checkout{margin-top: 10px;display: block !important;}
+ul.bandeiras_checkout li{float: left;cursor: pointer; height: 45px;}
+ul.bandeiras_checkout li img{margin: 6px;}
+ul.bandeiras_checkout input[type='radio']{ display : none; }
+#advice-required-entry-billing{ display : none;}
+select.select_cartao{width: auto;}
+.field_td.small{width: 145px;}
+.input-box.small{width: 145px;}
+.input-box .codigo_seguranca{width: 40px !important;}
+.input-text .codigo_seguranca{width: 40px !important;}
+.ul-flag-type-required{ display : block !important;}
+.ul-flag-type-required .li-error{ color :#FF0000; display : none; }
+.form-list div.codigo_seguranca { width : 130px !important;}
+.a_codigo{ float: right;font-size: 11px; color : #FF0000; margin-right: 60px; margin-top: 5px; }
+#cvv-image{ width : 500px; height: 210px; left : 50%; margin-left : -250px; top : 50%; margin-top : -105px; z-index : 1000000 ; background : #FFF; padding : 20px; display : none; position: absolute; box-shadow: 0px 0px 15px rgba(0,0,0, .7); }
+#cvv-image .close{ cursor : pointer; text-decoration: none; font-family : arial; font-size : 20px; position : absolute; top : 10px; right : 15px; color : #E2E2E2; }
+.customer_address_row{ width : 250px; margin-left : 10px; }
+
+ 
+ /* ================================ */
+ /* ===== TERMO DE COMPROMISSO ===== */
+ /* ================================ */
+
+#term_wrapper                    {	  																																								}
+#term_wrapper #text_term 	  	 { 	 border : 1px solid black; height: 90px; overflow: auto; width: 345px; float : right ; text-align: justify; 						    						}
+#term_wrapper .title 			 { 	 color: #666; font-size: 12px; font-weight: bold; line-height: 25px; text-transform: uppercase; float : right; margin-right : 185px; 		}
+#term_wrapper label 		     {   font-weight: bold; float : right ;																						                						}
+#term_wrapper .accept_wrapper    {   width : 280px; margin-left : 40px; 																					                						} 
+
+
+
+/* responsive */
+
+@media (max-width: 1020px) { 
+	.page .f-right{float:none !important;}
+}
+
+
+.btn-register.button {
+    margin-top: 90px;
+}

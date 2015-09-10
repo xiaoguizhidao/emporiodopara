@@ -1,0 +1,9 @@
+<?php
+$config = Mage::getStoreConfig('mtdendadmin/static_config');
+$url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+?>
+<?php if ($config['static_product']!=="") : ?>
+<span class="span<?php echo $config['static_product_cols'];?>">
+<?php echo str_replace('{baseurl}', $url, $config['static_product']); ?>
+</span>
+<?php endif; ?>

@@ -1,0 +1,174 @@
+<?php
+	$config = Mage::getStoreConfig('mtdendadmin/mtdendadmin_appearance');
+?>
+<div id="fb-root"></div>
+
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+
+
+	jQuery(document).ready(function(){
+		jQuery(".mt-product-list .element, .category-products .item" ).hover(function(){
+	        jQuery(this).find(".box-hover").css("display", "block").addClass("animated bounceIn");
+	    }, function(){
+	        jQuery(this).find(".box-hover").css("display", "none").removeClass("bounceIn");
+	    });
+
+	    jQuery(".mt_productscroller .items-slider").live({
+	    	mouseenter: function () {
+	    		jQuery(this).find(".box-hover").css("display", "block").addClass("animated bounceIn");
+		    },
+		    mouseleave: function () {
+		    	jQuery(this).find(".box-hover").css("display", "none").removeClass("bounceIn");
+		    }
+	    });
+
+	});
+
+
+</script>
+
+<div class="footer-container">
+
+		<div class="bloco-subscribe span12 row-fluid show-grid">
+			<div class="container newsletter">
+			    <div class="bloco-title span4">
+			        <h4><img src="<?php echo $this->getSkinUrl('images/newsletter.png'); ?>">Newsletter</h4>
+			    </div>
+			        <small class="span4 titlesub"><b>Assine</b> nossa News e receba por <br /> e-mail <b>Promoções e Novidades</b></small>
+			    <form class="span4" action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+			        <div class="bloco-content">
+			            <div class="input-box">
+			               <input type="text" name="email" id="newsletter" placeholder="digite aqui seu e-mail" title="<?php echo $this->__('Newsletter') ?>" class="input-text required-entry validate-email" />
+			            </div>
+			            <div class="actions">
+			                <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button"><span>Assinar</span></button>
+			            </div>
+			        </div>
+			    </form>
+				<img class="sombra" src="<?php echo $this->getSkinUrl('images/sombra.png'); ?>" />
+			</div>
+		    <script type="text/javascript">
+		    //<![CDATA[
+		        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+		    //]]>
+		    </script>
+		</div>
+
+    <div class="footer row-fluid show-grid">
+    	<div class="container">
+	    	<div class="blocofoot span2">
+	    		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('institucional')->toHtml();?>
+	    	</div>
+
+	    	<div class="blocofoot span2">
+	    		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('minhaconta')->toHtml();?>
+	    	</div>	
+
+	    	<div class="blocofoot span2">
+	    		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('politicas')->toHtml();?>
+	    	</div>	  
+
+	    	<div class="blocofoot span3">
+	    		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contato')->toHtml();?>
+	    	</div>	
+	        
+	        <div class="blocofoot span3 box-face">
+	        	<h3>Flor do Sul no Facebook</h3>
+	        	<div class="fb-like" data-href="https://pt-br.facebook.com/flordosulcultivoindoor" data-width="360px" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+	        </div>
+
+	        <?php if($config['back_top']){?>
+	        <p id="back-top">
+				<a href="#top"><span></span></a>
+			</p>
+			<?php }?>
+		</div>
+    </div>
+
+	<div class="container">
+	    <div class="blocofooter span12">
+	    	<div class="selos left span4">
+	    		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('pagamento')->toHtml();?>
+	    	</div>
+	    	<div class="selos middle span4">
+	    		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('entrega')->toHtml();?>
+	    	</div>
+	    	<div class="selos rights span4">
+	    		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('seguranca')->toHtml();?>
+	    	</div>
+	    </div>
+	 <div class="blococopy span12 hidden-phone visible-desktop">
+	    	<div class="copy"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('copy')->toHtml();?></div>
+            <div id="blocoBis">
+                <div class="conteudo">
+                    <div class="copyright">
+                        <ul class="boxBis">
+	                        <li>
+	                            <a href="http://www.bis2bis.com.br" target="_blank" title="Bis2Bis Magento E-commerce">
+	                                <img src="<?php echo $this->getSkinUrl('images/bis2bis-magento-e-commerce.png') ?>" alt="Bis2Bis E-commerce Magento" />
+	                            </a>
+	                        </li>
+                            <li>
+                            	<a href="http://www.bis2bis.com.br" class="link" title="Loja virtual Magento de alta performance é com a Bis2Bis Comércio Eletrônico"> Crie sua loja</a> com a Melhor Plataforma de E-commerce do Mundo.
+                            </li>
+                            <li>
+                                <a href="http://www.bis2bis.com.br" title="Loja virtual Magento de alta performance é com a Bis2Bis Comércio Eletrônico" >
+                                	<img src="<?php echo $this->getSkinUrl('images/magento.png') ?>" alt="Loja virtual Magento de alta performance é com a Bis2Bis Comércio Eletrônico">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+	    </div>   
+	</div>
+
+</div>
+<script type="text/javascript">
+	/* var tooltip = $mtkb('.mt-social ul li a,a.link-wishlist,a.link-compare, button.btn-detail, .mt-actions button.btn-cart, #mtcontainer button.button, #mtcontainer .add-to-links li a,#mtcontainer .out-of-stock .out,.mt-subscribe button,#mt_productscroller button.button, #options .order-fillter ul li a,#mt_productscroller .mt-actions .add-to-links li a, .products-grid .mt-actions button.button, .products-grid .mt-actions .add-to-links li a, .toolbar .pager .pages li a, .toolbar .pager .view-mode span strong, .toolbar .pager .view-mode span a, .toolbar .pages a, .pager .view-mode span a, .pager .view-mode span strong, ul.product-list button.btn-cart,table td a.btn-edit,table th a.btn-edit,table td a.btn-remove,table th a.btn-remove,.btn-remove2');
+	$mtkb(tooltip).tooltip(true); */ 
+
+	$mtkb(".block-layered-nav .block-content p.block-subtitle,.addtolink .ratings, .addtolink .no-rating").hide();
+	$mtkb("#product-options-wrapper p.required").hide();	
+	$mtkb('.toolbar.row-pager, .toolbar-bottom .sort-by, .toolbar-bottom .limiter, .toolbar-bottom .view-mode').hide();
+	$mtkb('.toolbar-bottom .toolbar .row-pager').show();
+	
+	$mtkb("table").removeClass('data-table');
+	$mtkb("table").addClass('table table-bordered');	
+	$mtkb("table#shopping-cart-totals-table").removeClass('table table-bordered');	
+	$mtkb('#sitemap_top_links').addClass('row-fluid show-grid');
+	$mtkb('#sitemap_top_links .links, .page-sitemap ul.links').addClass('clearfix');
+	
+	$mtkb("#review-form .form-list input.input-text,#review-form .form-list textarea").addClass('span4');
+	$mtkb("#shipping-zip-form .form-list select, #billing-new-address-form select.validate-select, ul li.fields .input-box select.validate-select, ul li.fields div.field .input-box input.input-text, #wishlist-table textarea").addClass('span12');
+	$mtkb(".buttons-set p.required").css("width","100%");
+	$mtkb(".buttons-set p.back-link").addClass("pull-left");
+	$mtkb(".buttons-set button.button").addClass("pull-right");
+	$mtkb(".checkout-cart-index .col-main .cart-empty li.error-msg").addClass('span4 offset4');
+	$mtkb("#multiship-addresses-table select").addClass('span4');	
+	$mtkb("#multiship-addresses-table .qty").addClass('span2');		
+			
+	/* Search - My Cart */ 
+	$mtkb('.mt-search-form').hide();
+	$mtkb(".top-search").hover(function() {
+		$mtkb(this).addClass('hover');
+		$mtkb(".top-search .mt-search-form").stop(true, true).delay(300).slideDown(300, "easeOutBounce");
+	}, function() {
+		$mtkb(".top-search .mt-search-form").stop(true, true).delay(300).fadeOut(100, "easeInCubic");
+	});	
+	$mtkb('.mtajaxcart').hide();
+	$mtkb(".top-cart").hover(function() {
+		$mtkb(this).addClass('hover');
+		$mtkb(".top-cart .mtajaxcart").stop(true, true).delay(300).slideDown(300, "easeOutBounce");
+	}, function() {
+		$mtkb(".top-cart .mtajaxcart").stop(true, true).delay(300).fadeOut(100, "easeInCubic");
+	});
+</script>    	
+

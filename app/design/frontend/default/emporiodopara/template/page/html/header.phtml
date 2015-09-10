@@ -1,0 +1,264 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+
+$config = Mage::getStoreConfig('mtdendadmin/mtdendadmin_appearance'); 
+$otherconfig = Mage::getStoreConfig('mtdendadmin/otherconfig');
+
+$link_color = isset($_COOKIE['linkColor']) ? $_COOKIE['linkColor'] : $config['link_color'];
+$link_hover_color = isset($_COOKIE['linkHoverColor']) ? $_COOKIE['linkHoverColor'] : $config['link_hover_color'];
+$link_active_color = isset($_COOKIE['linkActiveColor']) ? $_COOKIE['linkActiveColor'] : $config['link_active_color'];
+
+$text_color = isset($_COOKIE['textColor']) ? $_COOKIE['textColor'] : $config['text_color'];
+$bg_color = isset($_COOKIE['bodyColor']) ? $_COOKIE['bodyColor'] : $config['bg_color'];
+
+$body_pattern = isset($_COOKIE['bodyPattern']) ? $_COOKIE['bodyPattern'] : $config['pattern_body_select'];
+$header_pattern = isset($_COOKIE['headerPattern']) ? $_COOKIE['headerPattern'] : $config['pattern_header_select'];
+$top_pattern = isset($_COOKIE['topPattern']) ? $_COOKIE['topPattern'] : $config['pattern_top_select'];
+$footer_pattern = isset($_COOKIE['footerPattern']) ? $_COOKIE['footerPattern'] : $config['pattern_footer_select'];
+
+$header_bg_color = isset($_COOKIE['HeaderbgColor']) ? $_COOKIE['HeaderbgColor'] : $config['header_bg_color']; 
+$header_link_color = isset($_COOKIE['HeaderlinkColor']) ? $_COOKIE['HeaderlinkColor'] : $config['header_link_color'];
+$header_link_hover_color = isset($_COOKIE['HeaderlinkHoverColor']) ? $_COOKIE['HeaderlinkHoverColor'] : $config['header_link_hover_color'];
+$header_link_active_color = isset($_COOKIE['HeaderlinkActiveColor']) ? $_COOKIE['HeaderlinkActiveColor'] : $config['header_link_active_color'];
+$header_text_color = isset($_COOKIE['HeadertextColor']) ? $_COOKIE['HeadertextColor'] : $config['header_text_color'];
+
+/* $top_bg_color = isset($_COOKIE['TopbgColor']) ? $_COOKIE['TopbgColor'] : $config['top_bg_color'];
+$top_bg_hover_color = isset($_COOKIE['TopbgHoverColor']) ? $_COOKIE['TopbgHoverColor'] : $config['top_bg_hover_color'];
+$top_link_color = isset($_COOKIE['ToplinkColor']) ? $_COOKIE['ToplinkColor'] : $config['top_link_color'];
+$top_link_hover_color = isset($_COOKIE['ToplinkHoverColor']) ? $_COOKIE['ToplinkHoverColor'] : $config['top_link_hover_color'];
+$top_link_active_color = isset($_COOKIE['ToplinkActiveColor']) ? $_COOKIE['ToplinkActiveColor'] : $config['top_link_active_color'];
+$top_text_color = isset($_COOKIE['ToptextColor']) ? $_COOKIE['ToptextColor'] : $config['top_text_color']; */
+
+$config['mainmenu_bg_color'];
+$mainmenu_bg_color = isset($_COOKIE['MainmenubgColor']) ? $_COOKIE['MainmenubgColor'] : $config['mainmenu_bg_color'];
+$mainmenu_dropdown_bg_color = isset($_COOKIE['MainmenubgDropDownColor']) ? $_COOKIE['MainmenubgDropDownColor'] : $config['mainmenu_dropdown_bg_color']; 
+$mainmenu_bg_hover_color = isset($_COOKIE['MainmenubgHoverColor']) ? $_COOKIE['MainmenubgHoverColor'] : $config['mainmenu_bg_hover_color']; 
+$mainmenu_bg_active_color = isset($_COOKIE['MainmenubgActiveColor']) ? $_COOKIE['MainmenubgActiveColor'] : $config['mainmenu_bg_active_color']; 
+$mainmenu_text_color = isset($_COOKIE['MainmenutextColor']) ? $_COOKIE['MainmenutextColor'] : $config['mainmenu_text_color'];
+$mainmenu_link_color = isset($_COOKIE['MainmenulinkColor']) ? $_COOKIE['MainmenulinkColor'] : $config['mainmenu_link_color'];
+$mainmenu_link_hover_color = isset($_COOKIE['MainmenulinkHoverColor']) ? $_COOKIE['MainmenulinkHoverColor'] : $config['mainmenu_link_hover_color'];
+$mainmenu_link_active_color = isset($_COOKIE['MainmenulinkActiveColor']) ? $_COOKIE['MainmenulinkActiveColor'] : $config['mainmenu_link_active_color'];
+$mainmenu_link_sub_hover_color = isset($_COOKIE['MainmenulinkSubHoverColor']) ? $_COOKIE['MainmenulinkSubHoverColor'] : $config['mainmenu_link_sub_hover_color'];
+
+$footer_static_bg_color = isset($_COOKIE['footer_static_bg_color']) ? $_COOKIE['footer_static_bg_color'] : $config['footer_static_bg_color']; 
+$footer_static_text_color = isset($_COOKIE['footer_static_text_color']) ? $_COOKIE['footer_static_text_color'] :$config['footer_static_text_color']; 
+$footer_static_link_color = isset($_COOKIE['footer_static_link_color']) ? $_COOKIE['footer_static_link_color'] :$config['footer_static_link_color'];
+$footer_static_link_hover_color = isset($_COOKIE['footer_static_link_hover_color']) ? $_COOKIE['footer_static_link_hover_color'] :$config['footer_static_link_hover_color'];
+$footer_static_link_active_color = isset($_COOKIE['footer_static_link_active_color']) ? $_COOKIE['footer_static_link_active_color'] :$config['footer_static_link_active_color'];
+
+$panel_color = $config['color_panel'];
+$themestyles = isset($_COOKIE['theme_styles']) ? $_COOKIE['theme_styles'] : $config['theme_styles'];
+$gfont = 'Abel,Abril Fatface,Aclonica,Acme,Actor,Adamina,Aguafina Script,Aladin,Aldrich,Alegreya,Alegreya SC,Alex Brush,Alfa Slab One,Alice,Alike,Alike Angular,Allan,Allerta,Allerta Stencil,Allura,Almendra,Almendra SC,Amaranth,Amatic SC,Amethysta,Andada,Andika,Annie Use Your Telescope,Anonymous Pro,Antic,Anton,Arapey,Arbutus,Architects Daughter,Arimo,Arizonia,Armata,Artifika,Arvo,Asap,Asset,Astloch,Asul,Atomic Age,Aubrey,Bad Script,Balthazar,Bangers,Basic,Baumans,Belgrano,Bentham,Bevan,Bigshot One,Bilbo,Bilbo Swash Caps,Bitter,Black Ops One,Bonbon,Boogaloo,Bowlby One,Bowlby One SC,Brawler,Bree Serif,Bubblegum Sans,Buda,Buenard,Butcherman,Butterfly Kids,Cabin,Cabin Condensed,Cabin Sketch,Caesar Dressing,Cagliostro,Calligraffitti,Cambo,Candal,Cantarell,Cardo,Carme,Carter One,Caudex,Cedarville Cursive,Ceviche One,Changa One,Chango,Chelsea Market,Cherry Cream Soda,Chewy,Chicle,Chivo,Coda,Coda Caption,Comfortaa,Coming Soon,Concert One,Condiment,Contrail One,Convergence,Cookie,Copse,Corben,Cousine,Coustard,Covered By Your Grace,Crafty Girls,Creepster,Crete Round,Crimson Text,Crushed,Cuprum,Damion,Dancing Script,Dawning of a New Day,Days One,Delius,Delius Swash Caps,Delius Unicase,Devonshire,Didact Gothic,Diplomata,Diplomata SC,Dorsa,Dr Sugiyama,Droid Sans,Droid Sans Mono,Droid Serif,Duru Sans,Dynalight,EB Garamond,Eater,Electrolize,Emblema One,Engagement,Enriqueta,Erica One,Esteban,Euphoria Script,Ewert,Exo,Expletus Sans,Fanwood Text,Fascinate,Fascinate Inline,Federant,Federo,Felipa,Fjord One,Flamenco,Flavors,Fondamento,Fontdiner Swanky,Forum,Francois One,Fredericka the Great,Fresca,Frijole,Fugaz One,Galdeano,Gentium Basic,Gentium Book Basic,Geo,Geostar,Geostar Fill,Germania One,Give You Glory,Glegoo,Gloria Hallelujah,Goblin One,Gochi Hand,Goudy Bookletter 1911,Gravitas One,Gruppo,Gudea,Habibi,Hammersmith One,Handlee,Herr Von Muellerhoff,Holtwood One SC,Homemade Apple,Homenaje,IM Fell DW Pica,IM Fell DW Pica SC,IM Fell Double Pica,IM Fell Double Pica SC,IM Fell English,IM Fell English SC,IM Fell French Canon,IM Fell French Canon SC,IM Fell Great Primer,IM Fell Great Primer SC,Iceberg,Iceland,Inconsolata,Inder,Indie Flower,Inika,Irish Grover,Istok Web,Italianno,Jim Nightshade,Jockey One,Josefin Sans,Josefin Slab,Judson,Julee,Junge,Jura,Just Another Hand,Just Me Again Down Here,Kameron,Kaushan Script,Kelly Slab,Kenia,Knewave,Kotta One,Kranky,Kreon,Kristi,La Belle Aurore,Lancelot,Lato,League Script,Leckerli One,Lekton,Lemon,Lilita One,Limelight,Linden Hill,Lobster,Lobster Two,Lora,Love Ya Like A Sister,Loved by the King,Luckiest Guy,Lusitana,Lustria,Macondo,Macondo Swash Caps,Magra,Maiden Orange,Mako,Marck Script,Marko One,Marmelad,Marvel,Mate,Mate SC,Maven Pro,Meddon,MedievalSharp,Medula One,Megrim,Merienda One,Merriweather,Metamorphous,Metrophobic,Michroma,Miltonian,Miltonian Tattoo,Miniver,Miss Fajardose,Modern Antiqua,Molengo,Monofett,Monoton,Monsieur La Doulaise,Montaga,Montez,Montserrat,Mountains of Christmas,Mr Bedfort,Mr Dafoe,Mr De Haviland,Mrs Saint Delafield,Mrs Sheppards,Muli,Neucha,Neuton,News Cycle,Niconne,Nixie One,Nobile,Norican,Nosifer,Nothing You Could Do,Noticia Text,Nova Cut,Nova Flat,Nova Mono,Nova Oval,Nova Round,Nova Script,Nova Slim,Nova Square,Numans,Nunito,Old Standard TT,Oldenburg,Open Sans,Open Sans Condensed,Orbitron,Original Surfer,Oswald,Over the Rainbow,Overlock,Overlock SC,Ovo,PT Sans,PT Sans Caption,PT Sans Narrow,PT Serif,PT Serif Caption,Pacifico,Parisienne,Passero One,Passion One,Patrick Hand,Patua One,Paytone One,Permanent Marker,Petrona,Philosopher,Piedra,Pinyon Script,Plaster,Play,Playball,Playfair Display,Podkova,Poller One,Poly,Pompiere,Port Lligat Sans,Port Lligat Slab,Prata,Princess Sofia,Prociono,Puritan,Quantico,Quattrocento,Quattrocento Sans,Questrial,Quicksand,Qwigley,Radley,Raleway,Rammetto One,Rancho,Rationale,Redressed,Reenie Beanie,Ribeye,Ribeye Marrow,Righteous,Rochester,Rock Salt,Rokkitt,Ropa Sans,Rosario,Rouge Script,Ruda,Ruge Boogie,Ruluko,Ruslan Display,Ruthie,Sail,Salsa,Sancreek,Sansita One,Sarina,Satisfy,Schoolbell,Shadows Into Light,Shanti,Share,Shojumaru,Short Stack,Sigmar One,Signika,Signika Negative,Sirin Stencil,Six Caps,Slackey,Smokum,Smythe,Sniglet,Snippet,Sofia,Sonsie One,Sorts Mill Goudy,Special Elite,Spicy Rice,Spinnaker,Spirax,Squada One,Stardos Stencil,Stint Ultra Condensed,Stint Ultra Expanded,Stoke,Sue Ellen Francisco,Sunshiney,Supermercado One,Swanky and Moo Moo,Syncopate,Tangerine,Telex,Tenor Sans,Terminal Dosis,The Girl Next Door,Tienne,Tinos,Titan One,Trade Winds,Trochut,Trykker,Tulpen One,Ubuntu,Ubuntu Condensed,Ubuntu Mono,Ultra,Uncial Antiqua,UnifrakturCook,UnifrakturMaguntia,Unkempt,Unlock,Unna,VT323,Varela,Varela Round,Vast Shadow,Vibur,Vidaloka,Viga,Volkhov,Vollkorn,Voltaire,Waiting for the Sunrise,Wallpoet,Walter Turncoat,Wellfleet,Wire One,Yanone Kaffeesatz,Yellowtail,Yeseva One,Yesteryear,Zeyada';
+$hfont = isset($_COOKIE['h_font']) ? $_COOKIE['h_font'] : $config['h_font'];
+$bfont = isset($_COOKIE['b_font']) ? $_COOKIE['b_font'] : $config['b_font'];
+$mfont = isset($_COOKIE['m_font']) ? $_COOKIE['m_font'] : $config['m_font'];
+$gfontarray = explode(',',$gfont); 
+?>
+<?php if($panel_color>0){?>
+<div id="panel" class="hidden-phone hidden-tablet">
+    <div class="mainheader">
+        Magento themes sample settings
+    </div> 
+    <span class="btn-slide">Change Style</span>
+    <fieldset>
+        <p class="border"><span>Select one of sample color theme</span></p>
+				<ul class="scolors">
+					<li><a class="red" href="#"></a></li>             
+					<li><a class="orange" href="#"></a></li>
+					<li><a class="blue" href="#"></a></li>
+				</ul> 
+        
+		<div class="clearfix"></div>		
+		<?php echo $this->getChildHtml('store_switcher') ?>		
+    </fieldset>	
+    <div class="mainaction">
+        <div class="btn-reset">
+            <button class="btreset"><span>Reset</span></button>
+        </div>
+        <div class="btn-apply">
+            <button class="button"><span>Apply Changes</span></button>
+        </div>
+    </div>
+</div>
+<?php if($otherconfig['enabled_social']){?>
+<div class="social-buttons button-<?php echo $otherconfig['social_position']?> hidden-phone hidden-tablet">
+	<?php if($otherconfig['fb_link']){?>
+	<a class="itemsocial" target="_blank" href="<?php echo $otherconfig['fb_link'];?>" id="facebook-btn">
+		<span class="social-icon">
+			<span class="social-text"><?php echo $this->__('Follow via Facebook');?></span>
+		</span>
+	</a>
+	<?php }?>
+	<?php if($otherconfig['twitter_link']){?>
+	<a class="itemsocial" target="_blank" href="<?php echo $otherconfig['twitter_link'];?>" id="twitter-btn">
+		<span class="social-icon">
+			<span class="social-text"><?php echo $this->__('Follow via Twitter');?></span>
+		</span>
+	</a>
+	<?php }?>
+	<?php if($otherconfig['google_link']){?>
+	<a class="itemsocial" target="_blank" href="<?php echo $otherconfig['google_link'];?>" id="google-btn">
+		<span class="social-icon">
+			<span class="social-text"><?php echo $this->__('Follow via Google');?></span>
+		</span>
+	</a>
+	<?php }?>
+	<?php if($otherconfig['p_link']){?>
+	<a class="itemsocial" target="_blank" href="<?php echo $otherconfig['p_link'];?>" id="pinterest-btn">
+		<span class="social-icon">
+			<span class="social-text"><?php echo $this->__('Follow via Pinterest');?></span>
+		</span>
+	</a>
+	<?php }?>
+	<?php if($otherconfig['y_link']){?>
+	<a class="itemsocial" target="_blank" href="<?php echo $otherconfig['y_link'];?>" id="youtube-btn">
+		<span class="social-icon">
+			<span class="social-text"><?php echo $this->__('Follow via Youtube');?></span>
+		</span>
+	</a>
+	<?php }?>
+	<?php if($otherconfig['rss_link']){?>
+	<a class="itemsocial" target="_blank" href="<?php echo $otherconfig['rss_link'];?>" id="rss-btn">
+		<span class="social-icon">
+			<span class="social-text"><?php echo $this->__('Follow via RSS');?></span>
+		</span>
+	</a>
+	<?php }?>
+</div>
+
+<script>
+	$mtkb(window).load(function(){
+		$mtkb('.social-buttons .social-icon').mouseenter(function(){
+			$mtkb(this).stop();
+			$mtkb(this).animate({width:'160'}, 500, 'easeOutQuad',function(){});  
+		});
+		$mtkb('.social-buttons .social-icon').mouseleave(function(){
+			$mtkb(this).stop();
+			$mtkb(this).animate({width:'43'}, 500, 'easeOutQuad',function(){});
+		});
+	});
+</script>
+<?php }?>
+
+
+<script type="text/javascript">
+	$mtkb(document).ready(function(){
+		$mtkb('ul.scolors li a').click(function(){
+			$mtkb('ul.scolors li a.active').removeClass('active');
+			$mtkb(this).addClass('active');					
+		});	
+	});
+</script>
+<?php
+    $customer = Mage::getSingleton('customer/session')->getCustomer();
+    $clientName = Mage::helper('customer')->getCustomerName();
+?>
+<?php }?>
+<div class="mt-top-menu">
+    <div class="quick-access container">
+		<div class="row-fluid show-grid">
+			<div class="span6">
+				<p class="welcome-msg">
+					<?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?>
+				</p>
+				<?php echo $this->getChildHtml('store_language') ?>
+			</div>
+			<div class="span6">
+				<div class="bomvindo">Seja bem vindo, <?php echo $clientName==' '?'Visitante': $clientName;?>!</div>
+				
+				<?php echo $this->getChildHtml('topLinks') ?>
+			</div>
+		</div>
+    <img class="sombra" src="<?php echo $this->getSkinUrl('images/flordosul/sombra.png'); ?>"></img>
+    </div>
+</div>
+
+<div class="header-container">
+	<div class="container">
+		<div class="header">
+		    <div class="row-fluid show-grid">
+					<div>
+						<div class="logo span4">
+							<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
+								<img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
+							</a>
+						</div>
+					</div>	
+					
+					<div class="span5 clearfix busca">
+					<div>
+						<div class="span5 telefone">
+							<ul>
+								<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('tel')->toHtml() ?>
+							</ul>
+						</div>
+
+						<div class="span5 top-cart">
+							<div class="clearfix"></div>
+							<?php echo $this->getChildHtml('ajaxcart') ?> 
+						</div>
+					</div>
+						<?php echo $this->getChildHtml('topSearch') ?>
+
+					</div> 
+
+					<div class="span3">
+						<div class="box currency">
+						    <div class="currency-inner">
+								<?php echo $this->getChildHtml('currency_top') ?>
+						    </div>
+						</div>
+						<div class="clearfix"></div>
+						
+                    </div>					
+					<div class="topsearch hidden-phone visible-desktop"></div>
+					
+					<?php echo $this->getChildHtml('topContainer'); ?>
+					<?php //echo $this->getChildHtml('topMenu') ?>
+
+					<div class="mt-drill-menu">
+			           <?php echo $this->getChildHtml('topMenuDrill') ?>
+		           </div>		
+		     </div>
+		</div>
+	</div>
+	<?php echo $this->getChildHtml('topMenu') ?>
+</div>
+
+
+
+<div id="BannerHome" class="row-fluid">
+	<?php echo $this->getChildHtml('banner_top'); ?>
+    <?php if( $this->getRequest()->getControllerName() == 'index' ) : ?>
+	<div class="miniban span4"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('bannermenorhome')->toHtml(); ?></div>
+    <?php endif; ?>
+</div>
+
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('box-news')->toHtml(); ?>
+
